@@ -1,0 +1,18 @@
+.form-container{
+    padding: 30px;
+    width: 400px;
+    border: solid #ececec 1px;
+
+    .form-btn{
+        width: 100%;
+    }
+}
+
+.header-label, .user-type, .user-email{
+    font-weight: bold;
+}
+
+.notification-msg{
+    border-top: 1.2px solid white;
+}
+
