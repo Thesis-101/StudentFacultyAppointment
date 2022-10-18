@@ -39,10 +39,16 @@ Route::group(['prefix' => 'faculty', 'middleware' => ['role:faculty']], function
 //Student
 Route::get('faculty-list', [StudentAppointmentController::class, 'facultyList']);
 Route::get('request-list', [StudentAppointmentController::class, 'requestList']);
-Route::get('student/profile', [StudentAppointmentController::class, 'profile']);
+Route::get('profile', [StudentAppointmentController::class, 'profile']);
 
 //Student & Faculty
 Route::get('notification', [StudentAppointmentController::class, 'notification']);
+
+
+//User
+// Route::group(['middleware' => ['auth']], function () { 
+//     Route::get('profile', 'FacultyController@profile');
+// });
 
 
 //Route::post('create',[RegisterController::class, 'create'])->name('register');

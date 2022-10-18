@@ -8,6 +8,9 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
+//database relationship
+use Illuminate\Database\Eloquent\Model;
+
 class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
@@ -17,6 +20,10 @@ class User extends Authenticatable
      *
      * @var array<int, string>
      */
+    protected $table = 'users';
+
+    protected $primaryKey = 'id';
+    
     protected $fillable = [
         'userInstitution_id',
         'name',
@@ -43,4 +50,15 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    // //One-to-many sa vacant details nga table
+    public function vacantDetails()
+    {
+        return $this->hasMany(VacantDetails::class);
+    }
+
+    public function requestsList()
+    {
+        return $this->hasMany(Requests::class);
+    }
 }

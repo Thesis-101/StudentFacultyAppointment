@@ -2,6 +2,12 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\Api\VacantController;
+use App\Http\Controllers\Api\RequestController;
+use App\Http\Controllers\Api\FacultyAppointmentController;
+use App\Http\Controllers\Api\FacultyListController;
+use App\Http\Controllers\Api\NotificationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,7 +19,15 @@ use Illuminate\Support\Facades\Route;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
+Auth::routes();
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::apiResource('vacant', VacantController::class);
+Route::apiResource('schedules', FacultyListController::class);
+Route::apiResource('add-vacant', VacantController::class);
+Route::apiResource('appointments', FacultyAppointmentController::class);
+Route::apiResource('request', RequestController::class);
+Route::apiResource('notifications', NotificationController::class);

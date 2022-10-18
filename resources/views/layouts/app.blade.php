@@ -6,6 +6,7 @@
 
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
+    <meta name="_method" content="PUT">
 
     <title>{{ config('app.name', 'Laravel') }}</title>
 
@@ -14,7 +15,7 @@
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
 
     <!-- Scripts -->
-    @vite(['resources/sass/app.scss', 'resources/js/app.js'])
+    @vite(['resources/sass/app.scss', 'resources/js/app.js', 'resources/js/notifications.js'])
 </head>
 <body>
     <div id="app">
@@ -69,13 +70,21 @@
                                 <li class="nav-item">
                                     <a href="{{ url('faculty/history') }}" class="nav-link">History</a>
                                 </li>
+                                <li class="nav-item">
+                                    <a href="{{ url('faculty/profile') }}" class="nav-link">Profile</a>
+                                </li>
                             @else
                                 <li class="nav-item">
                                     <a href="{{ url('request-list') }}" class="nav-link">My Requests</a>
                                 </li>
+                                <li class="nav-item">
+                                    <a href="{{ url('profile') }}" class="nav-link">Profile</a>
+                                </li>
                             @endif
                             <li class="nav-item">
-                                <a href="{{ url('notification') }}" class="nav-link">Notification</a>
+                                <a id="notification" href="{{ url('notification') }}" class="nav-link position-relative">
+                                    Notification <span class="badge text-bg-secondary"></span>
+                                </a>
                             </li>
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>

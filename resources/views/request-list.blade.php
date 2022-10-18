@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-
+@vite(['resources/js/request-list.js'])
 <div class="container-lg">
     <div class="row justify-content-center">
         <h5 class="mb-5 header-label">Faculty List</h5>
@@ -34,31 +34,7 @@
                 <th scope="col">Status</th>
               </tr>
             </thead>
-            <tbody>
-              <tr>
-                <th scope="row">1</th>
-                <td>Mark</td>
-                <td>Otto</td>
-                <td>@mdo</td>
-                <td>08-05-1999</td>
-                <td class="text-bg-warning">Pending</td>
-              </tr>
-              <tr>
-                <th scope="row">2</th>
-                <td>Jacob</td>
-                <td>Thornton</td>
-                <td>@fat</td>
-                <td>08-05-1999</td>
-                <td class="text-bg-success">Accepted</td>
-              </tr>
-              <tr>
-                <th scope="row">3</th>
-                <td>Larry</td>
-                <td>the Bird</td>
-                <td>@twitter</td>
-                <td>08-05-1999</td>
-                <td class="text-bg-danger">Declined</td>
-              </tr>
+            <tbody id="request-list">
             </tbody>
           </table>
 

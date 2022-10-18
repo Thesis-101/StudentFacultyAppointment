@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-
+@vite(['resources/js/history.js'])
 <div class="container-lg">
     <div class="row justify-content-center">
         <h5 class="mb-4 header-label">Appointment History</h5>
@@ -12,41 +12,13 @@
                 <th scope="col">Student Name</th>
                 <th scope="col">Request Type</th>
                 <th scope="col">Attendee Type</th>
+                <th scope="col">Day</th>
                 <th scope="col">Time Slot</th>
-                <th scope="col">Action</th>
+                <th scope="col">Date</th>
+                <th scope="col">Status</th>
               </tr>
             </thead>
-            <tbody>
-              <tr>
-                <th scope="row">1</th>
-                <td>Mark</td>
-                <td>Otto</td>
-                <td>@mdo</td>
-                <td>08-05-1999</td>
-                <td>
-                    <a href="#" class="btn btn-sm btn-danger px-3">Delete</a>
-                </td>
-              </tr>
-              <tr>
-                <th scope="row">2</th>
-                <td>Jacob</td>
-                <td>Thornton</td>
-                <td>@fat</td>
-                <td>08-05-1999</td>
-                <td>
-                    <a href="#" class="btn btn-sm btn-danger px-3">Delete</a>
-                </td>
-              </tr>
-              <tr>
-                <th scope="row">3</th>
-                <td>Larry</td>
-                <td>the Bird</td>
-                <td>@twitter</td>
-                <td>08-05-1999</td>
-                <td>
-                    <a href="#" class="btn btn-sm btn-danger px-3">Delete</a>
-                </td>
-              </tr>
+            <tbody id="history-list">
             </tbody>
           </table>
 

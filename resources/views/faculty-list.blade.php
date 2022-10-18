@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-
+@vite(['resources/js/student-side.js'])
 <div class="container-lg">
     <div class="row justify-content-center">
         <h5 class="mb-5 header-label">Faculty List</h5>
@@ -11,12 +11,12 @@
                     <label for="filter" class="col-form-lable col-md-2 my-auto text-end">Filter:</label>
                     <div class="col-md-8">
                         <select name="filter" id="filter" class="form-select">
-                            <option value="" selected>Department</option>
-                            <option value="">department 1</option>
-                            <option value="">department 2</option>
-                            <option value="">department 3</option>
-                            <option value="">department 4</option>
-                            <option value="">department 5</option>
+                            <option value="" selected>All</option>
+                            <option value="department 1">department 1</option>
+                            <option value="department 2">department 2</option>
+                            <option value="department 3">department 3</option>
+                            <option value="department 4">department 4</option>
+                            <option value="department 5">department 5</option>
                         </select>
                     </div>
                 </div>
@@ -69,6 +69,13 @@
                 </div>
 
                 <div class="row mb-2">
+                  <label for="attendee" class="col-form-label col-md-3">Request Type:</label>
+                  <div class="col-md-9" >
+                    <input type="text" name="request" id="request" class="form-control">
+                  </div>
+                </div>
+
+                <div class="row mb-2">
                   <label for="attendee" class="col-form-label col-md-3">Attendee Type:</label>
                   <div class="col-md-9">
                     <select name="attendee" id="attendee" class="form-select">
@@ -78,48 +85,31 @@
                     </select>
                   </div>
                 </div>
-
+                <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                <input type="hidden" name="_method" value="PUT">
               </div>
-              <div class="modal-footer">
+              <div class="modal-footer apiBtn">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save</button>
+                <button id="appoint" type="button" class="btn btn-primary">Save</button>
               </div>
             </div>
           </div>
         </div>
-    
+
+        <input type="text" name="requesitor" id="requesitor" value="{{ Auth::user()->id }}" hidden>
+
         <table class="table bg-white shadow-sm">
             <thead class="table-dark">
               <tr>
                 <th scope="col">ID Number</th>
                 <th scope="col">Faculty Name</th>
+                <th scope="col">Day</th>
                 <th scope="col">Designated Office</th>
                 <th scope="col">Time Slot</th>
                 <th scope="col">Action</th>
               </tr>
             </thead>
-            <tbody>
-              <tr>
-                <th scope="row">1</th>
-                <td>Mark</td>
-                <td>Otto</td>
-                <td>@mdo</td>
-                <td><a href="#" class="btn btn-sm btn-primary px-3" data-bs-toggle="modal" data-bs-target="#addForm">Appoint</a></td>
-              </tr>
-              <tr>
-                <th scope="row">2</th>
-                <td>Jacob</td>
-                <td>Thornton</td>
-                <td>@fat</td>
-                <td><a href="#" class="btn btn-sm btn-primary px-3">Appoint</a></td>
-              </tr>
-              <tr>
-                <th scope="row">3</th>
-                <td>Larry</td>
-                <td>the Bird</td>
-                <td>@twitter</td>
-                <td><a href="#" class="btn btn-sm btn-primary px-3">Appoint</a></td>
-              </tr>
+            <tbody id="schedule-list">
             </tbody>
           </table>
 
