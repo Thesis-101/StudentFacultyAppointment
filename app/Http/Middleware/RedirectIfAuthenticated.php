@@ -24,13 +24,19 @@ class RedirectIfAuthenticated
           switch ($role) {
             case 'faculty':
                return redirect('faculty');
+               
                break;
+
             case 'student':
-               return redirect('home');
-               break; 
+               return redirect('request-list');
+               break;
+
+            case 'admin':
+               return redirect('admin');
+               break;  
       
             default:
-               return redirect('/home'); 
+               return redirect('/'); 
                break;
           }
         }

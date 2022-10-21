@@ -17,7 +17,8 @@ class StudentAppointmentController extends Controller
     }
 
     public function notification(){
-        Notification::where('status','unread')->update(['status' => 'seen']);
+        $user = auth('sanctum')->user()->userInstitution_id;
+        Notification::where('user_id',$user)->update(['status' => 'seen']);
         return view('notification');
     }
 

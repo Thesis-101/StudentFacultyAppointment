@@ -2,7 +2,7 @@
 
 @section('content')
 @vite(['resources/js/request-list.js'])
-<div class="container-lg">
+<div class="container-lg py-5">
     <div class="row justify-content-center">
         <h5 class="mb-5 header-label">Faculty List</h5>
         <div class="row mb-4">

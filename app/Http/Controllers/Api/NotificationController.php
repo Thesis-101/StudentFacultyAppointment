@@ -15,7 +15,8 @@ class NotificationController extends Controller
      */
     public function index()
     {
-        $data = Notification::all();
+        $user = auth('sanctum')->user()->userInstitution_id;
+        $data = Notification::where('user_id', '=', $user)->get();
 
         return $data;
     }

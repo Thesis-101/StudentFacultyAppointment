@@ -18,8 +18,13 @@ class RequestController extends Controller
      */
     public function index()
     {
-        $user = auth('sanctum')->user()->id;
-        $data = Requests::with('users','vacantDetails')->where('requesitor_id', '=', $user)->get();
+        $userId = auth('sanctum')->user()->id;
+        $userType = auth('sanctum')->user()->user_type;
+        if($userType == "admin"){
+            $data = Requests::with('users','students','vacantDetails')->get();
+        }else{
+            $data = Requests::with('users','vacantDetails')->where('requesitor_id', '=', $userId)->get();
+        }
         return $data;
     }
 

@@ -27,18 +27,36 @@ class LoginController extends Controller
      *
      * @var string
      */
+
+    // protected function authenticated(Request $request, $user)
+    // {
+    //     if(Auth::check() && Auth::user()->role->user_type=='admin') {
+    //         return redirect()->route('admin');
+    //     } else if (Auth::check() && Auth::user()->role->user_type=='faculty') {
+    //         return redirect()->route('faculty');
+    //     }else if (Auth::check() && Auth::user()->role->user_type=='faculty') {
+    //       return redirect()->route('student');
+    //     }
+    //     return redirect('/');
+    // }
+
     public function redirectTo() {
         $role = Auth::user()->user_type; 
         switch ($role) {
           case 'faculty':
             return 'faculty';
             break;
+
           case 'student':
-            return 'home';
+            return 'student';
+            break;
+            
+          case 'admin':
+            return 'admin';
             break; 
       
           default:
-            return '/home'; 
+            return '/'; 
           break;
         }
       }

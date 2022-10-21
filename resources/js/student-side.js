@@ -57,12 +57,7 @@ $(function (){
         success: function(vacant){
             console.log(vacant);
             $.each(vacant, function(i, vacant_details){
-                if(department == vacant_details.designated_office){
-                    appendVacant(vacant_details);
-                }else if(department == ""){
-                    appendVacant(vacant_details);
-                }
-                
+                appendVacant(vacant_details);
             });
         }
     });

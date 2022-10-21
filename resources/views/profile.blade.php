@@ -16,7 +16,10 @@
                     <p>Email: <span class="user-email">{{Auth::user()->email}}</span></p>
                 </div>
                 <div class="row">
-                    <button class="btn btn-md btn-primary col-md-4 mx-auto">Edit Profile</button>
+                    <button class="btn btn-md btn-primary col-md-6 mx-auto mb-2">Edit Profile</button>
+                </div>
+                <div class="row">
+                    <button class="btn btn-md btn-primary col-md-6 mx-auto">Change Password</button>
                 </div>
             </div>
         </div>

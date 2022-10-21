@@ -13,6 +13,7 @@ export default defineConfig({
                 'resources/js/appointment-list.js',
                 'resources/js/notifications.js',
                 'resources/js/history.js',
+                'resources/js/admin.js',
             ],
             refresh: true,
         }),

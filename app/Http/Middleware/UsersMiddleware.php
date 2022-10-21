@@ -20,6 +20,10 @@ class UsersMiddleware
         if(Auth::check()){
             if(Auth::user()->user_type == "faculty"){
                 return redirect('faculty/home');
+            }else if(Auth::user()->user_type == "student"){
+                return redirect('student/request-list');
+            }else if(Auth::user()->user_type == "admin"){
+                return redirect('admin');
             }
             else{
                 return $next($request);
