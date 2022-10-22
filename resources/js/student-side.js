@@ -1,5 +1,6 @@
 $(function (){
     const list = $('#schedule-list');
+    const facultyList = $('#faculty-list');
     const requesitor = $('#requesitor');
     const day = $('#day');
     const time = $('#time');
@@ -8,24 +9,51 @@ $(function (){
     const attendee = $('#attendee'); 
     const requestType = $('#request');
 
+    const viewFacultyId = $('#facultyId');
+    const viewFacultyName = $('#facultyName');
+    const viewFacultyDepartment = $('#facultyDepartment');
+
+    const totalCard = $('#totalTransactions');
+    const pendingCard = $('#pendingTransactions');
+    const acceptedCard = $('#acceptedTransactions');
+    const declinedCard = $('#declinedTransactions');
+
     const filter = $('#filter');
     const urlParams = new URLSearchParams(window.location.search);
     const department = urlParams.get('department');
 
+    let total = 0;
+    let pending = 0;
+    let accepted = 0;
+    let declined = 0;
+
+    let facultyVacant = [];
+
     let rowId;
     let id;
 
-    let rowTemplate =   '<tr data-id={{id}} id=row{{id}} >' +
-                            '<td class="faculty-id"><span><strong>{{userInstitutional_id}}</strong></span></td>' +
-                            '<td class="faculty-name">{{users.name}}</td>' +
-                            '<td class="faculty-name">{{day}}</td>' +
+    let rowTemplate =   '<tr class="fragile"  data-id={{id}} id=row{{id}} >' +
+                            '<td class="faculty-id" hidden><span><strong>{{userInstitutional_id}}</strong></span></td>' +
+                            '<td class="faculty-name" hidden>{{users.name}}</td>' +
+                            '<td class="day">{{day}}</td>' +
                             '<td class="faculty-office">{{designated_office}}</td>' +
                             '<td class="faculty-time">{{vacant_time}}</td>' +
                             '<td><button class="triggerAppoint btn btn-sm btn-primary px-3" data-id="{{id}}" data-bs-toggle="modal" data-bs-target="#addForm">Appoint</button></td>' +
                         '</tr>' 
+    
+    let facultyRowTemplate =   '<tr data-id={{id}} id=row{{id}} >' +
+                                    '<td class="faculty-department" hidden>{{department}}</td>' +
+                                    '<td class="faculty-id" hidden>{{userInstitution_id}}</td>'+
+                                    '<td class="faculty-name"><span><strong>{{name}}</strong></span></td>' +
+                                    '<td width="125px"><button class="view btn btn-sm btn-primary px-3" data-id="{{id}}" data-bs-toggle="modal" data-bs-target="#details">View Vacant</button></td>' +
+                                '</tr>' 
 
     function appendVacant(details){
         list.prepend(Mustache.render(rowTemplate,details));
+    }
+
+    function appendFaculty(details){
+        facultyList.prepend(Mustache.render(facultyRowTemplate,details));
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -51,14 +79,70 @@ $(function (){
     //Display All Faculty Vacant List
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+    facultyList.delegate('.view', 'click', function(){
+        let targetRow = $(this).closest('tr');
+        $('.fragile').remove();
+        $.each(facultyVacant, function(i, vacant_details){
+            if(targetRow.find('td.faculty-id').text() == vacant_details.userInstitutional_id){
+                appendVacant(vacant_details);
+            }
+        });
+        viewFacultyId.html(targetRow.find('td.faculty-id').text());
+        viewFacultyName.html(targetRow.find('td.faculty-name').text());
+        viewFacultyDepartment.html(targetRow.find('td.faculty-department').text());
+    });
+
     $.ajax({
         type: 'GET',
         url: '/api/schedules',
         success: function(vacant){
             console.log(vacant);
             $.each(vacant, function(i, vacant_details){
-                appendVacant(vacant_details);
+                facultyVacant.push(vacant_details);
             });
+        }
+    });
+    
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    //Display All Faculty
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    $.ajax({
+        type: 'GET',
+        url: '/student/getFaculty',
+        success: function(faculty){
+            console.log(faculty);
+            $.each(faculty, function(i, details){
+                appendFaculty(details);
+                console.log(details);
+            });
+        }
+    });
+
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    //Get All Requests
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    $.ajax({
+        type: 'GET',
+        url: '/api/request',
+        success: function(faculty){
+            console.log(faculty);
+            $.each(faculty, function(i, appointment){
+                total++;
+                if(appointment.status == "Accepted"){
+                    accepted++;
+                }else if(appointment.status == "Declined"){
+                    declined++;
+                }else if(appointment.status == "pending"){
+                    pending++;
+                }
+            });
+            totalCard.text(total);
+            pendingCard.text(pending);
+            acceptedCard.text(accepted);
+            declinedCard.text(declined);
         }
     });
 

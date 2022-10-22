@@ -43,6 +43,7 @@ Route::group(['prefix' => 'student', 'middleware' => ['role:student']], function
     Route::get('faculty-list', [StudentAppointmentController::class, 'facultyList']);
     Route::get('request-list', [StudentAppointmentController::class, 'requestList']);
     Route::get('profile', [StudentAppointmentController::class, 'profile']);
+    Route::get('getFaculty', [StudentAppointmentController::class, 'getFaculty']);
 });
 
 Route::group(['prefix' => 'admin', 'middleware' => ['role:admin']], function () {

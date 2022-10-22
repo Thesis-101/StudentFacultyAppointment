@@ -2,9 +2,32 @@
 
 @section('content')
 @vite(['resources/js/appointment-list.js'])
-<div class="container-lg">
+<div class="container-lg mt-5">
     <div class="row justify-content-center">
-
+        <div class="col-md-3 card shadow-sm mx-1" style="width: 18rem;">
+            <div class="card-body">
+                <h1 class="card-title" id="totalTransactions"></h1>
+                <h6 class="card-subtitle mb-2 text-muted text-end">Total Transactions</h6>
+            </div>
+        </div>
+        <div class="col-md-3 card shadow-sm mx-1" style="width: 18rem;">
+            <div class="card-body">
+                <h1 class="card-title" id="pendingTransactions"></h1>
+                <h6 class="card-subtitle mb-2 text-muted text-end">Pending Transactions</h6>
+            </div>
+        </div>
+        <div class="col-md-3 card shadow-sm mx-1" style="width: 18rem;">
+            <div class="card-body">
+                <h1 class="card-title" id="acceptedTransactions"></h1>
+                <h6 class="card-subtitle mb-2 text-muted text-end">Accepted Transactions</h6>
+            </div>
+        </div>
+        <div class="col-md-3 card shadow-sm mx-1" style="width: 18rem;">
+            <div class="card-body">
+                <h1 class="card-title" id="declinedTransactions"></h1>
+                <h6 class="card-subtitle mb-2 text-muted text-end">Declined Transactions</h6>
+            </div>
+        </div>
         <!-- Modal -->
         <div class="modal fade" id="addForm" tabindex="-1" aria-labelledby="addFormLabel" aria-hidden="true">
           <div class="modal-dialog">
@@ -58,11 +81,57 @@
           </div>
         </div>
 
-        <div class="modal fade" id="reasonForm" tabindex="-1" aria-labelledby="reasonFormLabel" aria-hidden="true">
+        <!-- Applicant Details -->
+        <div class="modal fade" id="details" tabindex="-1" aria-labelledby="detailsLabel" aria-hidden="true">
           <div class="modal-dialog">
             <div class="modal-content">
               <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Reschedule Appointment</h5>
+                <h5 class="modal-title" id="detailsLabel">Requesitor Details</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+
+                <div class="row mb-2">
+                  <h5 id="studentName" class="text-center"></h5>
+                </div>
+
+                <div class="row mb-2">
+                  <h5 id="studentId"  class="text-center"></h5>
+                </div>
+
+                <div class="row mb-2">
+                  <h5 id="studentDepartment" class="text-center"></h5>
+                </div>
+
+                <div class="row mb-2">
+                  <p id="purpose" class="text-start">Clearance</p>
+                </div>
+
+                <div class="row mb-2">
+                  <p id="attendee" class="text-start">Group</p>
+                </div>
+
+                <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                <input type="hidden" name="_method" value="PUT">
+              </div>
+              <div class="modal-footer apiBtn">
+                <!-- <button class="triggerAccept mx-1 btn btn-sm btn-primary px-3" >Accept</button>
+                <button class="triggerChange mx-1  btn btn-sm btn-warning px-3" data-bs-toggle="modal" data-bs-target="#addForm" >Reschedule</button>
+                <button class="triggerDecline mx-1  btn btn-sm btn-danger px-3" data-bs-toggle="modal" data-bs-target="#action">Decline</button> -->
+                <button class="triggerAccept mx-1 btn btn-sm btn-primary px-3" >Accept</button>
+                <button class="triggerChange mx-1  btn btn-sm btn-warning px-3" data-bs-toggle="modal" data-bs-target="#addForm" >Reschedule</button>
+                <button class="triggerDecline mx-1  btn btn-sm btn-danger px-3" data-bs-toggle="modal" data-bs-target="#action">Decline</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Declining Reason -->
+        <div class="modal fade" id="action" tabindex="-1" aria-labelledby="actionLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="actionLabel">Decline Appointment</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
               </div>
               <div class="modal-body">
@@ -88,18 +157,15 @@
 
 
 
-        <h5 class="mb-4 header-label">Appointment List</h5>
+        <h5 class="my-5 header-label">Appointment List</h5>
         <table class="table bg-white shadow-sm">
             <thead class="table-dark">
               <tr>
-                <th scope="col">ID Number</th>
                 <th scope="col">Student Name</th>
-                <th scope="col">Department</th>
-                <th scope="col">Request Type</th>
-                <th scope="col">Attendee Type</th>
                 <th scope="col">Day</th>
                 <th scope="col">Time Slot</th>
                 <th scope="col">Date</th>
+                <th scope="col">Status</th>
                 <th scope="col">Action</th>
               </tr>
             </thead>
