@@ -173,7 +173,7 @@ $(function (){
             url: '/api/request',
             data: newAppointment,
             success: function (newVacant) {
-                console.log(newVacant);
+                alert("Appointment Added");
                 requesitor.val(''),
                 requesitor.val(''),
                 day.val(''),
@@ -183,7 +183,6 @@ $(function (){
                 attendee.val('')
             },
             error: function () {
-                console.log(newVacant);
                 alert("An error while saving data");
             },
         });
