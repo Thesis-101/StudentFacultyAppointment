@@ -67,8 +67,6 @@ $(function (){
             dataArry.push($(this).text());
         });
 
-        console.log(dataArry);
-
         id = dataArry[0];
         day.val(dataArry[2]) ;
         time.val(dataArry[4]) ;
@@ -96,7 +94,6 @@ $(function (){
         type: 'GET',
         url: '/api/schedules',
         success: function(vacant){
-            console.log(vacant);
             $.each(vacant, function(i, vacant_details){
                 facultyVacant.push(vacant_details);
             });
@@ -111,10 +108,8 @@ $(function (){
         type: 'GET',
         url: '/student/getFaculty',
         success: function(faculty){
-            console.log(faculty);
             $.each(faculty, function(i, details){
                 appendFaculty(details);
-                console.log(details);
             });
         }
     });
@@ -128,7 +123,6 @@ $(function (){
         type: 'GET',
         url: '/api/request',
         success: function(faculty){
-            console.log(faculty);
             $.each(faculty, function(i, appointment){
                 total++;
                 if(appointment.status == "Accepted"){
@@ -137,6 +131,8 @@ $(function (){
                     declined++;
                 }else if(appointment.status == "pending"){
                     pending++;
+                }else if(appointment.status == "Cancelled"){
+                    declined++;
                 }
             });
             totalCard.text(total);

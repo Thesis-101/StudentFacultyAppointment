@@ -23,6 +23,7 @@ $( function () {
                             '<td class="date">{{date}}</td>' +
                             '<td class="status">{{status}}</td>' +
                             '<td class="delete">'+
+                            '<button class="btn btn-sm btn-primary me-1">Edit</button>'+
                             '<button class="btn btn-sm btn-danger">Delete</button>'+
                             '</td>' +
                         '</tr>' 

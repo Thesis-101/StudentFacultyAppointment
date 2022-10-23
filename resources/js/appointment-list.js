@@ -1,8 +1,10 @@
 $(function (){
     const list = $('#appointment-list');
     const history = $('#history-list');
+
     const rescheduleBTN = $('#reschedule');
     const declineBTN = $('#decline');
+
     const newDay = $('#day');
     const time1 = $('#time1');
     const time2 = $('#time2');
@@ -57,9 +59,6 @@ $(function (){
                 list.prepend(Mustache.render(rowTemplate,details));
      }
 
-     function appendHistory(details){
-        history.prepend(Mustache.render(rowTemplate,details));
-    }
 
 
 
@@ -73,12 +72,14 @@ $(function (){
         success: function(appointments){
             console.log(appointments);
             $.each(appointments, function(i, appointment){
-                appendAppointment(appointment);
                 total++;
                 if(appointment.status == "Accepted"){
                     accepted++;
                 }else if(appointment.status == "Declined"){
                     declined++;
+                }else if(appointment.status == "pending"){
+                    appendAppointment(appointment);
+                    pending++;
                 }
             });
             totalCard.text(total);
@@ -93,26 +94,11 @@ $(function (){
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
+    $('.triggerAccept').on('click', function(){
 
-    list.delegate('.triggerAccept', 'click', function (){
-
-           rowId = $(this).data('id');
-            targetRow = $(this).closest('tr');
-
-           let edited = { 
-            student_id:     targetRow.find('td.student-id').text(),
-            message:        'Appointment Accepted.',
-            state:          'success',
-            vacant_id:      targetRow.find('td.vacantId').text(),
-            requesitor_id:  targetRow.find('td.requesitor').text(),
-            faculty_id:     targetRow.find('td.facultyId').text(),
-            request_type:   targetRow.find('td.request-type').text(),
-            attendee_type:  targetRow.find('td.attendee-type').text(),
-            day:            targetRow.find('td.day').text(),
-            time:           targetRow.find('td.time').text(),
-            date:           targetRow.find('td.date').text(),
-            status:         'Approved'
-        }
+        edited.status = "Accepted";
+        edited.message = "Appointment Accepted.";   
+        edited.state = "success";
 
         $.ajaxSetup({
             headers: {
@@ -125,19 +111,45 @@ $(function (){
             url: "/api/appointments/"+rowId,
             data: edited,
             success: function (edited) {
-                console.log(edited);
+                targetRow.find('td.status').html('Accepted');
                 alert("Appoinment Has Been Accepted.");
+                accepted++;
+                pending--;
                 targetRow.remove();
+                pendingCard.text(pending);
+                acceptedCard.text(accepted);
             },
             error: function () {
-                console.log(edited);
                 console.log(rowId);
                 alert("An error while saving data");
             },
         });
     });
 
+    // list.delegate('.triggerAccept', 'click', function (){
 
+    //        rowId = $(this).data('id');
+    //         targetRow = $(this).closest('tr');
+
+    //      edited = { 
+    //         student_id:     targetRow.find('td.student-id').text(),
+    //         message:        'Appointment Accepted.',
+    //         state:          'success',
+    //         vacant_id:      targetRow.find('td.vacantId').text(),
+    //         requesitor_id:  targetRow.find('td.requesitor').text(),
+    //         faculty_id:     targetRow.find('td.facultyId').text(),
+    //         request_type:   targetRow.find('td.request-type').text(),
+    //         attendee_type:  targetRow.find('td.attendee-type').text(),
+    //         day:            targetRow.find('td.day').text(),
+    //         time:           targetRow.find('td.time').text(),
+    //         date:           targetRow.find('td.date').text(),
+    //         status:         'Approved'
+    //     }
+
+        
+    // });
+        
+    
     list.delegate('.triggerView', 'click', function (){
 
         rowId = $(this).data('id');
@@ -155,7 +167,7 @@ $(function (){
             day:            targetRow.find('td.day').text(),
             time:           targetRow.find('td.time').text(),
             date:           targetRow.find('td.date').text(),
-            status:         'Declined'
+            status:         targetRow.find('td.status').text(),
         }
 
         viewName.html(targetRow.find('td.student-name').text());
@@ -273,6 +285,8 @@ rescheduleBTN.on('click', function (){
     edited.message = 'Appointment is accepted but rescheduled to '+date.val()+' '+newDay.val()+' between '+time1.val() +' - '+time2.val();
     edited.time = time1.val() +' - '+time2.val();
     edited.date = date.val();
+    edited.status = "Accepted";
+    edited.state = "success";
 
     console.log(edited);
          $.ajaxSetup({
@@ -286,9 +300,16 @@ rescheduleBTN.on('click', function (){
                     url: "/api/appointments/"+rowId,
                     data: edited,
                     success: function (edited) {
-                        console.log(edited);
+                        targetRow.find('td.status').html('Accepted');
+                        targetRow.find('td.day').html(edited.day);
+                        targetRow.find('td.date').html(edited.date);
+                        targetRow.find('td.time').html(edited.time);
                         alert("Appoinment Has Been Changed.");
-                        targetRow.remove();
+                        pending--;
+                        accepted++;
+
+                        pendingCard.text(pending);
+                        acceptedCard.text(accepted);
                     },
                     error: function () {
                         console.log(edited);
@@ -302,6 +323,7 @@ rescheduleBTN.on('click', function (){
 declineBTN.on('click', function(){
 
     edited.message = 'Appointment declined: '+reason.val();
+    edited.status = "Declined";
 
     console.log(edited);
       $.ajaxSetup({
@@ -315,12 +337,15 @@ declineBTN.on('click', function(){
          url: "/api/appointments/"+rowId,
          data: edited,
          success: function (edited) {
-             console.log(edited);
-             alert("Appoinment Has Been Declined.");
              targetRow.find('td.status').html('Declined');
+             alert("Appoinment Has Been Declined.");
+             declined++;
+             pending--;
+
+             pendingCard.text(pending);
+             declinedCard.text(declined);
          },
          error: function () {
-             console.log(edited);
              console.log(rowId);
              alert("An error while saving data");
          },

@@ -88,9 +88,38 @@ class RequestController extends Controller
      * @param  \App\Models\RequestModel  $requestModel
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, RequestModel $requestModel)
+    public function update(AppointmentRequest $request, $id)
     {
-        //
+        try {
+            $data = Requests::find($id);
+            if(!$data){
+                return response()->json([
+                    'message' => 'Record not found.'
+                ],404);
+            }
+
+            $data->vacant_id = $request->vacant_id;
+            $data->requesitor_id = $request->requesitor_id;
+            $data->faculty_id = $request->faculty_id;
+            $data->request_type = $request->request_type;
+            $data->attendee_type = $request->attendee_type;
+            $data->day = $request->day;
+            $data->time = $request->time;
+            $data->date = $request->date;
+            $data->status = $request->status;
+
+            $data->save();
+
+            return response()->json([
+                        'status' => true,
+                        'message' => "Vacant Details Successfully Updated",
+                    ], 200);
+
+        } catch (\Throwable $th) {
+            return response()->json([
+                'message' => "Something went wrong!"
+            ],500);
+        }
     }
 
     /**

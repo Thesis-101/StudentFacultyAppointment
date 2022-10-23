@@ -4,8 +4,8 @@
 @vite(['resources/js/request-list.js'])
 <div class="container-lg py-5">
     <div class="row justify-content-center">
-        <h5 class="mb-5 header-label">Faculty List</h5>
         <div class="row mb-4">
+            <h5 class="mb-5 header-label">Appointment List</h5>
             <div class="col-md-4">
                 <div class="row">
                     <label for="filter" class="col-form-lable col-md-2 my-auto text-end">Filter:</label>
@@ -26,17 +26,17 @@
         <table class="table bg-white shadow-sm">
             <thead class="table-dark">
               <tr>
-                <th scope="col">ID Number</th>
                 <th scope="col">Faculty Name</th>
                 <th scope="col">Designated Office</th>
                 <th scope="col">Time Slot</th>
                 <th scope="col">Date</th>
                 <th scope="col">Status</th>
+                <th scope="col">Action</th>
               </tr>
             </thead>
-            <tbody id="request-list">
+            <tbody id="appointmentList">
             </tbody>
-          </table>
+        </table>
 
     </div>
 </div>

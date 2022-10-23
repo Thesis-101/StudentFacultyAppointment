@@ -1,6 +1,8 @@
 @extends('layouts.app')
 
 @section('content')
+@vite(['resources/js/appointment-list.js'])
+@vite(['resources/js/history.js'])
 <div class="container-lg py-5">
     <div class="row justify-content-center">
         <div class="col-md-3 card shadow-sm mx-1" style="width: 18rem;">
@@ -37,10 +39,11 @@
                 <th scope="col">Day</th>
                 <th scope="col">Time Slot</th>
                 <th scope="col">Date</th>
-                <th scope="col">Action</th>
+                <th scope="col">Purpose</th>
+                <th scope="col">Status</th>
               </tr>
             </thead>
-            <tbody id="transaction-list">
+            <tbody id="history-list">
             </tbody>
         </table>
 

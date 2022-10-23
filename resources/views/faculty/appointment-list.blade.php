@@ -4,30 +4,6 @@
 @vite(['resources/js/appointment-list.js'])
 <div class="container-lg mt-5">
     <div class="row justify-content-center">
-        <div class="col-md-3 card shadow-sm mx-1" style="width: 18rem;">
-            <div class="card-body">
-                <h1 class="card-title" id="totalTransactions"></h1>
-                <h6 class="card-subtitle mb-2 text-muted text-end">Total Transactions</h6>
-            </div>
-        </div>
-        <div class="col-md-3 card shadow-sm mx-1" style="width: 18rem;">
-            <div class="card-body">
-                <h1 class="card-title" id="pendingTransactions"></h1>
-                <h6 class="card-subtitle mb-2 text-muted text-end">Pending Transactions</h6>
-            </div>
-        </div>
-        <div class="col-md-3 card shadow-sm mx-1" style="width: 18rem;">
-            <div class="card-body">
-                <h1 class="card-title" id="acceptedTransactions"></h1>
-                <h6 class="card-subtitle mb-2 text-muted text-end">Accepted Transactions</h6>
-            </div>
-        </div>
-        <div class="col-md-3 card shadow-sm mx-1" style="width: 18rem;">
-            <div class="card-body">
-                <h1 class="card-title" id="declinedTransactions"></h1>
-                <h6 class="card-subtitle mb-2 text-muted text-end">Declined Transactions</h6>
-            </div>
-        </div>
         <!-- Modal -->
         <div class="modal fade" id="addForm" tabindex="-1" aria-labelledby="addFormLabel" aria-hidden="true">
           <div class="modal-dialog">
@@ -75,7 +51,7 @@
               </div>
               <div class="modal-footer apiBtn">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button id="reschedule" type="button" class="btn btn-primary">Save</button>
+                <button id="reschedule" type="button" class="btn btn-primary" data-bs-dismiss="modal">Save</button>
               </div>
             </div>
           </div>
@@ -118,7 +94,7 @@
                 <!-- <button class="triggerAccept mx-1 btn btn-sm btn-primary px-3" >Accept</button>
                 <button class="triggerChange mx-1  btn btn-sm btn-warning px-3" data-bs-toggle="modal" data-bs-target="#addForm" >Reschedule</button>
                 <button class="triggerDecline mx-1  btn btn-sm btn-danger px-3" data-bs-toggle="modal" data-bs-target="#action">Decline</button> -->
-                <button class="triggerAccept mx-1 btn btn-sm btn-primary px-3" >Accept</button>
+                <button class="triggerAccept mx-1 btn btn-sm btn-primary px-3" data-bs-dismiss="modal" >Accept</button>
                 <button class="triggerChange mx-1  btn btn-sm btn-warning px-3" data-bs-toggle="modal" data-bs-target="#addForm" >Reschedule</button>
                 <button class="triggerDecline mx-1  btn btn-sm btn-danger px-3" data-bs-toggle="modal" data-bs-target="#action">Decline</button>
               </div>
@@ -148,7 +124,7 @@
               </div>
               <div class="modal-footer apiBtn">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button id="decline" type="button" class="btn btn-primary">Save</button>
+                <button id="decline" type="button" data-bs-dismiss="modal" class="btn btn-primary">Save</button>
               </div>
             </div>
           </div>

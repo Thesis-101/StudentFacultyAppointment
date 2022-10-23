@@ -25,7 +25,6 @@ $(function (){
         url: '/api/notifications',
         success: function(notifications){
             $.each(notifications, function(i, notification){
-                console.log(notification);
                 addNotification(notification);
                 if(notification.status == "unread"){
                     data.push(i);
@@ -42,7 +41,6 @@ $(function (){
         }
     });
 
-    console.log(data);
     
     
 });

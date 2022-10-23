@@ -4,34 +4,11 @@
 @vite(['resources/js/student-side.js'])
 <div class="container-lg py-5">
     <div class="row justify-content-center">
-        <div class="col-md-3 card shadow-sm mx-1" style="width: 18rem;">
-            <div class="card-body">
-                <h1 class="card-title" id="totalTransactions"></h1>
-                <h6 class="card-subtitle mb-2 text-muted text-end">Total Transactions</h6>
-            </div>
-        </div>
-        <div class="col-md-3 card shadow-sm mx-1" style="width: 18rem;">
-            <div class="card-body">
-                <h1 class="card-title" id="pendingTransactions"></h1>
-                <h6 class="card-subtitle mb-2 text-muted text-end">Pending Transactions</h6>
-            </div>
-        </div>
-        <div class="col-md-3 card shadow-sm mx-1" style="width: 18rem;">
-            <div class="card-body">
-                <h1 class="card-title" id="acceptedTransactions"></h1>
-                <h6 class="card-subtitle mb-2 text-muted text-end">Accepted Transactions</h6>
-            </div>
-        </div>
-        <div class="col-md-3 card shadow-sm mx-1" style="width: 18rem;">
-            <div class="card-body">
-                <h1 class="card-title" id="declinedTransactions"></h1>
-                <h6 class="card-subtitle mb-2 text-muted text-end">Declined Transactions</h6>
-            </div>
-        </div>
 
         <!-- Filter -->
-        <h5 class="my-5 header-label">Faculty List</h5>
+        
         <div class="row mb-4">
+        <h5 class="my-5 header-label">Faculty List</h5>
             <div class="col-md-4">
                 <div class="row">
                     <label for="filter" class="col-form-lable col-md-2 my-auto text-end">Filter:</label>
@@ -105,28 +82,28 @@
               </div>
               <div class="modal-body">
 
-                <div class="row mb-2">
+                <div class="row mb-2" hidden>
                   <label for="idNumber" class="col-form-label col-md-3">ID Number:</label>
                   <div class="col-md-9">
-                    <input class="form-control" type="text" name="idNumber" id="idNumber">
+                    <input class="form-control" type="text" name="idNumber" id="idNumber" value={{ Auth::user()->userInstitution_id }}>
                   </div>
                 </div>
 
-                <div class="row mb-2">
+                <div class="row mb-2" hidden>
                   <label for="day" class="col-form-label col-md-3">Day:</label>
                   <div class="col-md-9">
                     <input class="form-control" type="text" name="day" id="day">
                   </div>
                 </div>
 
-                <div class="row mb-2">
+                <div class="row mb-2" hidden>
                   <label for="time" class="col-form-label col-md-3">Vacant Time:</label>
                   <div class="col-md-9">
                     <input class="form-control" type="text" name="time" id="time">
                   </div>
                 </div>
 
-                <div class="row mb-2">
+                <div class="row mb-2" hidden>
                   <label for="office" class="col-form-label col-md-3">Office:</label>
                   <div class="col-md-9">
                     <input class="form-control" type="text" name="office" id="office">
@@ -141,7 +118,7 @@
                 </div>
 
                 <div class="row mb-2">
-                  <label for="attendee" class="col-form-label col-md-3">Request Type:</label>
+                  <label for="attendee" class="col-form-label col-md-3">Purpose:</label>
                   <div class="col-md-9" >
                     <input type="text" name="request" id="request" class="form-control">
                   </div>
@@ -162,7 +139,7 @@
               </div>
               <div class="modal-footer apiBtn">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button id="appoint" type="button" class="btn btn-primary">Save</button>
+                <button id="appoint" type="button" class="btn btn-primary" data-bs-dismiss="modal">Save</button>
               </div>
             </div>
           </div>
