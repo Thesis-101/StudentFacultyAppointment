@@ -9,12 +9,12 @@ class Role {
 
   public function handle($request, Closure $next, String $role) {
     if (!Auth::check()) // This isnt necessary, it should be part of your 'auth' middleware
-      return redirect('login');
+      return redirect('/');
 
     $user = Auth::user();
     if($user->user_type == $role)
       return $next($request);
 
-    return redirect('/home');
+    return redirect('/');
   }
 }

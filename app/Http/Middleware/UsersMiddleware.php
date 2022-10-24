@@ -30,7 +30,7 @@ class UsersMiddleware
             }
         }
         else{
-            return redirect('login');
+            return redirect('/');
         }
     }
 }

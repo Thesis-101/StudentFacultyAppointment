@@ -18,18 +18,18 @@ use Illuminate\Support\Facades\Auth;
 |
 */
 
-// Route::get('/', function () {
-//     return view('auth.login');
-// });
+Route::get('/', function () {
+    return view('welcome');
+});
 
 Auth::routes();
 
-Route::get('/', [HomeController::class, 'index']);
-Route::get('test', [HomeController::class, 'test']);
+Route::get('home', [HomeController::class, 'index']);
+// Route::get('/', [HomeController::class, 'test']);
 
 //Faculty
 
-Route::group(['prefix' => 'faculty', 'middleware' => ['role:faculty']], function () {
+Route::group(['prefix' => 'faculty', 'middleware' => ['role:faculty','auth']], function () {
     Route::get('/',[FacultyController::class, 'index']);
     Route::get('appointments',[FacultyController::class, 'appointmentList']);
     Route::get('history',[FacultyController::class, 'appointmentHistory']);
@@ -38,20 +38,20 @@ Route::group(['prefix' => 'faculty', 'middleware' => ['role:faculty']], function
 
 
 //Student
-Route::group(['prefix' => 'student', 'middleware' => ['role:student']], function () {
-    Route::get('/', [StudentAppointmentController::class, 'requestList']);
+Route::group(['prefix' => 'student', 'middleware' => ['role:student','auth']], function () {
+    Route::get('/', [StudentAppointmentController::class, 'index']);
     Route::get('faculty-list', [StudentAppointmentController::class, 'facultyList']);
     Route::get('request-list', [StudentAppointmentController::class, 'requestList']);
     Route::get('profile', [StudentAppointmentController::class, 'profile']);
     Route::get('getFaculty', [StudentAppointmentController::class, 'getFaculty']);
 });
 
-Route::group(['prefix' => 'admin', 'middleware' => ['role:admin']], function () {
+Route::group(['prefix' => 'admin', 'middleware' => ['role:admin','auth']], function () {
     Route::get('/', [AdminController::class, 'index']);
 });
 
 //Student & Faculty
-Route::get('notification', [StudentAppointmentController::class, 'notification']);
+Route::get('notification', [StudentAppointmentController::class, 'notification'])->middleware('auth');
 
 
 //User

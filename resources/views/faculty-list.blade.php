@@ -2,29 +2,10 @@
 
 @section('content')
 @vite(['resources/js/student-side.js'])
-<div class="container-lg py-5">
-    <div class="row justify-content-center">
+<div class="container mt-5">
+    <div class="row justify-content-center px-5">
 
-        <!-- Filter -->
         
-        <div class="row mb-4">
-        <h5 class="my-5 header-label">Faculty List</h5>
-            <div class="col-md-4">
-                <div class="row">
-                    <label for="filter" class="col-form-lable col-md-2 my-auto text-end">Filter:</label>
-                    <div class="col-md-8">
-                        <select name="filter" id="filter" class="form-select">
-                            <option value="" selected>All</option>
-                            <option value="department 1">department 1</option>
-                            <option value="department 2">department 2</option>
-                            <option value="department 3">department 3</option>
-                            <option value="department 4">department 4</option>
-                            <option value="department 5">department 5</option>
-                        </select>
-                    </div>
-                </div>
-            </div>
-        </div>
 
         <!-- Faculty Details -->
         <div class="modal fade" id="details" tabindex="-1" aria-labelledby="detailsLabel" aria-hidden="true">
@@ -147,16 +128,39 @@
 
         <input type="text" name="requesitor" id="requesitor" value="{{ Auth::user()->id }}" hidden>
 
-        <table class="table bg-white shadow-sm w-75">
-            <thead class="table-dark">
-              <tr>
-                <th scope="col">Faculty Name</th>
-                <th scope="col">Action</th>
-              </tr>
-            </thead>
-            <tbody id="faculty-list">
-            </tbody>
-          </table>
+
+
+        <div class="col-md-6 border shadow-sm mt-5 px-4">
+            <div class="row">
+                <h5 class="py-3 m-0 header-label ">
+                    <svg class="bi me-2"  width="20px" height="20px"><use xlink:href="#list-faculty"/></svg>
+                     Faculty List
+                </h5>
+                <hr>
+                <div class="col-md-6">
+                  <form class="row" action="/student/faculty-list" method="get">
+                      <label for="filter" class="col-form-lable col-md-2 my-auto text-end">Filter:</label>
+                        <div class="col-md-8">
+                          <input type="text" name="facultyName" id="facultyName" class="form-control" placeholder="Enter Faculty Name">
+                        </div>
+                        <button type="submit" class="btn btn-md btn-primary col-md-2">
+                          <svg class="bi"  width="15px" height="15px"><use xlink:href="#searchBTN"/></svg>
+                        </button>
+                  </form>
+               </div>
+                
+                <table class="table bg-white shadow-sm container-fluid mt-3">
+                    <thead class="table-dark">
+                      <tr>
+                        <th scope="col">Faculty Name</th>
+                        <th scope="col">Action</th>
+                      </tr>
+                    </thead>
+                    <tbody id="faculty-list">
+                    </tbody>
+                </table>
+            </div>
+        </div>
 
     </div>
 </div>

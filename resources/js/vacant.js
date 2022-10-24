@@ -16,7 +16,7 @@ $(function () {
                         '<td class="time">{{vacant_time}}</td>'+
                         '<td class="office">{{designated_office}}</td>'+
                         '<td>'+ 
-                            '<button class="triggerEdit btn btn-sm btn-primary px-3" data-id="{{id}}" data-bs-toggle="modal" data-bs-target="#addForm">Edit</button>'+
+                            '<button class="triggerEdit btn btn-sm btn-primary px-3 me-1" data-id="{{id}}" data-bs-toggle="modal" data-bs-target="#addForm">Edit</button>'+
                             '<button data-id="{{id}}" class="triggerDelete btn btn-sm btn-danger px-3">Delete</button>'+
                         '</td>'+
                     '</tr>'

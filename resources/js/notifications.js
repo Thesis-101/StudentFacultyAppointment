@@ -1,15 +1,24 @@
 
 $(function (){
-    const list = $('.notification-list');
+    const list = $('#notification-list');
     const badge = $('.badge');
+    let notificationStatus;
     let data = [];
     const notificationBtn = $('#notification');
-    let rowTemplate = '<div data-id={{id}} class="row mb-0 notification-msg">'+
-                            '<div class="col-md-12 bg-light pt-3">'+
-                            '<h6 class="text-bg-{{state}} py-1 px-1">{{message}}</h6>' +
-                                '<p>{{date}}</p>'+
-                            '</div>'+
-                        '</div>'
+
+    let rowTemplate =  '<tr  data-id={{id}}>' +
+                            '<td>{{message}}</td>' +
+                            '<td>{{date}}</td>' +
+                            '<td class="bg-{{state}}">Viewed</td>'+
+                        '</tr>'
+    
+    // '<div data-id={{id}} class="row mb-0 notification-msg">'+
+    //                         '<div class="col-md-12 bg-light pt-3">'+
+    //                         '<h6 class="text-bg-{{state}} py-1 px-1">{{message}}</h6>' +
+    //                             '<p>{{date}}</p>'+
+    //                         '</div>'+
+    //                     '</div>'
+                       
 
     function addNotification(details){
              list.prepend(Mustache.render(rowTemplate,details));

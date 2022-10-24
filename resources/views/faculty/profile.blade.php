@@ -3,13 +3,14 @@
 @section('content')
 @vite(['resources/js/vacant.js'])
 <div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <h4 class="header-label text-start mb-4 offset-3">Profile</h4>
+    <div class="row justify-content-center px-4">
+        <div class="col-md-8 mt-5">
             <div class="shadow-sm bg-white form-container mx-auto mb-5">
-                <div class="user-details">
-                    <h5 class="text-center mb-0 mt-5 header-label">{{ Auth::user()->name }}</h5>
-                    <p class="text-center mb-5">{{ Auth::user()->userInstitution_id }}</p>
+                <div class="user-details text-center">
+                    <img width="100px" height="100px" class="border-rounded " src="{{asset('storage/images/default-avatar.jpg')}}" alt="Profile Pic">
+
+                    <h5 class="text-center mb-0 mt-2 header-label">{{ Auth::user()->name }}</h5>
+                    <p class="text-center mb-3">{{ Auth::user()->userInstitution_id }}</p>
                 </div>
                 <div class="other-details mb-5">
                     <p class="mb-1">User Type: <span class="user-type">{{ Auth::user()->user_type}}</span></p>
@@ -81,7 +82,7 @@
           <input type="hidden" name="_method" value="PUT">
         <!-- </form> -->
         
-        <div class="row mb-3 mt-5">
+        <!-- <div class="row mb-3 mt-5">
             <h4 class="header-label text-start my-auto col-md-9">Vacant Time</h4>
             <button id="add" class="btn btn-md btn-primary col-md-3" data-bs-toggle="modal" data-bs-target="#addForm">Add Time Slot</button>
         </div>
@@ -97,7 +98,40 @@
             </thead>
             <tbody id="vacant_list">
             </tbody>
-          </table>
+          </table> -->
+
+
+
+          <div class="col-md-12 border shadow-sm mt-5">
+            <div class="row">
+              <div class="row">
+                <div class="col-md-6">
+                  <h4 class="mt-3 m-0 header-label ">
+                    <svg class="bi me-2"  width="20px" height="20px"><use xlink:href="#time"/></svg>
+                    Vacant Time
+                  </h4>
+                </div>
+                <div class="col-md-6 text-end pb-3">
+                  <button id="add" class="btn btn-md btn-primary col-md-3 mt-3" data-bs-toggle="modal" data-bs-target="#addForm">Add Time Slot</button>
+                </div>
+              </div>
+                
+                <hr>
+                <table class="table bg-white shadow-sm container-fluid">
+                    <input id="lastItem" hidden></input>
+                    <thead class="table-dark">
+                      <tr>
+                        <th scope="col">Day</th>
+                        <th scope="col">Time Slot</th>
+                        <th scope="col">Designated Office</th>
+                        <th scope="col">Action</th>
+                      </tr>
+                    </thead>
+                    <tbody id="vacant_list">
+                    </tbody>
+                </table>
+            </div>
+          </div>  
     </div>
 </div>
 @endsection

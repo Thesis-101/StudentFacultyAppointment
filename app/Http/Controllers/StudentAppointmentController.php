@@ -8,6 +8,9 @@ use App\Models\User;
 
 class StudentAppointmentController extends Controller
 {
+    public function index(){
+        return view('home');
+    }
     public function facultyList(){
         
         return view('faculty-list');
