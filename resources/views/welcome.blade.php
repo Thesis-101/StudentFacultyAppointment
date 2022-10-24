@@ -46,7 +46,7 @@
                         <p class="">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Saepe perspiciatis vel facilis deleniti! Tempora necessitatibus unde quasi iusto minus laudantium, fuga dolorem ad in obcaecati, totam velit enim culpa inventore.</p>
                     </div>
                     <div class="row">
-                        <button class="btn col-md-4 m-auto btn-lg btn-primary">Get Started</button>
+                        <a href="/login" class="btn col-md-4 m-auto btn-lg btn-primary">Get Started</a>
                     </div>
                     
                 </div>
