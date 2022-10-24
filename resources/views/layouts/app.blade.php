@@ -178,6 +178,12 @@
                                         Account Settings
                                     </a>
                                 </li>
+                                <li class="nav-item">
+                                    <a id="notification" href="{{ url('notification') }}" class="nav-link position-relative">
+                                        <svg class="bi me-2 " style="color:white"  width="15px" height="15px"><use xlink:href="#notify"/></svg>
+                                        Notification <span class="badge text-bg-secondary"></span>
+                                    </a>
+                                </li>
                             @elseif (Auth::user()->user_type == 'student')
                                 <li class="nav-item">
                                     <a href="{{ url('student/faculty-list') }}" class="nav-link">
@@ -195,6 +201,12 @@
                                     <a class="nav-link position-relative" href="{{ url('student/profile') }}">
                                         <svg class="bi me-2 " style="color:white"  width="15px" height="15px"><use xlink:href="#account-settings"/></svg>
                                         Account Settings
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a id="notification" href="{{ url('notification') }}" class="nav-link position-relative">
+                                        <svg class="bi me-2 " style="color:white"  width="15px" height="15px"><use xlink:href="#notify"/></svg>
+                                        Notification <span class="badge text-bg-secondary"></span>
                                     </a>
                                 </li>
                             @elseif (Auth::user()->user_type == 'admin')
@@ -232,12 +244,7 @@
                                     </a>
                                 </li>
                             @endif
-                            <li class="nav-item">
-                                <a id="notification" href="{{ url('notification') }}" class="nav-link position-relative">
-                                    <svg class="bi me-2 " style="color:white"  width="15px" height="15px"><use xlink:href="#notify"/></svg>
-                                    Notification <span class="badge text-bg-secondary"></span>
-                                </a>
-                            </li>
+                            
 
 
                             <li class="nav-item ">

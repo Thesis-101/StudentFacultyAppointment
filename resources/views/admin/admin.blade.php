@@ -38,7 +38,7 @@
             </div>
         </div>
 
-        <div class="col-md-12 border shadow-sm mt-5">
+        <div class="col-md-12 border shadow-sm mt-5 bg-white">
             <div class="row">
                 <h5 class="py-3 m-0 header-label ">
                     <svg class="bi me-2"  width="20px" height="20px"><use xlink:href="#transaction"/></svg>
