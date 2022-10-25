@@ -30,6 +30,7 @@ class User extends Authenticatable
         'name',
         'user_type',
         'email',
+        'profile_img',
         'password',
     ];
 

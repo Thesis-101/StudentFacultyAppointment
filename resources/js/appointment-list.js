@@ -307,7 +307,7 @@ rescheduleBTN.on('click', function (){
                         alert("Appoinment Has Been Changed.");
                         pending--;
                         accepted++;
-
+                        targetRow.remove();
                         pendingCard.text(pending);
                         acceptedCard.text(accepted);
                     },
@@ -341,7 +341,7 @@ declineBTN.on('click', function(){
              alert("Appoinment Has Been Declined.");
              declined++;
              pending--;
-
+             targetRow.remove();
              pendingCard.text(pending);
              declinedCard.text(declined);
          },

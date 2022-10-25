@@ -25,4 +25,8 @@ class FacultyController extends Controller
 
         return view('faculty.profile');
     }
+
+    public function report(){
+        return view('faculty.reports');
+    }
 }

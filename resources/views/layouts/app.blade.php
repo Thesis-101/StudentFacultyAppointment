@@ -101,11 +101,12 @@
             </div>
         </nav>
 
-        <main class="bg-light">
-            <div class="d-flex flex-column flex-shrink-0 text-white bg-dark" style="width: 220px; height: 100vh">
+        <main class="bg-light" style="height: 100vh !important;">
+            <div class="d-flex flex-column flex-shrink-0 text-white bg-dark" style="width: 220px; ">
                 <div class="text-center mt-2">
-                    <img width="50px" height="50px" class="border-rounded" src="{{asset('storage/images/default-avatar.jpg')}}" alt="Profile Pic">
-                    <p class="fs-5 mb-0 text-white text-decoration-none ">{{ Auth::user()->name }}</p>
+                    @php($profile_pic = Auth::user()->profile_img)
+                    <img id="side-pic" width="50px" height="50px" class="border-rounded" src="@if($profile_pic == null ) {{asset('storage/images/default-avatar.jpg')}} @else {{asset('storage/'.$profile_pic)}} @endif" alt="Profile Pic">
+                    <p id="userName" class="fs-5 mb-0 text-white text-decoration-none ">{{ Auth::user()->name }}</p>
                 </div>
                 <hr>
 
@@ -167,7 +168,7 @@
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="#" class="nav-link">
+                                    <a href="{{ url('faculty/report') }}" class="nav-link">
                                         <svg class="bi me-2 " style="color:white"  width="15px" height="15px"><use xlink:href="#report"/></svg>
                                         Generate Report
                                     </a>
@@ -218,9 +219,9 @@
                                         </a>
                                         <div id="collapseOne" aria-labelledby="headingOne" data-bs-parent="#accordionExample" class="accordion-collapse collapse">
                                             <div class="accordion-body bg-secondary">
-                                                <a href="#" class="nav-link text-white py-2">Faculty List</a>
+                                                <a href="{{ url('admin/faculty-list') }}" class="nav-link text-white py-2">Faculty List</a>
                                                 <hr class="my-0">
-                                                <a href="#" class="nav-link text-white">Student List</a>
+                                                <a href="{{ url('admin/student-list') }}" class="nav-link text-white">Student List</a>
                                             </div>
                                         </div>
                                     </div>
@@ -232,13 +233,13 @@
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="#" class="nav-link">
+                                    <a href="{{ url('admin/reports') }}" class="nav-link">
                                         <svg class="bi me-2 " style="color:white"  width="15px" height="15px"><use xlink:href="#report"/></svg>
                                         Generate Report
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="#" class="nav-link">
+                                    <a href="{{ url('admin/profile') }}" class="nav-link">
                                         <svg class="bi me-2 " style="color:white"  width="15px" height="15px"><use xlink:href="#account-settings"/></svg>
                                         Account Settings
                                     </a>

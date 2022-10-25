@@ -1,10 +1,10 @@
 @extends('layouts.app')
 
 @section('content')
-@vite(['resources/js/profileUpdate.js'])
-<div class="container mt-5">
-    <div class="row justify-content-center">
-
+@vite(['resources/js/faculty-list.js'])
+<div class="container-lg mt-5">
+    <div class="row justify-content-center px-4">
+        <!-- Modal -->
         <form action="/updateProfile" id="profile_setup_frm" method="post" enctype="multipart/form-data">
             <div class="modal fade" id="personalDetails" tabindex="-1" aria-labelledby="personalDetailsLabel" aria-hidden="true">
             <div class="modal-dialog">
@@ -23,14 +23,14 @@
                     </div>
 
                     <div class="row mb-2" >
-                    <label for="idNumber" class="col-form-label col-md-3">Profile Picture:</label>
+                    <label for="profile_img" class="col-form-label col-md-3">Profile Picture:</label>
                     <div class="col-md-9">
                         <input class="form-control" type="file" name="profile_img" id="profile_img">
                     </div>
                     </div>
 
                     <div class="row mb-2" >
-                    <label for="idNumber" class="col-form-label col-md-3">Name:</label>
+                    <label for="name" class="col-form-label col-md-3">Name:</label>
                     <div class="col-md-9">
                         <input class="form-control" type="text" name="name" id="name" value="{{ Auth::user()->name }}">
                     </div>
@@ -105,80 +105,58 @@
             </div>
             </div>
         </form>
-        
-        <form action="/change-password" id="new_password_frm" method="post">
-            <div class="modal fade" id="passwordChange" tabindex="-1" aria-labelledby="passwordChangeLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Change Password</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
 
-                    <div class="row mb-2" >
-                        <label for="oldPassword" class="col-form-label col-md-4">Old Password:</label>
-                        <div class="col-md-8">
-                            <input class="form-control" type="password" name="oldPassword" id="oldPassword">
-                            @error('oldPassword')
-                                <span class="text-danger">{{ $message }}</span>
-                            @enderror
-                        </div>
-                    </div>
 
-                    <div class="row mb-2" >
-                        <label for="new_password" class="col-form-label col-md-4">New Password:</label>
-                        <div class="col-md-8">
-                            <input class="form-control" type="password" name="new_password" id="new_password">
-                            @error('new_password')
-                                <span class="text-danger">{{ $message }}</span>
-                            @enderror
-                        </div>
-                    </div>
+        <!-- <h5 class="my-5 header-label">Appointment List</h5>
+        <table class="table bg-white shadow-sm">
+            <thead class="table-dark">
+              <tr>
+                <th scope="col">Student Name</th>
+                <th scope="col">Day</th>
+                <th scope="col">Time Slot</th>
+                <th scope="col">Date</th>
+                <th scope="col">Status</th>
+                <th scope="col">Action</th>
+              </tr>
+            </thead>
+            <tbody id="appointment-list">
+            </tbody>
+          </table> -->
 
-                    <div class="row mb-2" >
-                        <label for="new_password_confirmation" class="col-form-label col-md-4">Confirm Password:</label>
-                        <div class="col-md-8">
-                            <input class="form-control" type="password" name="new_password_confirmation" id="new_password_confirmation">
-                            @error('new_password_confirmation')
-                                <span class="text-danger">{{ $message }}</span>
-                            @enderror
-                        </div>
-                    </div>
-
-                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                </div>
-                <div class="modal-footer apiBtn">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button id="sendUpdate" type="submit" class="btn btn-primary">Save</button>
-                </div>
-                </div>
-            </div>
-            </div>
-        </form>
-
-        <div class="col-md-8">
-            <!-- <h4 class="header-label text-start mb-4 offset-3">Profile</h4> -->
-            <div class="shadow-sm bg-white form-container m-auto">
-                <div class="user-details text-center">
-                    @php($profile_pic = Auth::user()->profile_img)
-                    <img id="profilePic" width="100px" height="100px" class="border-rounded " src="@if($profile_pic == null ) {{asset('storage/images/default-avatar.jpg')}} @else {{asset('storage/'.$profile_pic)}} @endif" alt="Profile Pic">
-                    <h5 id="profileName" class="text-center mb-0 mt-2 header-label">{{ Auth::user()->name }}</h5>
-                    <p class="text-center mb-3">{{ Auth::user()->userInstitution_id }}</p>  
-                </div>
+          <div class="col-md-12 border shadow-sm mt-5">
+            <div class="row">
+                <h5 class="py-3 m-0 header-label ">
+                    <svg class="bi me-2"  width="20px" height="20px"><use xlink:href="#list-faculty"/></svg>
+                    Faculty List</h5>
                 <hr>
-                <div class="other-details mb-5">
-                    <p class="mb-1">User Type: <span class="user-type">Student</span></p>
-                    <p>Email: <span class="user-email">{{Auth::user()->email}}</span></p>
-                </div>
-                <div class="row">
-                    <button class="btn btn-md btn-primary col-md-6 mx-auto mb-2" data-bs-toggle="modal" data-bs-target="#personalDetails">Edit Profile</button>
-                </div>
-                <div class="row">
-                    <button class="btn btn-md btn-primary col-md-6 mx-auto" data-bs-toggle="modal" data-bs-target="#passwordChange">Change Password</button>
-                </div>
+                <div class="col-md-4 mb-3">
+                  <form class="row" action="/student/request-list" method="get">
+                      <label for="filter" class="col-form-lable col-md-2 my-auto text-end">Filter:</label>
+                        <div class="col-md-8">
+                          <input type="text" name="facultyName" id="facultyName" class="form-control" placeholder="Enter Faculty Name">
+                        </div>
+                        <button type="submit" class="btn btn-md btn-primary col-md-2">
+                          <svg class="bi"  width="15px" height="15px"><use xlink:href="#searchBTN"/></svg>
+                        </button>
+                  </form>
+               </div>
+                <table class="table bg-white shadow-sm container-fluid">
+                    <thead class="table-dark">
+                        <tr>
+                          <th scope="col">ID Number</th>
+                          <th scope="col">Faculty Name</th>
+                          <th scope="col">Department</th>
+                          <th scope="col">Email</th>
+                          <th scope="col">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="faculty-list">
+                    </tbody>
+                </table>
             </div>
+          </div>  
         </div>
     </div>
 </div>
+
 @endsection

@@ -170,8 +170,6 @@ $(function (){
             data: newAppointment,
             success: function (newVacant) {
                 alert("Appointment Added");
-                requesitor.val(''),
-                requesitor.val(''),
                 day.val(''),
                 time.val(''),
                 date.val(''),

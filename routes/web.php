@@ -25,7 +25,8 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('home', [HomeController::class, 'index']);
-// Route::get('/', [HomeController::class, 'test']);
+Route::post('/updateProfile', [HomeController::class, 'updateProfile'])->name('user.profile');
+Route::post('/change-password', [HomeController::class, 'changePassword']);
 
 //Faculty
 
@@ -34,6 +35,7 @@ Route::group(['prefix' => 'faculty', 'middleware' => ['role:faculty','auth']], f
     Route::get('appointments',[FacultyController::class, 'appointmentList']);
     Route::get('history',[FacultyController::class, 'appointmentHistory']);
     Route::get('profile', [FacultyController::class, 'profile']);
+    Route::get('report', [FacultyController::class, 'report']);
 });
 
 
@@ -46,8 +48,16 @@ Route::group(['prefix' => 'student', 'middleware' => ['role:student','auth']], f
     Route::get('getFaculty', [StudentAppointmentController::class, 'getFaculty']);
 });
 
+//Admin
 Route::group(['prefix' => 'admin', 'middleware' => ['role:admin','auth']], function () {
     Route::get('/', [AdminController::class, 'index']);
+    Route::get('profile', [AdminController::class, 'profile']);
+    Route::get('reports', [AdminController::class, 'reports']);
+    Route::get('allRequest', [AdminController::class, 'recieveData']);
+    Route::get('student-list', [AdminController::class, 'getStudent']);
+    Route::get('faculty-list', [AdminController::class, 'getFaculty']);
+    Route::get('faculty', [AdminController::class, 'faculty']);
+    Route::get('student', [AdminController::class, 'student']);
 });
 
 //Student & Faculty
