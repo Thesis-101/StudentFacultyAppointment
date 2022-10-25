@@ -158,12 +158,6 @@
                         @else
                             @if (Auth::user()->user_type == 'faculty')
                                 <li class="nav-item">
-                                    <a href="#" class="nav-link">
-                                        <svg class="bi me-2 " style="color:white"  width="15px" height="15px"><use xlink:href="#list-faculty"/></svg>
-                                        List of Students
-                                    </a>
-                                </li>
-                                <li class="nav-item">
                                     <a href="{{ url('faculty/appointments') }}" class="nav-link">
                                         <svg class="bi me-2 " style="color:white"  width="15px" height="15px"><use xlink:href="#list-appointment"/></svg>
                                         Appointment List

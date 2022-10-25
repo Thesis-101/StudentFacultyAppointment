@@ -80,9 +80,9 @@
                                     {{ __('Forgot Your Password?') }}
                                 </a>
                             @endif
-                            @if (Route::has('login'))
+                            <!-- @if (Route::has('login'))
                                 <a  class="col-md-4 btn btn-link text-end" href="{{ route('register') }}">{{ __('Register') }}</a>
-                            @endif
+                            @endif -->
                         </div>
                     </form>
                 </div>

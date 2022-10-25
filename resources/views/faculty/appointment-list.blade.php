@@ -155,7 +155,7 @@
                     <svg class="bi me-2"  width="20px" height="20px"><use xlink:href="#list-appointment"/></svg>
                     Appointment List</h5>
                 <hr>
-                <div class="col-md-4 mb-3">
+                <!-- <div class="col-md-4 mb-3">
                   <form class="row" action="/student/request-list" method="get">
                       <label for="filter" class="col-form-lable col-md-2 my-auto text-end">Filter:</label>
                         <div class="col-md-8">
@@ -165,7 +165,7 @@
                           <svg class="bi"  width="15px" height="15px"><use xlink:href="#searchBTN"/></svg>
                         </button>
                   </form>
-               </div>
+               </div> -->
                 <table class="table bg-white shadow-sm container-fluid">
                     <thead class="table-dark">
                         <tr>
