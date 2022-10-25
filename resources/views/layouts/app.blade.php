@@ -107,7 +107,7 @@
             <div class="d-flex flex-column flex-shrink-0 text-white bg-dark" style="width: 220px; ">
                 <div class="text-center mt-2">
                     @php($profile_pic = Auth::user()->profile_img)
-                    <img id="side-pic" width="50px" height="50px" class="border-rounded" src="@if($profile_pic == null ) {{asset('storage/images/default-avatar.jpg')}} @else {{asset('storage/'.$profile_pic)}} @endif" alt="Profile Pic">
+                    <img id="side-pic" width="50px" height="50px" class="border-rounded" src="@if($profile_pic == null ) ../../../../../public/storage/images/default-avatar.jpg @else {{asset('storage/'.$profile_pic)}} @endif" alt="Profile Pic">
                     <p id="userName" class="fs-5 mb-0 text-white text-decoration-none ">{{ Auth::user()->name }}</p>
                 </div>
                 <hr>
