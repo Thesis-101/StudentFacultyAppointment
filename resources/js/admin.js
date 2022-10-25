@@ -1,4 +1,4 @@
-import { identity } from "lodash";
+
 
 $( function () {
 
@@ -60,5 +60,26 @@ $( function () {
         }
     });
 
+    $($list).delegate('.triggerDelete', 'click', function (){
+        const row = $(this).closest('tr');
+        $.ajax({
+            type: 'DELETE',
+            url: '/api/vacant/'+$(this).data('id'),
+            success: function(vacant){
+                console.log(vacant);
+                row.remove();
+            }
+        });
+    });
 
+    // $('.delete').click(function(){
+    //     const row = $(this).closest('tr');
+    //     $.ajax({
+    //         type: 'DELETE',
+    //         url: '/admin/delete/'+$(this).data('id'),
+    //         success: function(data){
+    //             row.remove();
+    //         }
+    //     });
+    // });
 });

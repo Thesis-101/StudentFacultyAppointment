@@ -137,7 +137,7 @@
                      Faculty List
                 </h5>
                 <hr>
-                <div class="col-md-6">
+                <!-- <div class="col-md-6">
                   <form class="row" action="/student/faculty-list" method="get">
                       <label for="filter" class="col-form-lable col-md-2 my-auto text-end">Filter:</label>
                         <div class="col-md-8">
@@ -147,7 +147,7 @@
                           <svg class="bi"  width="15px" height="15px"><use xlink:href="#searchBTN"/></svg>
                         </button>
                   </form>
-               </div>
+               </div> -->
                 
                 <table class="table bg-white shadow-sm container-fluid mt-3">
                     <thead class="table-dark">

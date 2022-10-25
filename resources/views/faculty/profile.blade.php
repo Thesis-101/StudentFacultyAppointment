@@ -44,12 +44,8 @@
                   <div class="row mb-2">
                     <label for="office" class="col-form-label col-md-3">Office:</label>
                     <div class="col-md-9">
-                      <select name="office" id="office" class="form-select" >
-                        <option value="department 1" >Department 1</option>
-                        <option value="department 2" >Department 2</option>
-                        <option value="department 3" >Department 3</option>
-                        <option value="department 4" >Department 4</option>
-                        <option value="department 5" >Department 5</option>
+                      <select name="office" id="office" class="department-selection form-select" >
+                        <option value="" selected></option>
                       </select>
                     </div>
                   </div>

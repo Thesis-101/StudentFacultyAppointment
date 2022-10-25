@@ -6,6 +6,7 @@ export default defineConfig({
         laravel({
             input: [
                 'resources/sass/app.scss',
+                'resources/sass/styles.scss',
                 'resources/js/app.js',
                 'resources/js/vacant.js',
                 'resources/js/student-side.js',
@@ -17,6 +18,8 @@ export default defineConfig({
                 'resources/js/profileUpdate.js',
                 'resources/js/jquery.table2excel.js',
                 'resources/js/reports.js',
+                'resources/js/department-list.js',
+                'resources/js/load-departments.js',
             ],
             refresh: true,
         }),

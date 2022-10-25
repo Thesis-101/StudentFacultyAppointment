@@ -15,7 +15,7 @@
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
 
     <!-- Scripts -->
-    @vite(['resources/sass/app.scss', 'resources/js/app.js', 'resources/js/notifications.js'])
+    @vite(['resources/sass/app.scss', 'resources/js/app.js', 'resources/js/notifications.js','resources/js/load-departments.js'])
 </head>
 <body>
     <div class="container pt-5">
@@ -73,13 +73,8 @@
                             <label for="department" class="col-md-12 col-form-label text-md-start">{{ __('Department') }}</label>
 
                             <div class="col-md-12">
-                                <select name="department" id="department" class="form-select @error('department') is-invalid @enderror" required autofocus>
+                                <select name="department" id="department" class="department-selection form-select @error('department') is-invalid @enderror" required autofocus>
                                     <option value="" selected></option>
-                                    <option value="department 1">Department 1</option>
-                                    <option value="department 2">Department 2</option>
-                                    <option value="department 3">Department 3</option>
-                                    <option value="department 4">Department 4</option>
-                                    <option value="department 5">Department 5</option>
                                 </select>
                                 @error('department')
                                     <span class="invalid-feedback" role="alert">

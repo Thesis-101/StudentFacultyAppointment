@@ -58,10 +58,17 @@ Route::group(['prefix' => 'admin', 'middleware' => ['role:admin','auth']], funct
     Route::get('faculty-list', [AdminController::class, 'getFaculty']);
     Route::get('faculty', [AdminController::class, 'faculty']);
     Route::get('student', [AdminController::class, 'student']);
+    Route::put('update/{id}', [AdminController::class, 'update']);
+    Route::delete('delete/{id}', [AdminController::class, 'delete']);
+    Route::delete('deleteDepartment/{id}', [AdminController::class, 'deleteDepartment']);
+    Route::post('addUser', [AdminController::class, 'addUser']);
+    Route::get('department-setup', [AdminController::class, 'getDepartment']);
+    Route::post('department-setup', [AdminController::class, 'addDepartment']);
 });
 
 //Student & Faculty
 Route::get('notification', [StudentAppointmentController::class, 'notification'])->middleware('auth');
+Route::get('loadAll', [AdminController::class, 'loadDepartments']);
 
 
 //User

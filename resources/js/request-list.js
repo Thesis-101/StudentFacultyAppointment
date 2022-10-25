@@ -84,8 +84,9 @@ $( function () {
                     url: "/api/request/"+rowItem,
                     data: data,
                     success: function (data) {
-                        row.find('td.request-status').html('Cancelled');
+                        row.remove();
                         alert("Appointment Has Been Cancelled.");
+
 
                     },
                     error: function () {
