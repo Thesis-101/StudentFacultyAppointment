@@ -18,7 +18,12 @@ class FacultyAppointmentController extends Controller
     public function index()
     {
         $user = auth('sanctum')->user()->userInstitution_id;
-        $data = Requests::with('students', 'vacantDetails')->where('faculty_id', '=', $user)->get();
+        $userType = auth('sanctum')->user()->user_type;
+        if ($userType == "admin"){
+            $data = Requests::with('students','vacantDetails')->get();
+        }else{
+            $data = Requests::with('students', 'vacantDetails')->where('faculty_id', '=', $user)->get();
+        }
         
         return $data;
     }

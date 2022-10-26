@@ -26,13 +26,15 @@
         </form>
 
 
-          <div class="col-md-12 border shadow-sm mt-5">
-            <div class="row">
-                <h5 class="py-3 m-0 header-label ">
+        <h5 class="py-3 m-0 header-label mt-5">
                     <svg class="bi me-2"  width="20px" height="20px"><use xlink:href="#transaction"/></svg>
                     Transaction List</h5>
+
+          <div class="col-md-12">
+            <div class="row">
+                
                 <button class="btn btn-sm btn-primary col-md-2 mx-2 mb-2" id="test">Export</button>
-                <hr>
+                <hr hidden>
                 <table class="toExport_tbl table bg-white shadow-sm container-fluid">
                     <thead class="table-dark">
                     <tr>

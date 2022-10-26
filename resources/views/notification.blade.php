@@ -12,13 +12,13 @@
             </div>
         </div> -->
 
-        <div class="col-md-12  border shadow-sm mt-5 bg-white">
+        <div class="col-md-8 mt-5 bg-white">
             <div class="row">
                 <h5 class="py-3 m-0 header-label ">
                     <svg class="bi me-2 "   width="20px" height="20px"><use xlink:href="#notify"/></svg>
                     Notifications</h5>
-                <hr>
-               <div class="table-wrapper">
+                <hr hidden>
+               <div class="table-wrapper px-0">
                     <table class="table bg-white shadow-sm container-fluid ">
                         <thead class="table-dark">
                             <tr>
@@ -33,9 +33,9 @@
                </div>
                 
             </div>
-            <div class="row">
+            <!-- <div class="row">
                 <div class="col-md-12 text-white">asd</div>
-            </div>
+            </div> -->
         </div>
     </div>
 </div>

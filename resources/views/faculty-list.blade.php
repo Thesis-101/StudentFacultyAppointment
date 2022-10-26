@@ -130,13 +130,13 @@
 
 
 
-        <div class="col-md-6 border shadow-sm mt-5 px-4">
-            <div class="row">
-                <h5 class="py-3 m-0 header-label ">
+        <div class="col-md-6  mt-5">
+              <h5 class=" m-0 header-label ">
                     <svg class="bi me-2"  width="20px" height="20px"><use xlink:href="#list-faculty"/></svg>
                      Faculty List
                 </h5>
-                <hr>
+            <div class="row">
+                
                 <!-- <div class="col-md-6">
                   <form class="row" action="/student/faculty-list" method="get">
                       <label for="filter" class="col-form-lable col-md-2 my-auto text-end">Filter:</label>

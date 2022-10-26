@@ -22,9 +22,9 @@ $( function () {
                             '<td class="time">{{time}}</td>' +
                             '<td class="date">{{date}}</td>' +
                             '<td class="status">{{status}}</td>' +
-                            '<td class="delete">'+
+                            '<td class="">'+
                             '<button class="btn btn-sm btn-primary me-1">Edit</button>'+
-                            '<button class="btn btn-sm btn-danger">Delete</button>'+
+                            '<button class="delete btn btn-sm btn-danger">Delete</button>'+
                             '</td>' +
                         '</tr>' 
 
@@ -42,16 +42,18 @@ $( function () {
         success: function(vacant){
             $.each(vacant, function(i, vacant_details){
                 console.log(vacant_details);
-                if(vacant_details.status == "pending"){
-                    pending++;
-                }else if (vacant_details.status == "Accepted"){
-                    accepted++;
-                }else if(vacant_details.status == "Declined"){
-                    declined++;
-                }
+                if(vacant_details.students != null){
+                    if(vacant_details.status == "pending"){
+                        pending++;
+                    }else if (vacant_details.status == "Accepted"){
+                        accepted++;
+                    }else if(vacant_details.status == "Declined"){
+                        declined++;
+                    }
 
-                appendTransactions(vacant_details);
-                total++
+                    appendTransactions(vacant_details);
+                    total++
+                }
             });
             totalTransactions.text(total);
             pendingTransactions.text(pending)
@@ -60,17 +62,17 @@ $( function () {
         }
     });
 
-    $($list).delegate('.triggerDelete', 'click', function (){
-        const row = $(this).closest('tr');
-        $.ajax({
-            type: 'DELETE',
-            url: '/api/vacant/'+$(this).data('id'),
-            success: function(vacant){
-                console.log(vacant);
-                row.remove();
-            }
-        });
-    });
+    // $($list).delegate('.triggerDelete', 'click', function (){
+    //     const row = $(this).closest('tr');
+    //     $.ajax({
+    //         type: 'DELETE',
+    //         url: '/api/vacant/'+$(this).data('id'),
+    //         success: function(vacant){
+    //             console.log(vacant);
+    //             row.remove();
+    //         }
+    //     });
+    // });
 
     // $('.delete').click(function(){
     //     const row = $(this).closest('tr');
@@ -82,4 +84,36 @@ $( function () {
     //         }
     //     });
     // });
+    list.delegate('.delete','click',function(){
+        const row = $(this).closest('tr');
+        console.log(row);
+        $.ajaxSetup({
+            headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }  
+            });
+
+            $.ajax({
+                type: 'DELETE',
+                url: '/admin/deleteRequest/'+row.data('id'),
+                success: function(data){
+                        alert(data.message);
+                        if(row.find('td.status').text() == "pending"){
+                            pending--;
+                        }else if (row.find('td.status').text() == "Accepted"){
+                            accepted--;
+                        }else if(row.find('td.status').text() == "Declined"){
+                            declined--;
+                        }
+                        total--;
+                        row.remove();
+                        
+                        totalTransactions.text(total);
+                        pendingTransactions.text(pending)
+                        acceptedTransactions.text(accepted);
+                        declinedTransactions.text(declined);
+                },
+                
+            });
+    });
 });

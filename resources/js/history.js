@@ -50,7 +50,9 @@ $(function (){
         success: function(appointments){
             console.log(appointments);
             $.each(appointments, function(i, appointment){
-                appendHistory(appointment);
+                if(appointment.students != null){
+                    appendHistory(appointment);
+                }
             });
         }
     });

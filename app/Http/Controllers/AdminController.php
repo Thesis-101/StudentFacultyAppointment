@@ -25,7 +25,7 @@ class AdminController extends Controller
 
     public function recieveData()
     {
-        $data = Requests::with('students')->get();
+        $data = Requests::all();
         return $data;
     }
 
@@ -58,6 +58,23 @@ class AdminController extends Controller
         return response()->json([
             'status' => true,
             'message' => "User Successfully Removed",
+        ], 200);
+    }
+
+    public function deleteRequest($id)
+    {
+        $data = Requests::find($id);
+        if(!$data){
+            return response()->json([
+                'message'=>'Data Not Found.'
+            ],404);
+        }
+
+        $data->delete();
+
+        return response()->json([
+            'status' => true,
+            'message' => "Data Successfully Removed",
         ], 200);
     }
 

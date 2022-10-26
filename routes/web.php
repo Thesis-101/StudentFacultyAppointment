@@ -60,6 +60,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['role:admin','auth']], funct
     Route::get('student', [AdminController::class, 'student']);
     Route::put('update/{id}', [AdminController::class, 'update']);
     Route::delete('delete/{id}', [AdminController::class, 'delete']);
+    Route::delete('deleteRequest/{id}', [AdminController::class, 'deleteRequest']);
     Route::delete('deleteDepartment/{id}', [AdminController::class, 'deleteDepartment']);
     Route::post('addUser', [AdminController::class, 'addUser']);
     Route::get('department-setup', [AdminController::class, 'getDepartment']);

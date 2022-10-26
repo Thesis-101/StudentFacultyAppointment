@@ -93,7 +93,7 @@
                     <div class="row justify-content-center mb-3" >
                         <div class="col-md-6 text-center">
                             @php($profile_pic = Auth::user()->profile_img)
-                            <img id="image_preview_container" width="200px" height="200px"  class="border-rounded "  src="@if($profile_pic == null ) ../../../../../public/storage/images/default-avatar.jpg @else {{asset('storage/'.$profile_pic)}} @endif" alt="Profile Pic">
+                            <img id="image_preview_container" width="200px" height="200px"  class="border-rounded "  src="@if($profile_pic == null ) {{asset('storage/images/default-avatar.jpg')}} @else {{asset('storage/'.$profile_pic)}} @endif" alt="Profile Pic">
                         </div>
                     </div>
 

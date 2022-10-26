@@ -25,10 +25,12 @@ $(function(){
 
     $.ajax({
         type: 'GET',
-        url: '/admin/allRequest',
+        url: '/api/appointments',
         success: function(appointments){
             $.each(appointments, function(i, appointment){
-                data.push(appointment)
+                if(appointment.students != null){
+                    data.push(appointment);
+                }
             });
             console.log(data);
             console.log(status);

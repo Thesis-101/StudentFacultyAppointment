@@ -49,7 +49,7 @@
                     </div>
                     <h1 class="text-white bg-dark py-2 mb-0">Student Faculty Appointment System</h1>
                     <div class="col-md-6 bg-dark mb-2">
-                        <p class="text-light">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Saepe perspiciatis vel facilis deleniti! Tempora necessitatibus unde quasi iusto minus laudantium, fuga dolorem ad in obcaecati, totam velit enim culpa inventore.</p>
+                        <p class="text-light">Student-Faculty Appointment System is a software program that easily manages the process of scheduling appointments for  students of Tagoloan Community College.</p>
                     </div>
                     <div class="row">
                         @auth

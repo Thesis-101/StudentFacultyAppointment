@@ -72,6 +72,7 @@ $(function (){
         success: function(appointments){
             console.log(appointments);
             $.each(appointments, function(i, appointment){
+                if(appointment.students != null){
                 total++;
                 if(appointment.status == "Accepted"){
                     accepted++;
@@ -81,6 +82,7 @@ $(function (){
                     appendAppointment(appointment);
                     pending++;
                 }
+            }
             });
             totalCard.text(total);
             pendingCard.text(pending);

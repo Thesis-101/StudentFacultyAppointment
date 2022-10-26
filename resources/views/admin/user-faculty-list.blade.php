@@ -137,7 +137,7 @@
           <!-- Add User Form -->
 
 
-          <div class="col-md-12 border shadow-sm mt-5">
+          <div class="col-md-12 mt-5">
             <div class="row">
                 <h5 class="py-3 m-0 header-label col-md-6">
                     <svg class="bi me-2"  width="20px" height="20px"><use xlink:href="#list-faculty"/></svg>
@@ -145,7 +145,6 @@
                     <div class="col-md-6 text-end pb-3">
                       <button id="add" class="btn btn-md btn-primary col-md-4 mt-3" data-bs-toggle="modal" data-bs-target="#addUser">Add User</button>
                     </div>
-                <hr>
                 <!-- <div class="col-md-4 mb-3">
                   <form class="row" action="/student/request-list" method="get">
                       <label for="filter" class="col-form-lable col-md-2 my-auto text-end">Filter:</label>

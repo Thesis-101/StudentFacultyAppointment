@@ -104,11 +104,11 @@
         </nav>
 
         <main class="bg-light" style="height: 100vh !important;">
-            <div class="d-flex flex-column flex-shrink-0 text-white bg-dark" style="width: 220px; ">
-                <div class="text-center mt-2">
+            <div class="d-flex flex-column flex-shrink-0 text-white bg-white shadow-lg" style="width: 220px; ">
+                <div class="text-center mt-4">
                     @php($profile_pic = Auth::user()->profile_img)
-                    <img id="side-pic" width="50px" height="50px" class="border-rounded" src="@if($profile_pic == null ) ../../../../../public/storage/images/default-avatar.jpg @else {{asset('storage/'.$profile_pic)}} @endif" alt="Profile Pic">
-                    <p id="userName" class="fs-5 mb-0 text-white text-decoration-none ">{{ Auth::user()->name }}</p>
+                    <img id="side-pic" width="50px" height="50px" class="border-rounded" src="@if($profile_pic == null ) {{asset('storage/images/default-avatar.jpg')}} @else {{asset('storage/'.$profile_pic)}} @endif" alt="Profile Pic">
+                    <p id="userName" class="fs-5 mb-0 text-dark text-decoration-none ">{{ Auth::user()->name }}</p>
                 </div>
                 <hr>
 
@@ -117,22 +117,22 @@
                         @else
                             <li class="nav-item">
                                 @if (Auth::user()->user_type == 'faculty')
-                                    <a href="{{ url('faculty') }}" class="nav-link">
-                                        <svg class="bi me-2 " style="color:white"  width="15px" height="15px"><use xlink:href="#dashboard"/></svg>
+                                    <a  href="{{ url('faculty') }}" class="nav-link text-dark">
+                                        <svg class="bi me-2 " style="color:black"  width="15px" height="15px"><use xlink:href="#dashboard"/></svg>
                                         Dashboard
                                     </a>
                                 @endif
 
                                 @if (Auth::user()->user_type == 'student')
-                                    <a href="{{ url('student') }}" class="nav-link">
-                                        <svg class="bi me-2 " style="color:white"  width="15px" height="15px"><use xlink:href="#dashboard"/></svg>
+                                    <a href="{{ url('student') }}" class="nav-link text-dark">
+                                        <svg class="bi me-2 " style="color:black"  width="15px" height="15px"><use xlink:href="#dashboard"/></svg>
                                         Dashboard
                                     </a>
                                 @endif
 
                                 @if (Auth::user()->user_type == 'admin')
-                                    <a href="{{ url('admin') }}" class="nav-link">
-                                        <svg class="bi me-2 " style="color:white"  width="15px" height="15px"><use xlink:href="#dashboard"/></svg>
+                                    <a href="{{ url('admin') }}" class="nav-link text-dark">
+                                        <svg class="bi me-2 " style="color:black"  width="15px" height="15px"><use xlink:href="#dashboard"/></svg>
                                         Dashboard
                                     </a>
                                 @endif
@@ -145,64 +145,64 @@
                         <!-- Authentication Links -->
                         @guest
                             @if (Route::has('login'))
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
+                                <li class="nav-item ">
+                                    <a class="nav-link text-dark" href="{{ route('login') }}">{{ __('Login') }}</a>
                                 </li>
                             @endif
 
                             @if (Route::has('register'))
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
+                                <li class="nav-item text-dark">
+                                    <a class="nav-link text-dark" href="{{ route('register') }}">{{ __('Register') }}</a>
                                 </li>
                             @endif
                         @else
                             @if (Auth::user()->user_type == 'faculty')
-                                <li class="nav-item">
-                                    <a href="{{ url('faculty/appointments') }}" class="nav-link">
-                                        <svg class="bi me-2 " style="color:white"  width="15px" height="15px"><use xlink:href="#list-appointment"/></svg>
+                                <li class="nav-item text-dark">
+                                    <a href="{{ url('faculty/appointments') }}" class="nav-link text-dark">
+                                        <svg class="bi me-2 " style="color:black"  width="15px" height="15px"><use xlink:href="#list-appointment"/></svg>
                                         Appointment List
                                     </a>
                                 </li>
-                                <li class="nav-item">
-                                    <a href="{{ url('faculty/report') }}" class="nav-link">
-                                        <svg class="bi me-2 " style="color:white"  width="15px" height="15px"><use xlink:href="#report"/></svg>
+                                <li class="nav-item text-dark">
+                                    <a href="{{ url('faculty/report') }}" class="nav-link text-dark">
+                                        <svg class="bi me-2 " style="color:black"  width="15px" height="15px"><use xlink:href="#report"/></svg>
                                         Generate Report
                                     </a>
                                 </li>
-                                <li class="nav-item">
-                                    <a class="nav-link position-relative" href="{{ url('faculty/profile') }}">
-                                        <svg class="bi me-2 " style="color:white"  width="15px" height="15px"><use xlink:href="#account-settings"/></svg>
+                                <li class="nav-item text-dark">
+                                    <a class="nav-link position-relative text-dark" href="{{ url('faculty/profile') }}">
+                                        <svg class="bi me-2 " style="color:black"  width="15px" height="15px"><use xlink:href="#account-settings"/></svg>
                                         Account Settings
                                     </a>
                                 </li>
-                                <li class="nav-item">
-                                    <a id="notification" href="{{ url('notification') }}" class="nav-link position-relative">
-                                        <svg class="bi me-2 " style="color:white"  width="15px" height="15px"><use xlink:href="#notify"/></svg>
+                                <li class="nav-item text-dark">
+                                    <a id="notification" href="{{ url('notification') }}" class="nav-link position-relative text-dark">
+                                        <svg class="bi me-2 " style="color:black"  width="15px" height="15px"><use xlink:href="#notify"/></svg>
                                         Notification <span class="badge text-bg-secondary"></span>
                                     </a>
                                 </li>
                             @elseif (Auth::user()->user_type == 'student')
-                                <li class="nav-item">
-                                    <a href="{{ url('student/faculty-list') }}" class="nav-link">
-                                        <svg class="bi me-2 " style="color:white"  width="15px" height="15px"><use xlink:href="#list-faculty"/></svg>
+                                <li class="nav-item text-dark">
+                                    <a href="{{ url('student/faculty-list') }}" class="nav-link text-dark">
+                                        <svg class="bi me-2 " style="color:black"  width="15px" height="15px"><use xlink:href="#list-faculty"/></svg>
                                         List of Faculty
                                     </a>
                                 </li>
-                                <li class="nav-item">
-                                    <a href="{{ url('student/request-list') }}" class="nav-link">
-                                        <svg class="bi me-2 " style="color:white"  width="15px" height="15px"><use xlink:href="#list-appointment"/></svg>
+                                <li class="nav-item text-dark">
+                                    <a href="{{ url('student/request-list') }}" class="nav-link text-dark">
+                                        <svg class="bi me-2 " style="color:black"  width="15px" height="15px"><use xlink:href="#list-appointment"/></svg>
                                         Appointment List
                                     </a>
                                 </li>
-                                <li class="nav-item">
-                                    <a class="nav-link position-relative" href="{{ url('student/profile') }}">
-                                        <svg class="bi me-2 " style="color:white"  width="15px" height="15px"><use xlink:href="#account-settings"/></svg>
+                                <li class="nav-item text-dark">
+                                    <a class="nav-link position-relative text-dark" href="{{ url('student/profile') }}">
+                                        <svg class="bi me-2 " style="color:black"  width="15px" height="15px"><use xlink:href="#account-settings"/></svg>
                                         Account Settings
                                     </a>
                                 </li>
-                                <li class="nav-item">
-                                    <a id="notification" href="{{ url('notification') }}" class="nav-link position-relative">
-                                        <svg class="bi me-2 " style="color:white"  width="15px" height="15px"><use xlink:href="#notify"/></svg>
+                                <li class="nav-item text-dark">
+                                    <a id="notification" href="{{ url('notification') }}" class="nav-link position-relative text-dark">
+                                        <svg class="bi me-2 " style="color:black"  width="15px" height="15px"><use xlink:href="#notify"/></svg>
                                         Notification <span class="badge text-bg-secondary"></span>
                                     </a>
                                 </li>
@@ -222,27 +222,27 @@
                                         </div>
                                     </div>
                                 </li> -->
-                                <li class="nav-item">
-                                    <a href="{{ url('admin/faculty-list') }}"  class="nav-link">
-                                    <svg class="bi me-2 " style="color:white"  width="15px" height="15px"><use xlink:href="#list-faculty"/></svg>
+                                <li class="nav-item text-dark">
+                                    <a href="{{ url('admin/faculty-list') }}"  class="nav-link text-dark">
+                                    <svg class="bi me-2 " style="color:black"  width="15px" height="15px"><use xlink:href="#list-faculty"/></svg>
                                         Users List
                                     </a>
                                 </li>
-                                <li class="nav-item">
-                                    <a href="{{ url('admin/department-setup') }}" class="nav-link">
-                                        <svg class="bi me-2 " style="color:white"  width="15px" height="15px"><use xlink:href="#department-setup"/></svg>
+                                <li class="nav-item text-dark">
+                                    <a href="{{ url('admin/department-setup') }}" class="nav-link text-dark" >
+                                        <svg class="bi me-2 " style="color:black"  width="15px" height="15px"><use xlink:href="#department-setup"/></svg>
                                         Department Setup
                                     </a>
                                 </li>
-                                <li class="nav-item">
-                                    <a href="{{ url('admin/reports') }}" class="nav-link">
-                                        <svg class="bi me-2 " style="color:white"  width="15px" height="15px"><use xlink:href="#report"/></svg>
+                                <li class="nav-item text-dark">
+                                    <a href="{{ url('admin/reports') }}" class="nav-link text-dark">
+                                        <svg class="bi me-2 " style="color:black"  width="15px" height="15px"><use xlink:href="#report"/></svg>
                                         Generate Report
                                     </a>
                                 </li>
-                                <li class="nav-item">
-                                    <a href="{{ url('admin/profile') }}" class="nav-link">
-                                        <svg class="bi me-2 " style="color:white"  width="15px" height="15px"><use xlink:href="#account-settings"/></svg>
+                                <li class="nav-item text-dark">
+                                    <a href="{{ url('admin/profile') }}" class="nav-link text-dark">
+                                        <svg class="bi me-2 " style="color:black"  width="15px" height="15px"><use xlink:href="#account-settings"/></svg>
                                         Account Settings
                                     </a>
                                 </li>
@@ -251,10 +251,10 @@
 
 
                             <li class="nav-item ">
-                                <a class="nav-link " href="{{ route('logout') }}"
+                                <a class="nav-link text-dark" href="{{ route('logout') }}"
                                     onclick="event.preventDefault();
                                     document.getElementById('logout-form').submit();">
-                                    <svg class="bi me-2 " style="color:white"  width="15px" height="15px"><use xlink:href="#side-out"/></svg>
+                                    <svg class="bi me-2 " style="color:black"  width="15px" height="15px"><use xlink:href="#side-out"/></svg>
                                     {{ __('Logout') }}
                                 </a>
                                 <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">

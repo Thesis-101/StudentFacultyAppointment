@@ -149,12 +149,14 @@
             </tbody>
           </table> -->
 
-          <div class="col-md-12 border shadow-sm mt-5">
-            <div class="row">
-                <h5 class="py-3 m-0 header-label ">
+          <h5 class="py-3 m-0 header-label mt-5">
                     <svg class="bi me-2"  width="20px" height="20px"><use xlink:href="#list-appointment"/></svg>
-                    Appointment List</h5>
-                <hr>
+                    Appointment List
+            </h5>
+
+          <div class="col-md-12 ">
+            <div class="row">
+                
                 <!-- <div class="col-md-4 mb-3">
                   <form class="row" action="/student/request-list" method="get">
                       <label for="filter" class="col-form-lable col-md-2 my-auto text-end">Filter:</label>
