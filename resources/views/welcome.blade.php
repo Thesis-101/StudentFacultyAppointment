@@ -43,19 +43,19 @@
             @endif
 
             <div class="container-fluid  jumbotron">
-                <div class="row justify-content-center text-center">
-                    <div class=" col-md-12 py-5 text-center" >
-                        <div class="logo py-5 m-auto"></div>
+                <div class="row bg-dark bg-opacity-75 justify-content-center text-center">
+                    <div class=" col-md-12 py-5  text-center" >
+                        <div class="logo py-5 opacity-100 m-auto"></div>
                     </div>
-                    <h1 class="text-white bg-dark py-2 mb-0">Student Faculty Appointment System</h1>
-                    <div class="col-md-6 bg-dark mb-2">
+                    <h1 class="text-white py-2 mb-0">Student Faculty Appointment System</h1>
+                    <div class="col-md-6  mb-2">
                         <p class="text-light">Student-Faculty Appointment System is a software program that easily manages the process of scheduling appointments for  students of Tagoloan Community College.</p>
                     </div>
                     <div class="row">
                         @auth
                             <a href="/{{Auth::user()->user_type}}" class="btn col-md-4 m-auto btn-lg btn-primary">Get Started</a>
                         @else
-                        <a href="/login" class="btn col-md-4 m-auto btn-lg btn-primary">Get Started</a>
+                        <a href="/login" class="btn col-md-4 m-auto btn-lg btn-primary mb-5">Get Started</a>
                         @endauth
                     </div>
                     

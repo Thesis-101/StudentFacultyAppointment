@@ -2,9 +2,13 @@
 
 @section('content')
 @vite(['resources/js/student-side.js'])
-<div class="container mt-5">
-    <div class="row justify-content-center px-5">
-
+<div class="container mt-3">
+    <div class="row justify-content-center px-4">
+        <h2 class=" m-0 mb-5 header-label">
+            List of Faculty
+            <svg class="bi me-2"  width="25px" height="25px"><use xlink:href="#description-pointer"/></svg>
+            <span class="h5">This panel shows the list of faculty.</span>
+        </h2>
         
 
         <!-- Faculty Details -->
@@ -130,13 +134,13 @@
 
 
 
-        <div class="col-md-6  mt-5">
-              <h5 class=" m-0 header-label ">
+        <div class="col-md-6 bg-white border border-light shadow-lg rounded mt-3">
+              
+            <div class="row">
+               <h5 class="pt-3 m-0  header-label ">
                     <svg class="bi me-2"  width="20px" height="20px"><use xlink:href="#list-faculty"/></svg>
                      Faculty List
                 </h5>
-            <div class="row">
-                
                 <!-- <div class="col-md-6">
                   <form class="row" action="/student/faculty-list" method="get">
                       <label for="filter" class="col-form-lable col-md-2 my-auto text-end">Filter:</label>
@@ -148,17 +152,19 @@
                         </button>
                   </form>
                </div> -->
-                
+               <div class="col-md-12 pt-2 ">
                 <table class="table bg-white shadow-sm container-fluid mt-3">
-                    <thead class="table-dark">
-                      <tr>
-                        <th scope="col">Faculty Name</th>
-                        <th scope="col">Action</th>
-                      </tr>
-                    </thead>
-                    <tbody id="faculty-list">
-                    </tbody>
-                </table>
+                      <thead class="table-dark">
+                        <tr>
+                          <th scope="col">Faculty Name</th>
+                          <th scope="col">Action</th>
+                        </tr>
+                      </thead>
+                      <tbody id="faculty-list">
+                      </tbody>
+                  </table>
+               </div>
+                
             </div>
         </div>
 

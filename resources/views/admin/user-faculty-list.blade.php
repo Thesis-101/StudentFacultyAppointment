@@ -4,6 +4,13 @@
 @vite(['resources/js/faculty-list.js'])
 <div class="container">
     <div class="row justify-content-center px-4">
+        
+        <h2 class=" m-0 mb-5 mt-3 header-label">
+            User List
+            <svg class="bi me-2"  width="25px" height="25px"><use xlink:href="#description-pointer"/></svg>
+            <span class="h5">All users including faculty and students are viewed here.</span>
+        </h2>
+
         <!-- Modal -->
         @foreach($userList as $user)
         @if($user['user_type'] != "admin")
@@ -136,16 +143,7 @@
 
           <!-- Add User Form -->
 
-
-          <div class="col-md-12 mt-5">
-            <div class="row">
-                <h5 class="py-3 m-0 header-label col-md-6">
-                    <svg class="bi me-2"  width="20px" height="20px"><use xlink:href="#list-faculty"/></svg>
-                    User List</h5>
-                    <div class="col-md-6 text-end pb-3">
-                      <button id="add" class="btn btn-md btn-primary col-md-4 mt-3" data-bs-toggle="modal" data-bs-target="#addUser">Add User</button>
-                    </div>
-                <!-- <div class="col-md-4 mb-3">
+             <!-- <div class="col-md-4 mb-3">
                   <form class="row" action="/student/request-list" method="get">
                       <label for="filter" class="col-form-lable col-md-2 my-auto text-end">Filter:</label>
                         <div class="col-md-8">
@@ -156,36 +154,44 @@
                         </button>
                   </form>
                </div> -->
-               
-                <table class="table bg-white shadow-sm container-fluid">
-                    <thead class="table-dark">
-                        <tr>
-                          <th scope="col">ID Number</th>
-                          <th scope="col">Name</th>
-                          <th scope="col">Department</th>
-                          <th scope="col">User Type</th>
-                          <th scope="col">Email</th>
-                          <th scope="col">Action</th>
-                        </tr>
-                    </thead>
-                    <tbody id="faculty-list">
-                      @foreach($userList as $user)
-                        @if($user['user_type'] != "admin")
-                        <tr data-id="{{ $user['id'] }}"> 
-                            <td class="facultyIdNumber">{{ $user['userInstitution_id'] }}</td> 
-                            <td class="facultyName">{{ $user['name'] }}</td> 
-                            <td class="facultyDepartment">{{ $user['department'] }}</td> 
-                            <td class="userType">{{ $user['user_type'] }}</td> 
-                            <td class="facultyEmail">{{ $user['email'] }}</td> 
-                            <td class="actionBTN">
-                                <button class="profileEdit btn btn-sm btn-primary me-1" data-bs-toggle="modal" data-bs-target="#personalDetails{{$user['id']}}">View Details</button>
-                                <button class="delete btn btn-sm btn-danger">Delete</button>
-                            </td>
-                        </tr>
-                        @endif
-                      @endforeach
-                    </tbody>
-                </table>
+          <div class="col-md-12 mt-1 border border-light shadow-lg rounded bg-white">
+            <div class="row">
+                    
+                    <div class="col-md-6 text-start pb-3">
+                      <button id="add" class="btn btn-md btn-primary col-md-4 mt-3" data-bs-toggle="modal" data-bs-target="#addUser">Add User</button>
+                    </div>
+                    
+                    <div class="col-md-12 ">
+                        <table class="table bg-white shadow-sm container-fluid">
+                            <thead class="table-dark">
+                                <tr>
+                                <th scope="col">ID Number</th>
+                                <th scope="col">Name</th>
+                                <th scope="col">Department</th>
+                                <th scope="col">User Type</th>
+                                <th scope="col">Email</th>
+                                <th scope="col">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody id="faculty-list">
+                            @foreach($userList as $user)
+                                @if($user['user_type'] != "admin")
+                                <tr data-id="{{ $user['id'] }}"> 
+                                    <td class="facultyIdNumber">{{ $user['userInstitution_id'] }}</td> 
+                                    <td class="facultyName">{{ $user['name'] }}</td> 
+                                    <td class="facultyDepartment">{{ $user['department'] }}</td> 
+                                    <td class="userType">{{ $user['user_type'] }}</td> 
+                                    <td class="facultyEmail">{{ $user['email'] }}</td> 
+                                    <td class="actionBTN">
+                                        <button class="profileEdit btn btn-sm btn-primary me-1" data-bs-toggle="modal" data-bs-target="#personalDetails{{$user['id']}}">View Details</button>
+                                        <button class="delete btn btn-sm btn-danger">Delete</button>
+                                    </td>
+                                </tr>
+                                @endif
+                            @endforeach
+                            </tbody>
+                        </table>
+                    </div>
             </div>
           </div>  
         </div>

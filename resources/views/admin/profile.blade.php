@@ -2,9 +2,13 @@
 
 @section('content')
 @vite(['resources/js/profileUpdate.js'])
-<div class="container mt-5">
-    <div class="row justify-content-center">
-
+<div class="container">
+    <div class="row justify-content-center px-4">
+        <h2 class=" m-0 mb-5 mt-3 header-label">
+            Account Settings
+            <svg class="bi me-2"  width="25px" height="25px"><use xlink:href="#description-pointer"/></svg>
+            <span class="h5">This panel is for updating profile and changing of password.</span>
+        </h2>
         <form action="/updateProfile" id="profile_setup_frm" method="post" enctype="multipart/form-data">
             <div class="modal fade" id="personalDetails" tabindex="-1" aria-labelledby="personalDetailsLabel" aria-hidden="true">
             <div class="modal-dialog">

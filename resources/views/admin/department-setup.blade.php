@@ -4,7 +4,11 @@
 @vite(['resources/js/department-list.js'])
 <div class="container">
     <div class="row justify-content-center px-4">
-
+        <h2 class=" m-0 mb-5 mt-3 header-label">
+            Department Setup
+            <svg class="bi me-2"  width="25px" height="25px"><use xlink:href="#description-pointer"/></svg>
+            <span class="h5">Adding, editing, or deleting a department is done here.</span>
+        </h2>
         <!-- Add User Form -->
         <!-- <form action="/admin/addUser" id="user_setup_frm" method="post"> -->
             <div class="modal fade" id="addDepartment" tabindex="-1" aria-labelledby="addDepartmentLabel" aria-hidden="true">
@@ -38,12 +42,9 @@
           <!-- Add User Form -->
 
 
-          <div class="col-md-6 mt-5">
+          <div class="col-md-6 mt-1 border border-light shadow-lg rounded bg-white">
             <div class="row">
-                <h5 class="py-3 m-0 header-label col-md-6">
-                    <svg class="bi me-2"  width="20px" height="20px"><use xlink:href="#department"/></svg>
-                    Department List</h5>
-                    <div class="col-md-6 text-end pb-3">
+                    <div class="col-md-6 text-start pb-3">
                       <button id="add" class="btn btn-md btn-primary col-md-6 mt-3" data-bs-toggle="modal" data-bs-target="#addDepartment">Add Department</button>
                     </div>
                 <!-- <div class="col-md-4 mb-3">
@@ -57,7 +58,7 @@
                         </button>
                   </form>
                </div> -->
-               
+               <div class="col-md-12 ">
                 <table class="table bg-white shadow-sm container-fluid">
                     <thead class="table-dark">
                         <tr>
@@ -68,6 +69,8 @@
                     <tbody id="department-list">
                     </tbody>
                 </table>
+               </div>
+                
             </div>
           </div>  
         </div>

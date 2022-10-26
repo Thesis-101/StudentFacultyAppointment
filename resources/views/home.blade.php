@@ -4,9 +4,16 @@
 @vite(['resources/js/student-side.js'])
 @vite(['resources/js/request-list.js'])
 
-<div class="container mt-5">
+<div class="container mt-3">
     <div class="row justify-content-center px-4">
-        <div class="col px-0 card shadow-sm mx-1" style="width: 18rem;">
+
+        <h2 class=" m-0 mb-5 header-label">
+            Dashboard
+            <svg class="bi me-2"  width="25px" height="25px"><use xlink:href="#description-pointer"/></svg>
+            <span class="h5">This panel shows appointment reports and transaction details.</span>
+        </h2>
+
+        <div class="col px-0 card shadow mx-1" style="width: 18rem;">
             <div class="card-body row text-center py-5">
                 <h1 class="col m-auto card-title" id="totalTransactions"></h1>
                 <h6 class="col m-auto card-subtitle text-muted">Total Appointments</h6>
@@ -14,7 +21,7 @@
             <div class="card-footer bg-primary">
             </div>
         </div>
-        <div class="col px-0 card shadow-sm mx-1" style="width: 18rem;">
+        <div class="col px-0 card shadow mx-1" style="width: 18rem;">
             <div class="card-body row text-center py-5">
                 <h1 class="col m-auto card-title" id="pendingTransactions"></h1>
                 <h6 class="col m-auto card-subtitle text-muted">Pending Appointments</h6>
@@ -22,7 +29,7 @@
             <div class="card-footer bg-warning">
             </div>
         </div>
-        <div class="col px-0 card shadow-sm mx-1" style="width: 18rem;">
+        <div class="col px-0 card shadow mx-1" style="width: 18rem;">
             <div class="card-body row text-center py-5">
                 <h1 class="col m-auto card-title" id="acceptedTransactions"></h1>
                 <h6 class="col m-auto card-subtitle text-muted ">Accepted Appointments</h6>
@@ -30,7 +37,7 @@
             <div class="card-footer bg-success">
             </div>
         </div>
-        <div class="col px-0 card shadow-sm mx-1" style="width: 18rem;">
+        <div class="col px-0 card shadow mx-1" style="width: 18rem;">
             <div class="card-body row text-center py-5">
                 <h1 class="col m-auto card-title" id="declinedTransactions"></h1>
                 <h6 class="col m-auto card-subtitle text-muted">Cancelled/Declined Appointments</h6>
@@ -39,24 +46,27 @@
             </div>
         </div>
 
-        <h5 class=" mt-5 py-3 m-0 header-label ">
+        
+        <div class="col-md-12  bg-white border border-light shadow-lg rounded mt-5">
+            <div class="row">
+                    <h5 class="pt-3 m-0  header-label ">
                     <svg class="bi me-2"  width="20px" height="20px"><use xlink:href="#transaction"/></svg>
                     Transaction List</h5>
-        <div class="col-md-12  shadow-sm  bg-white">
-            <div class="row">
-                <table class="table bg-white shadow-sm container-fluid">
-                    <thead class="table-dark">
-                    <tr>
-                        <th scope="col">Faculty Name</th>
-                        <th scope="col">Designated Office</th>
-                        <th scope="col">Time Slot</th>
-                        <th scope="col">Date</th>
-                        <th scope="col">Status</th>
-                    </tr>
-                    </thead>
-                    <tbody id="request-list">
-                    </tbody>
-                </table>
+                <div class="col-md-12 pt-3 ">
+                    <table class="table bg-white shadow-sm container-fluid">
+                        <thead class="table-dark">
+                        <tr>
+                            <th scope="col">Faculty Name</th>
+                            <th scope="col">Designated Office</th>
+                            <th scope="col">Time Slot</th>
+                            <th scope="col">Date</th>
+                            <th scope="col">Status</th>
+                        </tr>
+                        </thead>
+                        <tbody id="request-list">
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
 

@@ -2,8 +2,16 @@
 
 @section('content')
 @vite(['resources/js/appointment-list.js'])
-<div class="container-lg mt-5">
+<div class="container-lg mt-3">
     <div class="row justify-content-center px-4">
+
+        <h2 class=" m-0 mb-5 header-label">
+            Appointment List
+            <svg class="bi me-2"  width="25px" height="25px"><use xlink:href="#description-pointer"/></svg>
+            <span class="h5">This panel is for responding to appointments and viewing student details as well.</span>
+        </h2>
+
+
         <!-- Modal -->
         <div class="modal fade" id="addForm" tabindex="-1" aria-labelledby="addFormLabel" aria-hidden="true">
           <div class="modal-dialog">
@@ -149,12 +157,7 @@
             </tbody>
           </table> -->
 
-          <h5 class="py-3 m-0 header-label mt-5">
-                    <svg class="bi me-2"  width="20px" height="20px"><use xlink:href="#list-appointment"/></svg>
-                    Appointment List
-            </h5>
-
-          <div class="col-md-12 ">
+          <div class="col-md-12 bg-white border border-light shadow-lg rounded mt-3">
             <div class="row">
                 
                 <!-- <div class="col-md-4 mb-3">
@@ -168,20 +171,24 @@
                         </button>
                   </form>
                </div> -->
-                <table class="table bg-white shadow-sm container-fluid">
-                    <thead class="table-dark">
-                        <tr>
-                          <th scope="col">Student Name</th>
-                          <th scope="col">Day</th>
-                          <th scope="col">Time Slot</th>
-                          <th scope="col">Date</th>
-                          <th scope="col">Status</th>
-                          <th scope="col">Action</th>
-                        </tr>
-                    </thead>
-                    <tbody id="appointment-list">
-                    </tbody>
-                </table>
+
+               <div class="col-md-12 pt-3 ">
+                  <table class="table bg-white shadow-sm container-fluid">
+                      <thead class="table-dark">
+                          <tr>
+                            <th scope="col">Student Name</th>
+                            <th scope="col">Day</th>
+                            <th scope="col">Time Slot</th>
+                            <th scope="col">Date</th>
+                            <th scope="col">Status</th>
+                            <th scope="col">Action</th>
+                          </tr>
+                      </thead>
+                      <tbody id="appointment-list">
+                      </tbody>
+                  </table>
+               </div>
+                
             </div>
           </div>  
         </div>

@@ -2,13 +2,18 @@
 
 @section('content')
 @vite(['resources/js/reports.js','resources/js/jquery.table2excel.js'])
-<div class="container-lg py-5 100vh">
+<div class="container-lg ">
     <div class="row justify-content-center px-4">
+        <h2 class=" m-0 mb-5 mt-3 header-label">
+            Generate Report
+            <svg class="bi me-2"  width="25px" height="25px"><use xlink:href="#description-pointer"/></svg>
+            <span class="h5">This panel is for generating reports.</span>
+        </h2>
 
         <form id="filter_form" action="" method="get">
-                <div class="col-md-12">
+                <div class="col-md-12 mt-3 mb-1">
                     <div class="row">
-                        <p class="col-md-1 mb-0 align-self-center">Filter Status:</p>
+                        <p class="col-md-1 mb-0 align-items-center">Filter Status:</p>
                         
                         <div class="col-md-3">
                             <select name="filterStatus" id="filterStatus" class="form-select" placeholder="Select Status">
@@ -26,16 +31,12 @@
         </form>
 
 
-        <h5 class="py-3 m-0 header-label mt-5">
-                    <svg class="bi me-2"  width="20px" height="20px"><use xlink:href="#transaction"/></svg>
-                    Transaction List</h5>
-
-          <div class="col-md-12">
+          <div class="col-md-12 bg-white border border-light shadow-lg rounded">
             <div class="row">
-                
-                <button class="btn btn-sm btn-primary col-md-2 mx-2 mb-2" id="test">Export</button>
+                <div class="col-md-12 pt-3 text-end">
+                <button class="btn  btn-sm btn-primary col-md-2 mx-2 mb-2" id="test">Export</button>
                 <hr hidden>
-                <table class="toExport_tbl table bg-white shadow-sm container-fluid">
+                <table class="toExport_tbl table text-start bg-white shadow-sm container-fluid">
                     <thead class="table-dark">
                     <tr>
                         <th scope="col">Student Name</th>
@@ -49,6 +50,8 @@
                     <tbody id="report-list">
                     </tbody>
                 </table>
+                </div>
+                
 
             </div>
         </div>
