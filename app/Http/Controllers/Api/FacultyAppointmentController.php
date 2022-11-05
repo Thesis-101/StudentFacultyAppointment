@@ -7,6 +7,8 @@ use App\Models\Requests;
 use App\Models\Notification;
 use Illuminate\Http\Request;
 use App\Http\Requests\AppointmentRequest;
+use App\Mail\MailNotify;
+use Mail;
 
 class FacultyAppointmentController extends Controller
 {
@@ -80,12 +82,20 @@ class FacultyAppointmentController extends Controller
      */
     public function update(AppointmentRequest $request, $id)
     {
-        try {
+        $email_data = [
+            'subject' => 'Appointment Email Notification',
+            'body' => $request->message
+        ];
+
+        try {     
             Notification::create([
                 'user_id' => $request->student_id,
                 'message' => $request->message,
                 'state' => $request->state
             ]);
+
+            Mail::to($request->student_email)->send(new MailNotify($email_data));
+            
             $data = Requests::find($id);
             if(!$data){
                 return response()->json([

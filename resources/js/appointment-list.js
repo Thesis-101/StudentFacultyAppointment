@@ -36,6 +36,7 @@ $(function (){
 
     let rowTemplate =   '<tr data-id={{id}} id=row{{id}} >' +
                             '<td class="student-id" hidden><span><strong>{{students.userInstitution_id}}</strong></span></td>' +
+                            '<td class="student-email" hidden>{{students.email}}</td>' +
                             '<td class="student-name">{{students.name}}</td>' +
                             '<td class="student-department" hidden>{{students.department}}</td>' +
                             '<td class="request-type" hidden>{{request_type}}</td>' +
@@ -159,6 +160,7 @@ $(function (){
 
         edited = {
             student_id:     targetRow.find('td.student-id').text(),
+            student_email:  targetRow.find('td.student-email').text(),
             message:        'Appointment Declined.',
             state:          'danger', 
             vacant_id:      targetRow.find('td.vacantId').text(),

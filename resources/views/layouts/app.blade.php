@@ -109,9 +109,13 @@
         <main class="bg-light" style="height: 100vh !important;">
             <div class="d-flex flex-column flex-shrink-0 text-white bg-white shadow-lg" style="width: 220px; ">
                 <div class="text-center mt-4">
-                    @php($profile_pic = Auth::user()->profile_img)
+                    @guest
+                        @else
+                        @php($profile_pic = Auth::user()->profile_img)
+                    
                     <img id="side-pic" width="80px" height="80px" class="border-rounded" src="@if($profile_pic == null ) {{asset('storage/images/default-avatar.jpg')}} @else {{asset('storage/'.$profile_pic)}} @endif" alt="Profile Pic">
                     <p id="userName" class="fs-5 mb-0 text-dark text-decoration-none ">{{ Auth::user()->name }}</p>
+                    @endguest
                 </div>
                 <hr>
 
@@ -188,7 +192,7 @@
                                 <li class="nav-item text-dark">
                                     <a href="{{ url('student/faculty-list') }}" class="nav-link text-dark">
                                         <svg class="bi me-2 " style="color:black"  width="15px" height="15px"><use xlink:href="#list-faculty"/></svg>
-                                        List of Faculty
+                                        Book an Appointment
                                     </a>
                                 </li>
                                 <li class="nav-item text-dark">
