@@ -98,7 +98,7 @@
                 <div class="row mb-2">
                   <label for="date" class="col-form-label col-md-3">Date:</label>
                   <div class="col-md-9">
-                    <input class="form-control" type="date" name="date" id="date">
+                    <input class="form-control appointmentDate" type="date" name="date" id="date">
                   </div>
                 </div>
 
@@ -113,7 +113,7 @@
                   <label for="attendee" class="col-form-label col-md-3">Attendee Type:</label>
                   <div class="col-md-9">
                     <select name="attendee" id="attendee" class="form-select">
-                      <option value="" selected>--------</option>
+                      <option value="" selected></option>
                       <option value="individual" >Individual</option>
                       <option value="group" >Group</option>
                     </select>
@@ -124,7 +124,7 @@
               </div>
               <div class="modal-footer apiBtn">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button id="appoint" type="button" class="btn btn-primary" data-bs-dismiss="modal">Save</button>
+                <button id="appoint" type="button" class="btn btnWatcher btn-primary" data-bs-dismiss="modal">Save</button>
               </div>
             </div>
           </div>

@@ -114,10 +114,10 @@
                         @php($profile_pic = Auth::user()->profile_img)
                     
                     <img id="side-pic" width="80px" height="80px" class="border-rounded" src="@if($profile_pic == null ) {{asset('storage/images/default-avatar.jpg')}} @else {{asset('storage/'.$profile_pic)}} @endif" alt="Profile Pic">
-                    <p id="userName" class="fs-5 mb-0 text-dark text-decoration-none ">{{ Auth::user()->name }}</p>
+                    <p id="userName" class="fs-5 mb-3 text-dark text-decoration-none ">{{ Auth::user()->name }}</p>
                     @endguest
                 </div>
-                <hr>
+                <h5 class="text-white text-center bg-secondary py-1"><i>Main Menu</i></h5>
 
                 <ul class="nav nav-pills flex-column mb-auto">
                 @guest

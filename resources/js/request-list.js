@@ -47,7 +47,6 @@ $( function () {
         type: 'GET',
         url: '/api/request',
         success: function(vacant){
-            console.log(vacant);
             $.each(vacant, function(i, vacant_details){
                 if(vacant_details.status == "pending"){
                     appendPending(vacant_details);

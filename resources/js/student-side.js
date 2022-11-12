@@ -22,6 +22,18 @@ $(function (){
     const urlParams = new URLSearchParams(window.location.search);
     const department = urlParams.get('department');
 
+    const dayIdentifier = {
+        sunday : 0,
+        monday : 1,
+        tuesday : 2,
+        wednesday : 3,
+        thursday : 4,
+        friday : 5,
+        saturday : 6
+    }
+
+    let actualDay;
+
     let total = 0;
     let pending = 0;
     let accepted = 0;
@@ -29,10 +41,12 @@ $(function (){
 
     let facultyVacant = [];
 
+    let requestDataToDisable = [];
+
     let rowId;
     let id;
 
-    let rowTemplate =   '<tr class="fragile"  data-id={{id}} id=row{{id}} >' +
+    let rowTemplate =   '<tr class="fragile"  data-id={{id}} id=row{{id}}>' +
                             '<td class="faculty-id" hidden><span><strong>{{userInstitutional_id}}</strong></span></td>' +
                             '<td class="faculty-name" hidden>{{users.name}}</td>' +
                             '<td class="day">{{day}}</td>' +
@@ -41,11 +55,20 @@ $(function (){
                             '<td><button class="triggerAppoint btn btn-sm btn-primary px-3" data-id="{{id}}" data-bs-toggle="modal" data-bs-target="#addForm">Appoint</button></td>' +
                         '</tr>' 
     
-    let facultyRowTemplate =   '<tr data-id={{id}} id=row{{id}} >' +
+    let facultyRowTemplate =   '<tr data-id={{id}} id=row{{id}}>' +
                                     '<td class="faculty-department" hidden>{{department}}</td>' +
                                     '<td class="faculty-id" hidden>{{userInstitution_id}}</td>'+
                                     '<td class="faculty-name"><span><strong>{{name}}</strong></span></td>' +
                                     '<td width="125px"><button class="view btn btn-sm btn-primary px-3" data-id="{{id}}" data-bs-toggle="modal" data-bs-target="#details">View Vacant</button></td>' +
+                                '</tr>' 
+
+    let rowTemplateDisabled =   '<tr class="fragile"  data-id={{id}} id=row{{id}}>' +
+                                            '<td class="faculty-id" hidden><span><strong>{{userInstitutional_id}}</strong></span></td>' +
+                                            '<td class="faculty-name" hidden>{{users.name}}</td>' +
+                                            '<td class="day">{{day}}</td>' +
+                                            '<td class="faculty-office">{{designated_office}}</td>' +
+                                            '<td class="faculty-time">{{vacant_time}}</td>' +
+                                            '<td><button class="triggerAppoint btn btn-sm btn-warning disabled px-3" data-id="{{id}}" data-bs-toggle="modal" data-bs-target="#addForm">Not Available</button></td>' +
                                 '</tr>' 
 
     function appendVacant(details){
@@ -56,21 +79,29 @@ $(function (){
         facultyList.prepend(Mustache.render(facultyRowTemplate,details));
     }
 
+    function appendDisabled(details){
+        list.prepend(Mustache.render(rowTemplateDisabled,details));
+    }
+
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     //Added Events
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     list.delegate('tr','click', function(){
         rowId = $(this).data('id');
+        actualDay = dayIdentifier[($(this).find('td.day').text())];
         let dataArry = [];
         $(this).children('td').each(function (i){
             dataArry.push($(this).text());
         });
-
         id = dataArry[0];
         day.val(dataArry[2]) ;
         time.val(dataArry[4]) ;
         office.val(dataArry[3]) ;
+    });
+
+    list.delegate('.triggerAppoint','click',function(){
+        date.val('');
     });
     
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -79,10 +110,26 @@ $(function (){
 
     facultyList.delegate('.view', 'click', function(){
         let targetRow = $(this).closest('tr');
+        let dataSkip;
         $('.fragile').remove();
         $.each(facultyVacant, function(i, vacant_details){
             if(targetRow.find('td.faculty-id').text() == vacant_details.userInstitutional_id){
-                appendVacant(vacant_details);
+                $.each(requestDataToDisable, function(element, dataToDisable){
+                    if(dataToDisable.vacant_id == vacant_details.id && dataToDisable.status == "pending"){
+                        appendDisabled(vacant_details);
+                        dataSkip = vacant_details.id;
+                        return;
+                    }
+                    // else if(dataToDisable.vacant_id == vacant_details.id && dataToDisable.status == "Accepted"){
+                    //     appendVacant(vacant_details);
+                    //     return;
+                    // }
+                });
+
+                if(vacant_details.id != dataSkip){
+                    appendVacant(vacant_details);
+                }
+                
             }
         });
         viewFacultyId.html(targetRow.find('td.faculty-id').text());
@@ -99,7 +146,7 @@ $(function (){
             });
         }
     });
-    
+    console.log(requestDataToDisable);
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     //Display All Faculty
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -113,6 +160,7 @@ $(function (){
             });
         }
     });
+    console.log(facultyVacant);
 
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -124,6 +172,7 @@ $(function (){
         url: '/api/request',
         success: function(faculty){
             $.each(faculty, function(i, appointment){
+                requestDataToDisable.push(appointment);
                 total++;
                 if(appointment.status == "Accepted"){
                     accepted++;
@@ -170,15 +219,60 @@ $(function (){
             data: newAppointment,
             success: function (newVacant) {
                 alert("Appointment Added");
-                day.val(''),
-                time.val(''),
-                date.val(''),
-                requestType.val(''),
-                attendee.val('')
+                day.val('');
+                time.val('');
+                date.val('');
+                requestType.val('');
+                attendee.val('');
+                location.reload(true);
             },
             error: function () {
                 alert("An error while saving data");
             },
         });
+    });
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    //Date validation
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    const validate = dateString => {
+        const day = (new Date(dateString)).getDay();
+        if (day != actualDay) {
+          return false;
+        }
+        return true;
+      }
+      
+      // Sets the value to '' in case of an invalid date
+      document.querySelector('.appointmentDate').onchange = evt => {
+        if (!validate(evt.target.value)) {
+          evt.target.value = '';
+          alert('Invalid Day/Date!');
+        }
+      }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    //Button validation
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    $('.btnWatcher').attr('disabled', true);
+
+    function scanBtn(){
+        if(date.val() == '' || requestType.val() == '' || attendee.val() == ''){
+            $('.btnWatcher').attr('disabled', true);
+        }else{
+            $('.btnWatcher').attr('disabled', false);
+        }
+    }
+
+    date.change(function(){
+        scanBtn();
+    });
+
+    requestType.change(function(){
+        scanBtn();
+    });
+
+    attendee.change(function(){
+        scanBtn();
     });
 });

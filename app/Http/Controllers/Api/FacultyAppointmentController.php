@@ -94,9 +94,12 @@ class FacultyAppointmentController extends Controller
                 'state' => $request->state
             ]);
 
-            Mail::to($request->student_email)->send(new MailNotify($email_data));
             
+            Mail::to($request->student_email)->send(new MailNotify($email_data));
+        
+
             $data = Requests::find($id);
+            
             if(!$data){
                 return response()->json([
                     'message' => 'Record not found.'
