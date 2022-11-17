@@ -95,12 +95,14 @@
                   </div>
                 </div>
 
+              <!--- Calendar Component ---->
                 <div class="row mb-2">
-                  <label for="date" class="col-form-label col-md-3">Date:</label>
-                  <div class="col-md-9">
-                    <input class="form-control appointmentDate" type="date" name="date" id="date">
-                  </div>
+                    <label for="date" class="col-form-label col-md-3">Date:</label>
+                    <div class="col-md-9">
+                        <input class="form-control appointmentDate" type="date" name="date" id="date" placeholder="Select Date">
+                    </div>
                 </div>
+              <!--- Calendar Component ---->
 
                 <div class="row mb-2">
                   <label for="attendee" class="col-form-label col-md-3">Purpose:</label>
@@ -109,12 +111,12 @@
                   </div>
                 </div>
 
-                <div class="row mb-2">
+                <div class="row mb-2" hidden>
                   <label for="attendee" class="col-form-label col-md-3">Attendee Type:</label>
                   <div class="col-md-9">
                     <select name="attendee" id="attendee" class="form-select">
-                      <option value="" selected></option>
-                      <option value="individual" >Individual</option>
+                      <option value="" ></option>
+                      <option value="individual" selected>Individual</option>
                       <option value="group" >Group</option>
                     </select>
                   </div>
@@ -132,7 +134,7 @@
 
         <input type="text" name="requesitor" id="requesitor" value="{{ Auth::user()->id }}" hidden>
 
-
+        
 
         <div class="col-md-6 bg-white border border-light shadow-lg rounded mt-3">
               

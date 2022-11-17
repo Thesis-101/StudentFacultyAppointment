@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Notification;
 use App\Models\User;
+use App\Models\Requests;
 
 class StudentAppointmentController extends Controller
 {
@@ -32,6 +33,12 @@ class StudentAppointmentController extends Controller
 
     public function getFaculty(){
         $data = User::where('user_type','faculty')->get();
+
+        return $data;
+    }
+
+    public function getAllRequest(){
+        $data = Requests::all();
 
         return $data;
     }

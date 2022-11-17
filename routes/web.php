@@ -46,6 +46,7 @@ Route::group(['prefix' => 'student', 'middleware' => ['role:student','auth']], f
     Route::get('request-list', [StudentAppointmentController::class, 'requestList']);
     Route::get('profile', [StudentAppointmentController::class, 'profile']);
     Route::get('getFaculty', [StudentAppointmentController::class, 'getFaculty']);
+    Route::get('load-requests', [StudentAppointmentController::class, 'getAllRequest']);
 });
 
 //Admin

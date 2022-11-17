@@ -1,3 +1,5 @@
+import flatpickr from "flatpickr";
+
 $(function (){
     const list = $('#schedule-list');
     const facultyList = $('#faculty-list');
@@ -32,7 +34,17 @@ $(function (){
         saturday : 6
     }
 
+    let config = {
+        disable: [],
+        minDate: "today"
+    };
+
+    let fp = flatpickr('input[type=date]',config);
+
     let actualDay;
+
+    let configDay;
+    
 
     let total = 0;
     let pending = 0;
@@ -52,7 +64,7 @@ $(function (){
                             '<td class="day">{{day}}</td>' +
                             '<td class="faculty-office">{{designated_office}}</td>' +
                             '<td class="faculty-time">{{vacant_time}}</td>' +
-                            '<td><button class="triggerAppoint btn btn-sm btn-primary px-3" data-id="{{id}}" data-bs-toggle="modal" data-bs-target="#addForm">Appoint</button></td>' +
+                            '<td><button class="triggerAppoint btn btn-sm btn-primary px-3" data-id="{{id}}" data-bs-toggle="modal" data-bs-target="#addForm">Book</button></td>' +
                         '</tr>' 
     
     let facultyRowTemplate =   '<tr data-id={{id}} id=row{{id}}>' +
@@ -88,8 +100,21 @@ $(function (){
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     list.delegate('tr','click', function(){
+        config.disable = [];
+        fp.destroy();
+        $.each(requestDataToDisable, function(i, dataDates){
+            config.disable.push(dataDates.date);
+        });
         rowId = $(this).data('id');
         actualDay = dayIdentifier[($(this).find('td.day').text())];
+        configDay = dayIdentifier[($(this).find('td.day').text())];
+
+        config.disable.push(function(date){
+            return (date.getDay() != configDay);
+        });
+
+        fp = flatpickr('input[type=date]',config);
+        
         let dataArry = [];
         $(this).children('td').each(function (i){
             dataArry.push($(this).text());
@@ -98,11 +123,14 @@ $(function (){
         day.val(dataArry[2]) ;
         time.val(dataArry[4]) ;
         office.val(dataArry[3]) ;
+        console.log(config.disable.toString());
     });
 
     list.delegate('.triggerAppoint','click',function(){
         date.val('');
     });
+    
+
     
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     //Display All Faculty Vacant List
@@ -111,24 +139,26 @@ $(function (){
     facultyList.delegate('.view', 'click', function(){
         let targetRow = $(this).closest('tr');
         let dataSkip;
+        
         $('.fragile').remove();
         $.each(facultyVacant, function(i, vacant_details){
             if(targetRow.find('td.faculty-id').text() == vacant_details.userInstitutional_id){
-                $.each(requestDataToDisable, function(element, dataToDisable){
-                    if(dataToDisable.vacant_id == vacant_details.id && dataToDisable.status == "pending"){
-                        appendDisabled(vacant_details);
-                        dataSkip = vacant_details.id;
-                        return;
-                    }
-                    // else if(dataToDisable.vacant_id == vacant_details.id && dataToDisable.status == "Accepted"){
-                    //     appendVacant(vacant_details);
-                    //     return;
-                    // }
-                });
+                appendVacant(vacant_details);
+                // $.each(requestDataToDisable, function(element, dataToDisable){
+                //     if(dataToDisable.vacant_id == vacant_details.id && dataToDisable.status == "pending"){
+                //         appendDisabled(vacant_details);
+                //         dataSkip = vacant_details.id;
+                //         return;
+                //     }
+                //     // else if(dataToDisable.vacant_id == vacant_details.id && dataToDisable.status == "Accepted"){
+                //     //     appendVacant(vacant_details);
+                //     //     return;
+                //     // }
+                // });
 
-                if(vacant_details.id != dataSkip){
-                    appendVacant(vacant_details);
-                }
+                // if(vacant_details.id != dataSkip){
+                //     appendVacant(vacant_details);
+                // }
                 
             }
         });
@@ -146,7 +176,7 @@ $(function (){
             });
         }
     });
-    console.log(requestDataToDisable);
+    
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     //Display All Faculty
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -172,7 +202,6 @@ $(function (){
         url: '/api/request',
         success: function(faculty){
             $.each(faculty, function(i, appointment){
-                requestDataToDisable.push(appointment);
                 total++;
                 if(appointment.status == "Accepted"){
                     accepted++;
@@ -188,6 +217,17 @@ $(function (){
             pendingCard.text(pending);
             acceptedCard.text(accepted);
             declinedCard.text(declined);
+        }
+    });
+
+
+    $.ajax({
+        type: 'GET',
+        url: 'load-requests',
+        success: function(faculty){
+            $.each(faculty, function(i, appointment){
+                requestDataToDisable.push(appointment);
+            });
         }
     });
 
@@ -235,6 +275,13 @@ $(function (){
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     //Date validation
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    function reveal(){
+        
+    }
+     
+        //disable unwanted dates
+    
+
     const validate = dateString => {
         const day = (new Date(dateString)).getDay();
         if (day != actualDay) {
@@ -244,12 +291,13 @@ $(function (){
       }
       
       // Sets the value to '' in case of an invalid date
-      document.querySelector('.appointmentDate').onchange = evt => {
+    document.querySelector('.appointmentDate').onchange = evt => {
         if (!validate(evt.target.value)) {
           evt.target.value = '';
           alert('Invalid Day/Date!');
         }
       }
+    
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     //Button validation

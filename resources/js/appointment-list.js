@@ -54,11 +54,56 @@ $(function (){
                                 // '<button class="triggerChange mx-1  btn btn-sm btn-warning px-3" data-id="{{id}}"  data-id="{{id}}" data-bs-toggle="modal" data-bs-target="#addForm" >Reschedule</button>' +
                                 // '<button class="triggerDecline mx-1  btn btn-sm btn-danger px-3" data-id="{{id}}" data-id="{{id}}" data-bs-toggle="modal" data-bs-target="#reasonForm">Decline</button>' +
                             '</td>'+
-                        '</tr>' 
+                        '</tr>'
+    
+    let ongoingTemplate =   '<tr data-id={{id}} id=row{{id}} class="bg-warning">' +
+                                '<td class="student-id" hidden><span><strong>{{students.userInstitution_id}}</strong></span></td>' +
+                                '<td class="student-email" hidden>{{students.email}}</td>' +
+                                '<td class="student-name">{{students.name}}</td>' +
+                                '<td class="student-department" hidden>{{students.department}}</td>' +
+                                '<td class="request-type" hidden>{{request_type}}</td>' +
+                                '<td class="attendee-type" hidden>{{attendee_type}}</td>' +
+                                '<td class="day">{{day}}</td>' +
+                                '<td class="time">{{time}}</td>' +
+                                '<td class="date">{{date}}</td>' +
+                                '<td class="status" >{{status}}</td>'+
+                                '<td class="requesitor" hidden>{{requesitor_id}}</td>' +
+                                '<td class="vacantId" hidden>{{vacant_id}}</td>' +
+                                '<td class="facultyId" hidden>{{faculty_id}}</td>' +
+                                '<td>'+
+                                    '<button id="triggerEnd" class="triggerView mx-1 btn btn-sm btn-danger px-3 " data-bs-target="#details" data-id="{{id}}" >End Session</button>' +
+                                '</td>'+
+                            '</tr>'
+    let acceptedTemplate =   '<tr data-id={{id}} id=row{{id}} >' +
+                                '<td class="student-id" hidden><span><strong>{{students.userInstitution_id}}</strong></span></td>' +
+                                '<td class="student-email" hidden>{{students.email}}</td>' +
+                                '<td class="student-name">{{students.name}}</td>' +
+                                '<td class="student-department" hidden>{{students.department}}</td>' +
+                                '<td class="request-type" hidden>{{request_type}}</td>' +
+                                '<td class="attendee-type" hidden>{{attendee_type}}</td>' +
+                                '<td class="day">{{day}}</td>' +
+                                '<td class="time">{{time}}</td>' +
+                                '<td class="date">{{date}}</td>' +
+                                '<td class="status" >{{status}}</td>'+
+                                '<td class="requesitor" hidden>{{requesitor_id}}</td>' +
+                                '<td class="vacantId" hidden>{{vacant_id}}</td>' +
+                                '<td class="facultyId" hidden>{{faculty_id}}</td>' +
+                                '<td>'+
+                                    '<button id="triggerStart" class="triggerView mx-1 btn btn-sm btn-primary px-3" data-bs-target="#details" data-id="{{id}}" >Start Session</button>' +
+                                '</td>'+
+                            '</tr>'
 
     function appendAppointment(details){
-                list.prepend(Mustache.render(rowTemplate,details));
+        list.prepend(Mustache.render(rowTemplate,details));
      }
+
+    function appendOngoing(details){
+        list.prepend(Mustache.render(ongoingTemplate,details));
+    }
+
+    function appendAccepted(details){
+        list.prepend(Mustache.render(acceptedTemplate,details));
+    }
 
 
 
@@ -76,12 +121,15 @@ $(function (){
                 if(appointment.students != null){
                 total++;
                 if(appointment.status == "Accepted"){
+                    appendAccepted(appointment);
                     accepted++;
                 }else if(appointment.status == "Declined"){
                     declined++;
                 }else if(appointment.status == "pending"){
                     appendAppointment(appointment);
                     pending++;
+                }else if(appointment.status == "Ongoing"){
+                    appendOngoing(appointment);
                 }
             }
             });
@@ -103,6 +151,7 @@ $(function (){
         edited.message = "Appointment Accepted.";   
         edited.state = "success";
 
+
         $.ajaxSetup({
             headers: {
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -116,9 +165,13 @@ $(function (){
             success: function (edited) {
                 targetRow.find('td.status').html('Accepted');
                 alert("Appoinment Has Been Accepted.");
+
+                $('.triggerView').removeAttr('data-bs-toggle');
+                $('.triggerView').attr('id','triggerStart');
+                $('.triggerView').text('Start Session');
+
                 accepted++;
                 pending--;
-                targetRow.remove();
                 pendingCard.text(pending);
                 acceptedCard.text(accepted);
             },
@@ -129,29 +182,54 @@ $(function (){
         });
     });
 
-    // list.delegate('.triggerAccept', 'click', function (){
+    list.delegate('#triggerStart','click',function (){
 
-    //        rowId = $(this).data('id');
-    //         targetRow = $(this).closest('tr');
+        rowId = $(this).data('id');
+        targetRow = $(this).closest('tr');
 
-    //      edited = { 
-    //         student_id:     targetRow.find('td.student-id').text(),
-    //         message:        'Appointment Accepted.',
-    //         state:          'success',
-    //         vacant_id:      targetRow.find('td.vacantId').text(),
-    //         requesitor_id:  targetRow.find('td.requesitor').text(),
-    //         faculty_id:     targetRow.find('td.facultyId').text(),
-    //         request_type:   targetRow.find('td.request-type').text(),
-    //         attendee_type:  targetRow.find('td.attendee-type').text(),
-    //         day:            targetRow.find('td.day').text(),
-    //         time:           targetRow.find('td.time').text(),
-    //         date:           targetRow.find('td.date').text(),
-    //         status:         'Approved'
-    //     }
+        edited = {
+            student_id:     targetRow.find('td.student-id').text(),
+            student_email:  targetRow.find('td.student-email').text(),
+            message:        'Session Started.',
+            state:          'success', 
+            vacant_id:      targetRow.find('td.vacantId').text(),
+            requesitor_id:  targetRow.find('td.requesitor').text(),
+            faculty_id:     targetRow.find('td.facultyId').text(),
+            request_type:   targetRow.find('td.request-type').text(),
+            attendee_type:  targetRow.find('td.attendee-type').text(),
+            day:            targetRow.find('td.day').text(),
+            time:           targetRow.find('td.time').text(),
+            date:           targetRow.find('td.date').text(),
+            status:         'Ongoing',
+        }
 
-        
-    // });
-        
+
+        $.ajaxSetup({
+            headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+            });
+
+        $.ajax({
+            type: "PUT",
+            url: "/api/appointments/"+rowId,
+            data: edited,
+            success: function (edited) {
+                alert("You Started The Session.");
+                targetRow.find('td.status').html('On-going');
+                $('.triggerView').attr('id','triggerEnd');
+                $('.triggerView').text('End Session');
+                $('.triggerView').addClass('bg-danger');
+                targetRow.attr('class','bg-warning');
+
+            },
+            error: function () {
+                console.log(rowId);
+                alert("An error while saving data");
+            },
+        });
+    });
+  
     
     list.delegate('.triggerView', 'click', function (){
 
@@ -180,50 +258,12 @@ $(function (){
         viewPurpose.html('<strong>Purpose: </strong>'+ targetRow.find('td.request-type').text());
         viewAttendee.html('<strong>Attendee Type: </strong>'+ targetRow.find('td.attendee-type').text());
 
-    //     edited = {
-    //         student_id:     targetRow.find('td.student-id').text(),
-    //         message:        'Appointment Declined.',
-    //         state:          'danger', 
-    //         vacant_id:      targetRow.find('td.vacantId').text(),
-    //         requesitor_id:  targetRow.find('td.requesitor').text(),
-    //         faculty_id:     targetRow.find('td.facultyId').text(),
-    //         request_type:   targetRow.find('td.request-type').text(),
-    //         attendee_type:  targetRow.find('td.attendee-type').text(),
-    //         day:            targetRow.find('td.day').text(),
-    //         time:           targetRow.find('td.time').text(),
-    //         date:           targetRow.find('td.date').text(),
-    //         status:         'Declined'
-    //  }
+
  });
 
 
-    //  $.ajaxSetup({
-    //      headers: {
-    //                  'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-    //              }
-    //      });
-
-    //  $.ajax({
-    //      type: "PUT",
-    //      url: "/api/appointments/"+rowId,
-    //      data: edited,
-    //      success: function (edited) {
-    //          console.log(edited);
-    //          alert("Appoinment Has Been Declined.");
-    //          targetRow.remove();
-    //      },
-    //      error: function () {
-    //          console.log(edited);
-    //          console.log(rowId);
-    //          alert("An error while saving data");
-    //      },
-    //  });
-
 
  list.delegate('.triggerChange', 'click', function (){
-        
-        
-
         rowId = $(this).data('id');
         targetRow = $(this).closest('tr');
 
@@ -242,48 +282,10 @@ $(function (){
         status:         'Accepted'
         }
 
-        
-    
-        // rescheduleBTN.on('click', function (){
-        //     $.ajaxSetup({
-        //             headers: {
-        //                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        //                     }  
-        //             });
-
-        //         $.ajax({
-        //             type: "PUT",
-        //             url: "/api/appointments/"+rowId,
-        //             data: edited,
-        //             success: function (edited) {
-        //                 console.log(edited);
-        //                 alert("Appoinment Has Been Changed.");
-        //                 targetRow.remove();
-        //             },
-        //             error: function () {
-        //                 console.log(edited);
-        //                 console.log(rowId);
-        //                 alert("An error while saving data");
-        //             },
-        //         });
-        // });
     
 });
+
 rescheduleBTN.on('click', function (){
-    // edited = { 
-    //     student_id:     targetRow.find('td.student-id').text(),
-    //     message:        'Appointment is accepted but rescheduled to'+date.val()+' '+newDay.val()+' between '+time1.val() +' - '+time2.val(),
-    //     state:          'success',
-    //     vacant_id:      targetRow.find('td.vacantId').text(),
-    //     requesitor_id:  targetRow.find('td.requesitor').text(),
-    //     faculty_id:     targetRow.find('td.facultyId').text(),
-    //     request_type:   targetRow.find('td.request-type').text(),
-    //     attendee_type:  targetRow.find('td.attendee-type').text(),
-    //     day:            newDay.val(),
-    //     time:           time1.val() +' - '+time2.val(),
-    //     date:           date.val(),
-    //     status:         'Accepted'
-    //     }
 
     edited.day = newDay.val();
     edited.message = 'Appointment is accepted but rescheduled to '+date.val()+' '+newDay.val()+' between '+time1.val() +' - '+time2.val();
@@ -311,7 +313,6 @@ rescheduleBTN.on('click', function (){
                         alert("Appoinment Has Been Changed.");
                         pending--;
                         accepted++;
-                        targetRow.remove();
                         pendingCard.text(pending);
                         acceptedCard.text(accepted);
                     },

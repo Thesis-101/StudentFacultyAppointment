@@ -94,9 +94,9 @@ class FacultyAppointmentController extends Controller
                 'state' => $request->state
             ]);
 
-            
-            Mail::to($request->student_email)->send(new MailNotify($email_data));
-        
+            if($request->status != 'Ongoing' || $request->status != 'Completed'){
+                Mail::to($request->student_email)->send(new MailNotify($email_data));
+            }
 
             $data = Requests::find($id);
             

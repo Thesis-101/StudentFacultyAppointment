@@ -19,7 +19,7 @@ $(function (){
     //                         '</div>'+
     //                     '</div>'
                        
-
+    
     function addNotification(details){
              list.prepend(Mustache.render(rowTemplate,details));
     }
@@ -47,6 +47,7 @@ $(function (){
             }else{
                 badge.remove();
             }
+            
         }
     });
 

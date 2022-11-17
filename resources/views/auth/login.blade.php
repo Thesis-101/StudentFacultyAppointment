@@ -76,7 +76,7 @@
 
                         <div class="row">
                             @if (Route::has('password.request'))
-                                <a class="col-md-8 btn btn-link text-start" href="{{ route('password.request') }}">
+                                <a style="visibility: hidden;" class="col-md-8 btn btn-link text-start" href="{{ route('password.request') }}">
                                     {{ __('Forgot Your Password?') }}
                                 </a>
                             @endif
