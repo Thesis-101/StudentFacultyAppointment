@@ -36,6 +36,7 @@ Route::group(['prefix' => 'faculty', 'middleware' => ['role:faculty','auth']], f
     Route::get('history',[FacultyController::class, 'appointmentHistory']);
     Route::get('profile', [FacultyController::class, 'profile']);
     Route::get('report', [FacultyController::class, 'report']);
+    Route::get('report-remarks', [FacultyController::class, 'getWithRemarks']);
 });
 
 

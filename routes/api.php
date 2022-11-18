@@ -8,6 +8,7 @@ use App\Http\Controllers\Api\RequestController;
 use App\Http\Controllers\Api\FacultyAppointmentController;
 use App\Http\Controllers\Api\FacultyListController;
 use App\Http\Controllers\Api\NotificationController;
+use App\Http\Controllers\Api\RemarksController;
 
 /*
 |--------------------------------------------------------------------------
@@ -31,3 +32,4 @@ Route::apiResource('add-vacant', VacantController::class);
 Route::apiResource('appointments', FacultyAppointmentController::class);
 Route::apiResource('request', RequestController::class);
 Route::apiResource('notifications', NotificationController::class);
+Route::apiResource('remarks', RemarksController::class);

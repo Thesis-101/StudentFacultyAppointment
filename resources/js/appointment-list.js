@@ -48,7 +48,7 @@ $(function (){
                             '<td class="requesitor" hidden>{{requesitor_id}}</td>' +
                             '<td class="vacantId" hidden>{{vacant_id}}</td>' +
                             '<td class="facultyId" hidden>{{faculty_id}}</td>' +
-                            '<td>'+
+                            '<td class="rowBTN">'+
                                 '<button class="triggerView mx-1 btn btn-sm btn-primary px-3" data-bs-toggle="modal" data-bs-target="#details" data-id="{{id}}" >View</button>' +
                                 // '<button class="triggerAccept mx-1 btn btn-sm btn-primary px-3" data-id="{{id}}" >Accept</button>' +
                                 // '<button class="triggerChange mx-1  btn btn-sm btn-warning px-3" data-id="{{id}}"  data-id="{{id}}" data-bs-toggle="modal" data-bs-target="#addForm" >Reschedule</button>' +
@@ -70,8 +70,8 @@ $(function (){
                                 '<td class="requesitor" hidden>{{requesitor_id}}</td>' +
                                 '<td class="vacantId" hidden>{{vacant_id}}</td>' +
                                 '<td class="facultyId" hidden>{{faculty_id}}</td>' +
-                                '<td>'+
-                                    '<button id="triggerEnd" class="triggerView mx-1 btn btn-sm btn-danger px-3 " data-bs-target="#details" data-id="{{id}}" >End Session</button>' +
+                                '<td class="rowBTN">'+
+                                    '<button id="triggerEnd2" class="triggerView mx-1 btn btn-sm btn-danger px-3 " data-bs-toggle="modal" data-bs-target="#remarks" data-id="{{id}}" >End Session</button>' +
                                 '</td>'+
                             '</tr>'
     let acceptedTemplate =   '<tr data-id={{id}} id=row{{id}} >' +
@@ -88,7 +88,7 @@ $(function (){
                                 '<td class="requesitor" hidden>{{requesitor_id}}</td>' +
                                 '<td class="vacantId" hidden>{{vacant_id}}</td>' +
                                 '<td class="facultyId" hidden>{{faculty_id}}</td>' +
-                                '<td>'+
+                                '<td class="rowBTN">'+
                                     '<button id="triggerStart" class="triggerView mx-1 btn btn-sm btn-primary px-3" data-bs-target="#details" data-id="{{id}}" >Start Session</button>' +
                                 '</td>'+
                             '</tr>'
@@ -150,6 +150,7 @@ $(function (){
         edited.status = "Accepted";
         edited.message = "Appointment Accepted.";   
         edited.state = "success";
+        edited.remarks = "None";
 
 
         $.ajaxSetup({
@@ -170,13 +171,17 @@ $(function (){
                 $('.triggerView').attr('id','triggerStart');
                 $('.triggerView').text('Start Session');
 
+                targetRow.find('td.rowBTN .triggerView').removeAttr('data-bs-toggle');
+                targetRow.find('td.rowBTN .triggerView').attr('id','triggerStart');
+                targetRow.find('td.rowBTN .triggerView').text('Start Session');
+
                 accepted++;
                 pending--;
                 pendingCard.text(pending);
                 acceptedCard.text(accepted);
             },
-            error: function () {
-                console.log(rowId);
+            error: function (message) {
+                console.log(message);
                 alert("An error while saving data");
             },
         });
@@ -186,12 +191,13 @@ $(function (){
 
         rowId = $(this).data('id');
         targetRow = $(this).closest('tr');
+        
 
         edited = {
             student_id:     targetRow.find('td.student-id').text(),
             student_email:  targetRow.find('td.student-email').text(),
             message:        'Session Started.',
-            state:          'success', 
+            state:          'warning', 
             vacant_id:      targetRow.find('td.vacantId').text(),
             requesitor_id:  targetRow.find('td.requesitor').text(),
             faculty_id:     targetRow.find('td.facultyId').text(),
@@ -201,6 +207,7 @@ $(function (){
             time:           targetRow.find('td.time').text(),
             date:           targetRow.find('td.date').text(),
             status:         'Ongoing',
+            remarks:        'None',
         }
 
 
@@ -217,15 +224,69 @@ $(function (){
             success: function (edited) {
                 alert("You Started The Session.");
                 targetRow.find('td.status').html('On-going');
-                $('.triggerView').attr('id','triggerEnd');
-                $('.triggerView').text('End Session');
-                $('.triggerView').addClass('bg-danger');
+                targetRow.find('td.rowBTN .triggerView').attr('id','triggerEnd2');
+                targetRow.find('td.rowBTN .triggerView').attr('data-bs-toggle','modal');
+                targetRow.find('td.rowBTN .triggerView').text('End Session');
+                targetRow.find('td.rowBTN .triggerView').addClass('bg-danger');
+                targetRow.find('td.rowBTN .triggerView').attr('data-bs-target','#remarks');
                 targetRow.attr('class','bg-warning');
-
             },
             error: function () {
                 console.log(rowId);
                 alert("An error while saving data");
+            },
+        });
+    });
+
+    list.delegate('#triggerEnd2','click',function(){
+        rowId = $(this).data('id');
+        targetRow = $(this).closest('tr');
+        
+
+        edited = {
+            student_id:     targetRow.find('td.student-id').text(),
+            student_email:  targetRow.find('td.student-email').text(),
+            message:        'Session Started.',
+            state:          'success', 
+            vacant_id:      targetRow.find('td.vacantId').text(),
+            requesitor_id:  targetRow.find('td.requesitor').text(),
+            faculty_id:     targetRow.find('td.facultyId').text(),
+            request_type:   targetRow.find('td.request-type').text(),
+            attendee_type:  targetRow.find('td.attendee-type').text(),
+            day:            targetRow.find('td.day').text(),
+            time:           targetRow.find('td.time').text(),
+            date:           targetRow.find('td.date').text(),
+            remarks:        '',
+            status:         'Completed',
+        }
+    });
+
+
+    $('#triggerEnd').on('click',function(){
+
+        edited.remarks = $('#remarksVal').val();
+        edited.status = 'Completed';
+        edited.message = 'Session Has Successfully Ended. Check The Remarks for Clarification';
+        edited.state = 'success';
+
+        $.ajaxSetup({
+            headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+            });
+
+        $.ajax({
+            type: "PUT",
+            url: "/api/appointments/"+rowId,
+            data: edited,
+            success: function (edited) {
+                console.log(edited);
+                alert("Session Successfully Ended.");
+                targetRow.remove();
+            },
+            error: function (data) {
+                console.log(data);
+                alert("There was a problem ending the session.");
             },
         });
     });
@@ -293,6 +354,7 @@ rescheduleBTN.on('click', function (){
     edited.date = date.val();
     edited.status = "Accepted";
     edited.state = "success";
+    edited.remarks = "None";
 
     console.log(edited);
          $.ajaxSetup({
@@ -329,6 +391,8 @@ declineBTN.on('click', function(){
 
     edited.message = 'Appointment declined: '+reason.val();
     edited.status = "Declined";
+    edited.state = "danger";
+    edited.remarks = "None";
 
     console.log(edited);
       $.ajaxSetup({

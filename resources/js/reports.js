@@ -15,6 +15,7 @@ $(function(){
                             '<td class="date">{{date}}</td>' +
                             '<td class="request-type">{{request_type}}</td>' +
                             '<td class="status">{{status}}</td>'+
+                            '<td class="remarks">{{remarks.remarks}}</td>'+
                         '</tr>' 
 
     function appendAppointment(details){
@@ -25,7 +26,7 @@ $(function(){
 
     $.ajax({
         type: 'GET',
-        url: '/api/appointments',
+        url: '/faculty/report-remarks',
         success: function(appointments){
             $.each(appointments, function(i, appointment){
                 if(appointment.students != null){
@@ -37,15 +38,64 @@ $(function(){
         }
     });
 
+
+    
+
+
+    function filterMonth(month){
+        let filterMonth = (new Date(month)).getMonth();
+        return filterMonth;
+    }
+
+    function filterYear(year){
+        let filterYear = (new Date(year)).getFullYear();
+        return filterYear;
+    }
+
+    function determineFilterMonth(month, year){
+        const dataMonth = $('#dataMonth');
+        const date = new Date(dataMonth.val());
+        console.log(month);
+        console.log(year);
+        console.log((new Date(dataMonth.val()).getMonth()));
+        console.log((new Date(dataMonth.val()).getFullYear()));
+        if(month == date.getMonth() && year == date.getFullYear()){
+            return true;
+        }else if(dataMonth.val() == ''){
+            return "empty";        
+        }else{
+            return false;
+        }
+        
+    }
+    
     $('#filter_form').submit(function(e){
         list.empty();
         e.preventDefault();
         $.each(data, function(i, details){
+        
+            
             if(details.status == status.val()){
-                appendAppointment(details);
+                if(determineFilterMonth(filterMonth(details.date),filterYear(details.date)) == true){
+                    appendAppointment(details);
+                    
+                }else if(determineFilterMonth(filterMonth(details.date),filterYear(details.date)) == "empty"){
+                    appendAppointment(details);
+                }else{
+                    return;
+                }
+    
             }
             if(status.val() == "all"){
-                appendAppointment(details);
+                if(determineFilterMonth(filterMonth(details.date),filterYear(details.date)) == true){
+                    appendAppointment(details);
+                    
+                }else if(determineFilterMonth(filterMonth(details.date),filterYear(details.date)) == "empty"){
+                    appendAppointment(details);
+                }else{
+                    return;
+                }
+
             }
         });
        

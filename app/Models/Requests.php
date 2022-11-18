@@ -35,4 +35,9 @@ class Requests extends Model
     {
         return $this->belongsTo(User::class, 'requesitor_id', 'id');
     }
+
+    public function remarks()
+    {
+        return $this->hasOne(Remarks::class);
+    }
 }

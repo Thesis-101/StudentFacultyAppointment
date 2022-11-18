@@ -23,6 +23,13 @@
                                 <option value="pending" >Pending</option>
                             </select>
                         </div>
+
+                        <div class="col-md-4">
+                            <div class="row">
+                            <label for="dataMonth" class="col-form-label col-md-4 text-end">Month:</label>
+                            <div class="col-md-8"><input id="dataMonth" class="form-control" type="month"></div>
+                            </div>
+                        </div>
                         <div class="col-md-2">
                             <button id="filter" type="submit" class="btn btn-md btn-primary">Search</button>
                         </div>
@@ -45,6 +52,7 @@
                             <th scope="col">Date</th>
                             <th scope="col">Purpose</th>
                             <th scope="col">Status</th>
+                            <th scope="col">Remarks</th>
                         </tr>
                         </thead>
                         <tbody id="report-list">

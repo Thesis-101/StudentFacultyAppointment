@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Models\Requests;
 use App\Models\Notification;
+use App\Models\Remarks;
 use Illuminate\Http\Request;
 use App\Http\Requests\AppointmentRequest;
 use App\Mail\MailNotify;
@@ -84,7 +85,8 @@ class FacultyAppointmentController extends Controller
     {
         $email_data = [
             'subject' => 'Appointment Email Notification',
-            'body' => $request->message
+            'body' => $request->message,
+            'remarks' => 'None'
         ];
 
         try {     
@@ -94,7 +96,17 @@ class FacultyAppointmentController extends Controller
                 'state' => $request->state
             ]);
 
-            if($request->status != 'Ongoing' || $request->status != 'Completed'){
+            Remarks::create([
+                'requests_id' => $id,
+                'faculty_id' => $request->faculty_id,
+                'student_id' => $request->student_id,
+                'remarks' => $request->remarks
+            ]);
+
+            if($request->status == 'Completed'){
+                $email_data['remarks'] = $request->remarks;
+                Mail::to($request->student_email)->send(new MailNotify($email_data));
+            }elseif($request->status != 'Ongoing'){
                 Mail::to($request->student_email)->send(new MailNotify($email_data));
             }
 
@@ -125,7 +137,7 @@ class FacultyAppointmentController extends Controller
 
         } catch (\Throwable $th) {
             return response()->json([
-                'message' => "Something went wrong!"
+                'message' => $th
             ],500);
         }
     }

@@ -138,8 +138,33 @@
           </div>
         </div>
 
+        <!-- Appointment Remarks -->
+        <div class="modal fade" id="remarks" tabindex="-1" aria-labelledby="remarksLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="actionLabel">Appointment Remarks</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
 
+                <div class="row mb-2">
+                  <label for="remarksVal" class="col-form-label col-md-3">Remarks:</label>
+                  <div class="col-md-9">
+                    <textarea  class="form-control" name="remarksVal" id="remarksVal" ></textarea>
+                  </div>
+                </div>
 
+                <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                <input type="hidden" name="_method" value="PUT">
+              </div>
+              <div class="modal-footer apiBtn">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button id="triggerEnd" type="button" data-bs-dismiss="modal" class="btn btn-primary">Save</button>
+              </div>
+            </div>
+          </div>
+        </div>
 
         <!-- <h5 class="my-5 header-label">Appointment List</h5>
         <table class="table bg-white shadow-sm">
