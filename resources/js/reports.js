@@ -1,8 +1,30 @@
+import flatpickr from "flatpickr";
+import monthSelect from 'flatpickr/dist/plugins/monthSelect';
+
 $(function(){
     const list = $('#report-list')
-
+    const user = $('#userType');
     const filter = $('#filter');
     const status = $('#filterStatus');
+    // const config = {
+    //     plugins : [
+    //         new monthSelectPlugin({
+    //         shorthand: true, //defaults to false
+    //         dateFormat: "m.y", //defaults to "F Y"
+    //         altFormat: "F Y", //defaults to "F Y"
+    //       })
+    //     ]
+    // } ;
+    const fp = flatpickr('input[type=date]',{});
+    const fp2 =  flatpickr('#dataMonth',{
+        plugins : [
+                    new monthSelect({
+                    // shorthand: true, //defaults to false
+                    // dateFormat: "m.y", //defaults to "F Y"
+                    // altFormat: "F Y", //defaults to "F Y"
+                  })
+                ],
+    });
     // const urlParams = new URLSearchParams(window.location.search);
     // const status = urlParams.get('filterStatus');
 
@@ -26,7 +48,7 @@ $(function(){
 
     $.ajax({
         type: 'GET',
-        url: '/faculty/report-remarks',
+        url: '/'+user.text()+'/report-remarks',
         success: function(appointments){
             $.each(appointments, function(i, appointment){
                 if(appointment.students != null){
@@ -38,10 +60,26 @@ $(function(){
         }
     });
 
+    // $.ajax({
+    //     type: 'GET',
+    //     url: '/admin/report-remarks',
+    //     success: function(appointments){
+    //         $.each(appointments, function(i, appointment){
+    //             if(appointment.students != null){
+    //                 data.push(appointment);
+    //             }
+    //         });
+    //         console.log(data);
+    //         console.log(status);
+    //     }
+    // });
+
 
     
 
-
+//////////////////////////////////////////////////////////////////////////////////////
+////      Filter Date/Month         
+/////////////////////////////////////////////////////////////////////////////////////
     function filterMonth(month){
         let filterMonth = (new Date(month)).getMonth();
         return filterMonth;
@@ -68,6 +106,21 @@ $(function(){
         }
         
     }
+
+    function determineFilterDate(date){
+        const dataDate = $('#dataDate');
+        
+        if(date == dataDate.val()){
+            return true;
+        }else if(dataDate.val() == ''){
+            return "empty";
+        }else{
+            return false;
+        }
+    }
+
+//////////////////////////////////////////////////////////////////////////////////////       
+/////////////////////////////////////////////////////////////////////////////////////
     
     $('#filter_form').submit(function(e){
         list.empty();
@@ -76,10 +129,11 @@ $(function(){
         
             
             if(details.status == status.val()){
-                if(determineFilterMonth(filterMonth(details.date),filterYear(details.date)) == true){
+                if(determineFilterMonth(filterMonth(details.date),filterYear(details.date)) == true && determineFilterDate(details.date) == "empty"){
                     appendAppointment(details);
-                    
-                }else if(determineFilterMonth(filterMonth(details.date),filterYear(details.date)) == "empty"){
+                }else if(determineFilterMonth(filterMonth(details.date),filterYear(details.date)) == "empty" && determineFilterDate(details.date) == true){
+                    appendAppointment(details);
+                }else if(determineFilterMonth(filterMonth(details.date),filterYear(details.date)) == "empty" && determineFilterDate(details.date) == "empty"){
                     appendAppointment(details);
                 }else{
                     return;
@@ -87,10 +141,11 @@ $(function(){
     
             }
             if(status.val() == "all"){
-                if(determineFilterMonth(filterMonth(details.date),filterYear(details.date)) == true){
+                if(determineFilterMonth(filterMonth(details.date),filterYear(details.date)) == true && determineFilterDate(details.date) == "empty"){
                     appendAppointment(details);
-                    
-                }else if(determineFilterMonth(filterMonth(details.date),filterYear(details.date)) == "empty"){
+                }else if(determineFilterMonth(filterMonth(details.date),filterYear(details.date)) == "empty" && determineFilterDate(details.date) == true){
+                    appendAppointment(details);
+                }else if(determineFilterMonth(filterMonth(details.date),filterYear(details.date)) == "empty" && determineFilterDate(details.date) == "empty"){
                     appendAppointment(details);
                 }else{
                     return;
@@ -119,6 +174,29 @@ $(function(){
             });
         }
   });
+
+
+  ///////////////////////////////////////////////////////////////////////
+  ///  Special Event Listener for Date and Month if Admin
+  //////////////////////////////////////////////////////////////////////
+  const radioDate = $('#flexRadioDate');
+  const radioMonth = $('#flexRadioMonth');
+
+  $('#dateDiv').attr('hidden',false);
+
+$(radioDate).on('click', function(){
+    $('#dataMonth').val('');
+    $('#dateDiv').attr('hidden',false);
+    $('#monthDiv').attr('hidden',true);
+});
+  
+$(radioMonth).on('click',function(){
+    $('#dataDate').val('');
+    $('#monthDiv').attr('hidden',false);
+    $('#dateDiv').attr('hidden',true);
+});
+
+  console.log(radioDate.attr('checked') == 'checked');
 
 
 

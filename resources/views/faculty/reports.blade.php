@@ -9,7 +9,7 @@
             <svg class="bi me-2"  width="25px" height="25px"><use xlink:href="#description-pointer"/></svg>
             <span class="h5">This panel is for generating reports.</span>
         </h2>
-
+        <p id="userType" hidden>{{Auth::user()->user_type}}</p>
         <form id="filter_form" action="" method="get">
                 <div class="col-md-12">
                     <div class="row">
@@ -21,13 +21,16 @@
                                 <option value="Accepted" >Accepted</option>
                                 <option value="Declined" >Declined</option>
                                 <option value="pending" >Pending</option>
+                                <option value="Ongoing" >Ongoing</option>
+                                <option value="Completed" >Completed</option>
                             </select>
                         </div>
 
+                        <div hidden class="col-md-8"><input id="dataDate" class="form-control" type="date" placeholder="Select Date" ></div>
                         <div class="col-md-4">
                             <div class="row">
                             <label for="dataMonth" class="col-form-label col-md-4 text-end">Month:</label>
-                            <div class="col-md-8"><input id="dataMonth" class="form-control" type="month"></div>
+                            <div class="col-md-8"><input id="dataMonth" class="form-control" type="month" placeholder="Select Month"></div>
                             </div>
                         </div>
                         <div class="col-md-2">

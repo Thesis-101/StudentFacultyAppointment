@@ -103,7 +103,14 @@ $(function (){
         config.disable = [];
         fp.destroy();
         $.each(requestDataToDisable, function(i, dataDates){
-            config.disable.push(dataDates.date);
+            if(dataDates.status == "Completed"){
+                return;
+            }else if(dataDates.status == "Declined"){
+                return;
+            }else{
+                config.disable.push(dataDates.date);
+            }
+
         });
         rowId = $(this).data('id');
         actualDay = dayIdentifier[($(this).find('td.day').text())];
@@ -223,7 +230,7 @@ $(function (){
 
     $.ajax({
         type: 'GET',
-        url: 'load-requests',
+        url: '/student/load-requests',
         success: function(faculty){
             $.each(faculty, function(i, appointment){
                 requestDataToDisable.push(appointment);
