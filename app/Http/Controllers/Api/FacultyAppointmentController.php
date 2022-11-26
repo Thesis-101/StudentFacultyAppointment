@@ -25,7 +25,7 @@ class FacultyAppointmentController extends Controller
         if ($userType == "admin"){
             $data = Requests::with('students','vacantDetails')->get();
         }else{
-            $data = Requests::with('students', 'vacantDetails')->where('faculty_id', '=', $user)->get();
+            $data = Requests::with('students', 'vacantDetails', 'remarks')->where('faculty_id', '=', $user)->get();
         }
         
         return $data;
@@ -96,12 +96,17 @@ class FacultyAppointmentController extends Controller
                 'state' => $request->state
             ]);
 
-            Remarks::create([
-                'requests_id' => $id,
-                'faculty_id' => $request->faculty_id,
-                'student_id' => $request->student_id,
-                'remarks' => $request->remarks
-            ]);
+            $remarks_data = Remarks::find($request->remarks_id);
+            if(!$remarks_data){
+                return response()->json([
+                    'message' => 'Remarks Record not found.'
+                ],404);
+            }
+
+            $remarks_data->requests_id = $id;
+            $remarks_data->faculty_id = $request->faculty_id;
+            $remarks_data->student_id = $request->requesitor_id;
+            $remarks_data->remarks = $request->remarks;
 
             if($request->status == 'Completed'){
                 $email_data['remarks'] = $request->remarks;
@@ -129,6 +134,7 @@ class FacultyAppointmentController extends Controller
             $data->status = $request->status;
 
             $data->save();
+            $remarks_data->save();
 
             return response()->json([
                         'status' => true,

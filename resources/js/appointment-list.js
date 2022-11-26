@@ -1,3 +1,6 @@
+import flatpickr from "flatpickr";
+
+
 $(function (){
     const list = $('#appointment-list');
     const history = $('#history-list');
@@ -15,6 +18,7 @@ $(function (){
     const viewDepartment = $('#studentDepartment');
     const viewPurpose = $('#purpose');
     const viewAttendee = $('#attendee');
+    const remarksID = $('#remarksID');
 
     const totalCard = $('#totalTransactions');
     const pendingCard = $('#pendingTransactions');
@@ -25,6 +29,29 @@ $(function (){
     let pending = 0;
     let accepted = 0;
     let declined = 0;
+
+    const dayIdentifier = {
+        sunday : 0,
+        monday : 1,
+        tuesday : 2,
+        wednesday : 3,
+        thursday : 4,
+        friday : 5,
+        saturday : 6
+    }
+
+    let config = {
+        disable: [],
+        minDate: "today"
+    };
+
+    let fp = flatpickr('input[type=date]',config);
+
+    
+    let actualDay;
+
+    let configDay;
+    
 
     let targetRow;
 
@@ -41,6 +68,7 @@ $(function (){
                             '<td class="student-department" hidden>{{students.department}}</td>' +
                             '<td class="request-type" hidden>{{request_type}}</td>' +
                             '<td class="attendee-type" hidden>{{attendee_type}}</td>' +
+                            '<td class="remarksID" hidden>{{remarks.id}}</td>' +
                             '<td class="day">{{day}}</td>' +
                             '<td class="time">{{time}}</td>' +
                             '<td class="date">{{date}}</td>' +
@@ -63,6 +91,7 @@ $(function (){
                                 '<td class="student-department" hidden>{{students.department}}</td>' +
                                 '<td class="request-type" hidden>{{request_type}}</td>' +
                                 '<td class="attendee-type" hidden>{{attendee_type}}</td>' +
+                                '<td class="remarksID" hidden>{{remarks.id}}</td>' +
                                 '<td class="day">{{day}}</td>' +
                                 '<td class="time">{{time}}</td>' +
                                 '<td class="date">{{date}}</td>' +
@@ -81,6 +110,7 @@ $(function (){
                                 '<td class="student-department" hidden>{{students.department}}</td>' +
                                 '<td class="request-type" hidden>{{request_type}}</td>' +
                                 '<td class="attendee-type" hidden>{{attendee_type}}</td>' +
+                                '<td class="remarksID" hidden>{{remarks.id}}</td>' +
                                 '<td class="day">{{day}}</td>' +
                                 '<td class="time">{{time}}</td>' +
                                 '<td class="date">{{date}}</td>' +
@@ -89,7 +119,7 @@ $(function (){
                                 '<td class="vacantId" hidden>{{vacant_id}}</td>' +
                                 '<td class="facultyId" hidden>{{faculty_id}}</td>' +
                                 '<td class="rowBTN">'+
-                                    '<button id="triggerStart" class="triggerView mx-1 btn btn-sm btn-primary px-3" data-bs-target="#details" data-id="{{id}}" >Start Session</button>' +
+                                    '<button id="triggerStart" class="triggerView mx-1 btn btn-sm btn-primary px-3" data-bs-target="#details" data-id="{{id}}" disabled>Start Session</button>' +
                                 '</td>'+
                             '</tr>'
 
@@ -116,12 +146,12 @@ $(function (){
         type: 'GET',
         url: '/api/appointments',
         success: function(appointments){
-            console.log(appointments);
             $.each(appointments, function(i, appointment){
                 if(appointment.students != null){
                 total++;
                 if(appointment.status == "Accepted"){
                     appendAccepted(appointment);
+                    data.push(appointment);
                     accepted++;
                 }else if(appointment.status == "Declined"){
                     declined++;
@@ -140,6 +170,34 @@ $(function (){
         }
     });
 
+    console.log(data);
+
+    ///////////////////////////////////////////////////////////////////////////
+    /// Time Counter
+    ///////////////////////////////////////////////////////////////////////////
+
+    function checkOutData(){
+        let firstTime;
+        const today = new Date($.now());
+        const timeToday = today.getHours()+':'+today.getMinutes();
+        console.log(timeToday);
+        $.each(data, function(i, items){
+            let row = items.id;
+            const theButton = $('#row'+row);
+            const requestDate = (new Date(items.date)).getDate();
+            if(requestDate == today.getDate()){
+                firstTime = items.time.split(' - ')[0];
+                if(firstTime >= timeToday){
+                    theButton.find('button#triggerStart').attr('disabled',false);
+                }
+                // console.log(firstTime);
+            }
+        });
+    }
+
+    setInterval(checkOutData,1000);
+    
+    
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     //Update Request Status
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -148,11 +206,11 @@ $(function (){
     $('.triggerAccept').on('click', function(){
 
         edited.status = "Accepted";
-        edited.message = "Appointment Accepted.";   
+        edited.message = 'Appointment is accepted. '+edited.date+' '+edited.day+' between '+edited.time;   
         edited.state = "success";
         edited.remarks = "None";
 
-
+        console.log(edited.message);
         $.ajaxSetup({
             headers: {
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -207,6 +265,7 @@ $(function (){
             time:           targetRow.find('td.time').text(),
             date:           targetRow.find('td.date').text(),
             status:         'Ongoing',
+            remarks_id:     targetRow.find('td.remarksID').text(),
             remarks:        'None',
         }
 
@@ -256,7 +315,7 @@ $(function (){
             day:            targetRow.find('td.day').text(),
             time:           targetRow.find('td.time').text(),
             date:           targetRow.find('td.date').text(),
-            remarks:        '',
+            remarks:        $('#remarksVal').val(),
             status:         'Completed',
         }
     });
@@ -294,9 +353,12 @@ $(function (){
     
     list.delegate('.triggerView', 'click', function (){
 
+        config.disable = [];
+        fp.destroy();
+
         rowId = $(this).data('id');
         targetRow = $(this).closest('tr');
-
+        console.log(targetRow.find('td.day').text());
         edited = {
             student_id:     targetRow.find('td.student-id').text(),
             student_email:  targetRow.find('td.student-email').text(),
@@ -311,6 +373,7 @@ $(function (){
             time:           targetRow.find('td.time').text(),
             date:           targetRow.find('td.date').text(),
             status:         targetRow.find('td.status').text(),
+            remarks_id:     targetRow.find('td.remarksID').text(),
         }
 
         viewName.html(targetRow.find('td.student-name').text());
@@ -318,6 +381,15 @@ $(function (){
         viewDepartment.html(targetRow.find('td.student-department').text());
         viewPurpose.html('<strong>Purpose: </strong>'+ targetRow.find('td.request-type').text());
         viewAttendee.html('<strong>Attendee Type: </strong>'+ targetRow.find('td.attendee-type').text());
+
+        actualDay = dayIdentifier[(targetRow.find('td.day').text())];
+        configDay = dayIdentifier[(targetRow.find('td.day').text())];
+
+        config.disable.push(function(date){
+            return (date.getDay() != configDay);
+        });
+        console.log(configDay);
+        fp = flatpickr('input[type=date]',config);
 
 
  });
@@ -419,5 +491,8 @@ declineBTN.on('click', function(){
              alert("An error while saving data");
          },
      });
-});
+    });
+
+
+
 });

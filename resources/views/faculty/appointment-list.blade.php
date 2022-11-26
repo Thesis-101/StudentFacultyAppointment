@@ -50,7 +50,7 @@
                 <div class="row mb-2">
                   <label for="date" class="col-form-label col-md-3">Date:</label>
                   <div class="col-md-9">
-                    <input class="form-control" type="date" name="date" id="date">
+                    <input class="form-control" type="date" name="date" id="date" placeholder="Select Date">
                   </div>
                 </div>
 

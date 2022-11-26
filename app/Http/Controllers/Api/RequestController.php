@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Requests;
 use App\Models\Notification;
 use Illuminate\Http\Request;
+use App\Models\Remarks;
 use App\Http\Requests\AppointmentRequest;
 use Illuminate\Support\Facades\Auth;
 
@@ -50,6 +51,13 @@ class RequestController extends Controller
         Notification::create([
                                 'user_id' => $request->faculty_id,
                                 'message' => 'New Request is Available.'
+                            ]);
+        
+        Remarks::create([
+                                'requests_id' => $data->id,
+                                'faculty_id' => $request->faculty_id,
+                                'student_id' => $request->requesitor_id,
+                                'remarks' => 'None'
                             ]);
 
         return response()->json([
