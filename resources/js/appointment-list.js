@@ -19,6 +19,7 @@ $(function (){
     const viewPurpose = $('#purpose');
     const viewAttendee = $('#attendee');
     const remarksID = $('#remarksID');
+    
 
     const totalCard = $('#totalTransactions');
     const pendingCard = $('#pendingTransactions');
@@ -124,15 +125,15 @@ $(function (){
                             '</tr>'
 
     function appendAppointment(details){
-        list.prepend(Mustache.render(rowTemplate,details));
+        list.append(Mustache.render(rowTemplate,details));
      }
 
     function appendOngoing(details){
-        list.prepend(Mustache.render(ongoingTemplate,details));
+        list.append(Mustache.render(ongoingTemplate,details));
     }
 
     function appendAccepted(details){
-        list.prepend(Mustache.render(acceptedTemplate,details));
+        list.append(Mustache.render(acceptedTemplate,details));
     }
 
 

@@ -25,7 +25,10 @@ class FacultyAppointmentController extends Controller
         if ($userType == "admin"){
             $data = Requests::with('students','vacantDetails')->get();
         }else{
-            $data = Requests::with('students', 'vacantDetails', 'remarks')->where('faculty_id', '=', $user)->get();
+            $data = Requests::with('students', 'vacantDetails', 'remarks')
+                            ->where('faculty_id', '=', $user)
+                            ->orderBy('date')
+                            ->get();
         }
         
         return $data;

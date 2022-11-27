@@ -1,5 +1,6 @@
 $(function (){
     const history = $('#history-list');
+    const nextList = $('#next-list');
     let data = [];
     let rowId;
 
@@ -20,6 +21,10 @@ $(function (){
 
      function appendHistory(details){
         history.prepend(Mustache.render(rowTemplate,details));
+    }
+
+    function appendNext(details){
+        nextList.append(Mustache.render(rowTemplate,details));
     }
 
 
@@ -51,10 +56,16 @@ $(function (){
             console.log(appointments);
             $.each(appointments, function(i, appointment){
                 if(appointment.students != null){
+                    if(appointment.status == 'pending'){
+                        data.push(appointment);
+                    }
                     appendHistory(appointment);
+                    
                 }
             });
+            appendNext(data[0]);
         }
     });
 
+    
 });

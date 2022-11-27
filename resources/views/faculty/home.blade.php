@@ -43,7 +43,30 @@
             </div>
         </div>
 
-
+        <div class="col-md-12 bg-info border border-light shadow-lg rounded mt-5">
+            <div class="row">
+                <h5 class="pt-3 m-0 header-label text-white">
+                    <svg class="bi me-2 text-white"  width="20px" height="20px"><use xlink:href="#transaction"/></svg>
+                    Next Appointment</h5>
+            <div class="col-md-12 pt-3 ">
+                <table class="table bg-white shadow-sm text-black container-fluid">
+                    <thead class="table-success">
+                    <tr>
+                        <th scope="col">Student Name</th>
+                        <th scope="col">Day</th>
+                        <th scope="col">Time Slot</th>
+                        <th scope="col">Date</th>
+                        <th scope="col">Purpose</th>
+                        <th scope="col">Status</th>
+                    </tr>
+                    </thead>
+                    <tbody id="next-list">
+                    </tbody>
+                </table>
+            </div>
+                
+            </div>
+        </div>
 
         <div class="col-md-12 bg-white border border-light shadow-lg rounded mt-5">
             <div class="row">
