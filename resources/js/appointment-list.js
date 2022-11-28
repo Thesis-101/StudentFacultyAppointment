@@ -232,6 +232,7 @@ $(function (){
 
                 targetRow.find('td.rowBTN .triggerView').removeAttr('data-bs-toggle');
                 targetRow.find('td.rowBTN .triggerView').attr('id','triggerStart');
+                targetRow.find('td.rowBTN .triggerView').attr('disabled',true);
                 targetRow.find('td.rowBTN .triggerView').text('Start Session');
 
                 accepted++;
