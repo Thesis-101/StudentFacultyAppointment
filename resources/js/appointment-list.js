@@ -181,14 +181,14 @@ $(function (){
         let firstTime;
         const today = new Date($.now());
         const timeToday = today.getHours()+':'+today.getMinutes();
-        console.log(timeToday);
         $.each(data, function(i, items){
             let row = items.id;
             const theButton = $('#row'+row);
             const requestDate = (new Date(items.date)).getDate();
             if(requestDate == today.getDate()){
                 firstTime = items.time.split(' - ')[0];
-                if(firstTime >= timeToday){
+                console.log(firstTime);
+                if(timeToday >= firstTime){
                     theButton.find('button#triggerStart').attr('disabled',false);
                 }
                 // console.log(firstTime);
