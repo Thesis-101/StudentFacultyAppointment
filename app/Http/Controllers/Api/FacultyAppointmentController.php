@@ -86,9 +86,15 @@ class FacultyAppointmentController extends Controller
      */
     public function update(AppointmentRequest $request, $id)
     {
+        $user = auth('sanctum')->user()->name;
+
         $email_data = [
             'subject' => 'Appointment Email Notification',
             'body' => $request->message,
+            'status' => $request->status,
+            'faculty' => $user,
+            'date-time' => $request->date." ".$request->time,
+            'office' => $request->office,
             'remarks' => 'None'
         ];
 
@@ -100,6 +106,7 @@ class FacultyAppointmentController extends Controller
             ]);
 
             $remarks_data = Remarks::find($request->remarks_id);
+
             if(!$remarks_data){
                 return response()->json([
                     'message' => 'Remarks Record not found.'

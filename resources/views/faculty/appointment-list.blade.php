@@ -12,7 +12,7 @@
         </h2>
 
 
-        <!-- Modal -->
+        <!-- Reschedule -->
         <div class="modal fade" id="addForm" tabindex="-1" aria-labelledby="addFormLabel" aria-hidden="true">
           <div class="modal-dialog">
             <div class="modal-content">

@@ -70,6 +70,7 @@ $(function (){
                             '<td class="request-type" hidden>{{request_type}}</td>' +
                             '<td class="attendee-type" hidden>{{attendee_type}}</td>' +
                             '<td class="remarksID" hidden>{{remarks.id}}</td>' +
+                            '<td class="meetingOffice" hidden>{{vacant_details.designated_office}}</td>' +
                             '<td class="day">{{day}}</td>' +
                             '<td class="time">{{time}}</td>' +
                             '<td class="date">{{date}}</td>' +
@@ -93,6 +94,7 @@ $(function (){
                                 '<td class="request-type" hidden>{{request_type}}</td>' +
                                 '<td class="attendee-type" hidden>{{attendee_type}}</td>' +
                                 '<td class="remarksID" hidden>{{remarks.id}}</td>' +
+                                '<td class="meetingOffice" hidden>{{vacant_details.designated_office}}</td>' +
                                 '<td class="day">{{day}}</td>' +
                                 '<td class="time">{{time}}</td>' +
                                 '<td class="date">{{date}}</td>' +
@@ -112,6 +114,7 @@ $(function (){
                                 '<td class="request-type" hidden>{{request_type}}</td>' +
                                 '<td class="attendee-type" hidden>{{attendee_type}}</td>' +
                                 '<td class="remarksID" hidden>{{remarks.id}}</td>' +
+                                '<td class="meetingOffice" hidden>{{vacant_details.designated_office}}</td>' +
                                 '<td class="day">{{day}}</td>' +
                                 '<td class="time">{{time}}</td>' +
                                 '<td class="date">{{date}}</td>' +
@@ -147,6 +150,7 @@ $(function (){
         type: 'GET',
         url: '/api/appointments',
         success: function(appointments){
+            console.log(appointments);
             $.each(appointments, function(i, appointment){
                 if(appointment.students != null){
                 total++;
@@ -262,6 +266,7 @@ $(function (){
             requesitor_id:  targetRow.find('td.requesitor').text(),
             faculty_id:     targetRow.find('td.facultyId').text(),
             request_type:   targetRow.find('td.request-type').text(),
+            office:         targetRow.find('td.meetingOffice').text(),
             attendee_type:  targetRow.find('td.attendee-type').text(),
             day:            targetRow.find('td.day').text(),
             time:           targetRow.find('td.time').text(),
@@ -313,6 +318,7 @@ $(function (){
             requesitor_id:  targetRow.find('td.requesitor').text(),
             faculty_id:     targetRow.find('td.facultyId').text(),
             request_type:   targetRow.find('td.request-type').text(),
+            office:         targetRow.find('td.meetingOffice').text(),
             attendee_type:  targetRow.find('td.attendee-type').text(),
             day:            targetRow.find('td.day').text(),
             time:           targetRow.find('td.time').text(),
@@ -370,6 +376,7 @@ $(function (){
             requesitor_id:  targetRow.find('td.requesitor').text(),
             faculty_id:     targetRow.find('td.facultyId').text(),
             request_type:   targetRow.find('td.request-type').text(),
+            office:         targetRow.find('td.meetingOffice').text(),
             attendee_type:  targetRow.find('td.attendee-type').text(),
             day:            targetRow.find('td.day').text(),
             time:           targetRow.find('td.time').text(),
@@ -410,6 +417,7 @@ $(function (){
         requesitor_id:  targetRow.find('td.requesitor').text(),
         faculty_id:     targetRow.find('td.facultyId').text(),
         request_type:   targetRow.find('td.request-type').text(),
+        office:         targetRow.find('td.meetingOffice').text(),
         attendee_type:  targetRow.find('td.attendee-type').text(),
         day:            newDay.val(),
         time:           time1.val() +' - '+time2.val(),
@@ -446,6 +454,12 @@ rescheduleBTN.on('click', function (){
                         targetRow.find('td.day').html(edited.day);
                         targetRow.find('td.date').html(edited.date);
                         targetRow.find('td.time').html(edited.time);
+
+                        targetRow.find('td.rowBTN .triggerView').removeAttr('data-bs-toggle');
+                        targetRow.find('td.rowBTN .triggerView').attr('id','triggerStart');
+                        targetRow.find('td.rowBTN .triggerView').attr('disabled',true);
+                        targetRow.find('td.rowBTN .triggerView').text('Start Session');
+                        
                         alert("Appoinment Has Been Changed.");
                         pending--;
                         accepted++;
@@ -493,8 +507,20 @@ declineBTN.on('click', function(){
              alert("An error while saving data");
          },
      });
+});
+
+newDay.on('change',function(){
+    config.disable = [];
+    fp.destroy();
+
+    actualDay = dayIdentifier[($(this).val())];
+    configDay = dayIdentifier[($(this).val())];
+
+    config.disable.push(function(date){
+        return (date.getDay() != configDay);
     });
-
-
+    fp = flatpickr('input[type=date]',config);
+    console.log('day changed to '+$(this).val());
+});
 
 });
