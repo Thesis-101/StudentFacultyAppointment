@@ -7,7 +7,7 @@
     <title>Student Faculty Appointment System</title>
 </head>
 <body>
-    <h3>Appointment Transaction Nofitication</h3>
+    <h3>Appointment Transaction Notification</h3>
     <p>{{ $data['body'] }}</p>
     <p><strong>Remarks:</strong> {{ $data['remarks'] }}</p>
 </body>
