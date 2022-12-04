@@ -16,7 +16,7 @@
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
 
     <!-- Scripts -->
-    @vite(['resources/sass/app.scss', 'resources/js/app.js', 'resources/js/notifications.js'])
+    @vite(['resources/sass/styles.scss', 'resources/js/app.js', 'resources/js/notifications.js'])
 </head>
 <body>
     <div class="container pt-5">

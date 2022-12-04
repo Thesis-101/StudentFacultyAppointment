@@ -64,14 +64,14 @@ $(function (){
                             '<td class="day">{{day}}</td>' +
                             '<td class="faculty-office">{{designated_office}}</td>' +
                             '<td class="faculty-time">{{vacant_time}}</td>' +
-                            '<td><button class="triggerAppoint btn btn-sm btn-primary px-3" data-id="{{id}}" data-bs-toggle="modal" data-bs-target="#addForm">Book</button></td>' +
+                            '<td class="text-center"><button class="triggerAppoint btn btn-sm btn-primary px-3" data-id="{{id}}" data-bs-toggle="modal" data-bs-target="#addForm">Book</button></td>' +
                         '</tr>' 
     
     let facultyRowTemplate =   '<tr data-id={{id}} id=row{{id}}>' +
                                     '<td class="faculty-department" hidden>{{department}}</td>' +
                                     '<td class="faculty-id" hidden>{{userInstitution_id}}</td>'+
                                     '<td class="faculty-name"><span><strong>{{name}}</strong></span></td>' +
-                                    '<td width="125px"><button class="view btn btn-sm btn-primary px-3" data-id="{{id}}" data-bs-toggle="modal" data-bs-target="#details">View Vacant</button></td>' +
+                                    '<td class="text-center"><button class="view btn btn-sm btn-primary px-3" data-id="{{id}}" data-bs-toggle="modal" data-bs-target="#details">View Vacant</button></td>' +
                                 '</tr>' 
 
     let rowTemplateDisabled =   '<tr class="fragile"  data-id={{id}} id=row{{id}}>' +
@@ -80,7 +80,7 @@ $(function (){
                                             '<td class="day">{{day}}</td>' +
                                             '<td class="faculty-office">{{designated_office}}</td>' +
                                             '<td class="faculty-time">{{vacant_time}}</td>' +
-                                            '<td><button class="triggerAppoint btn btn-sm btn-warning disabled px-3" data-id="{{id}}" data-bs-toggle="modal" data-bs-target="#addForm">Not Available</button></td>' +
+                                            '<td class="text-center"><button class="triggerAppoint btn btn-sm btn-warning disabled px-3" data-id="{{id}}" data-bs-toggle="modal" data-bs-target="#addForm">Not Available</button></td>' +
                                 '</tr>' 
 
     function appendVacant(details){

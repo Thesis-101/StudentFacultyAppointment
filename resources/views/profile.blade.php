@@ -1,29 +1,45 @@
-@extends('layouts.app')
+@extends('layouts.new')
 
 @section('content')
 @vite(['resources/js/profileUpdate.js'])
-<div class="container">
-    <div class="row justify-content-center px-4">
-        <h2 class=" m-0 mb-5 mt-3 header-label">
-            Account Settings
-            <svg class="bi me-2"  width="25px" height="25px"><use xlink:href="#description-pointer"/></svg>
-            <span class="h5">This panel is for updating profile and changing of password.</span>
-        </h2>
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1>Account Settings</h1>
+          </div>
+          <div class="col-sm-6">
+            <ol class="float-sm-right" style="list-style:none;">
+              <li>This panel is for updating profile and changing of password.</li>
+            </ol>
+          </div>
+        </div>
+      </div><!-- /.container-fluid -->
+    </section>
 
+    <!-- Main content -->
+    <section class="content">
+      <div class="container-fluid">
+        <div class="row justify-content-center">
+
+        <!-- Modal -->
         <form action="/updateProfile" id="profile_setup_frm" method="post" enctype="multipart/form-data">
             <div class="modal fade" id="personalDetails" tabindex="-1" aria-labelledby="personalDetailsLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Edit Profile</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <div class="modal-header bg-info">
+                    <h5 class="modal-title text-white" id="exampleModalLabel">Edit Profile</h5>
+                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close"><span class="text-white" aria-hidden="true">&times;</span></button>
                 </div>
                 <div class="modal-body">
 
                     <div class="row justify-content-center mb-3" >
                         <div class="col-md-6 text-center">
                             @php($profile_pic = Auth::user()->profile_img)
-                            <img id="image_preview_container" width="200px" height="200px"  class="border-rounded "  src="@if($profile_pic == null ) {{asset('storage/images/default-avatar.jpg')}} @else {{asset('storage/'.$profile_pic)}} @endif" alt="Profile Pic">
+                            <img id="image_preview_container" style="width: 200px; height: 200px;"  class="border-rounded "  src="@if($profile_pic == null ) {{asset('storage/images/default-avatar.jpg')}} @else {{asset('storage/'.$profile_pic)}} @endif" alt="Profile Pic">
                         </div>
                     </div>
 
@@ -115,9 +131,9 @@
             <div class="modal fade" id="passwordChange" tabindex="-1" aria-labelledby="passwordChangeLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Change Password</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <div class="modal-header bg-info">
+                    <h5 class="modal-title text-white" id="exampleModalLabel">Change Password</h5>
+                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close"><span class="text-white" aria-hidden="true">&times;</span></button>
                 </div>
                 <div class="modal-body">
 
@@ -162,9 +178,70 @@
             </div>
         </form>
 
-        <div class="col-md-8">
+        <!-- Modal -->
+
+
+          <div class="col-md-5 ">
+
+            <!-- Profile Image -->
+            <div class="card card-primary card-outline">
+              <div class="card-body box-profile">
+                <div class="user-details text-center">
+                @php($profile_pic = Auth::user()->profile_img)
+                  <img style="width: 200px; height: 200px;" id="profilePic" class="profile-user-img img-fluid"
+                        src="@if($profile_pic == null ) {{asset('storage/images/default-avatar.jpg')}} @else {{asset('storage/'.$profile_pic)}} @endif"
+                       alt="User profile picture">
+                </div>
+
+                <h3 id="profileName" class="profile-username text-center">{{Auth::user()->name}}</h3>
+
+                <p class="text-muted text-center">{{ Auth::user()->userInstitution_id }}</p>
+
+                <ul class="other-details list-group list-group-unbordered mb-3">
+                  <li class="list-group-item">
+                    <b>User Type</b> <a class="user-type float-right">Student</a>
+                  </li>
+                  <li class="list-group-item">
+                    <b>Email</b> <a class="user-email float-right">{{Auth::user()->email}}</a>
+                  </li>
+                </ul>
+
+                <div class="row">
+                    <button class="btn btn-md btn-primary col-md-12 mx-auto mb-2" data-bs-toggle="modal" data-bs-target="#personalDetails">Edit Profile</button>
+                </div>
+                <div class="row">
+                    <button class="btn btn-md btn-primary col-md-12 mx-auto" data-bs-toggle="modal" data-bs-target="#passwordChange">Change Password</button>
+                </div>
+
+              </div>
+              <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+          </div>
+          <!-- /.col -->
+        </div>
+        <!-- /.row -->
+      </div><!-- /.container-fluid -->
+    </section>
+    <!-- /.content -->
+  </div>
+  <!-- /.content-wrapper -->
+
+
+<!---------->
+<!-- <div class="container">
+    <div class="row justify-content-center px-4">
+        <h2 class=" m-0 mb-5 mt-3 header-label">
+            Account Settings
+            <svg class="bi me-2"  width="25px" height="25px"><use xlink:href="#description-pointer"/></svg>
+            <span class="h5">This panel is for updating profile and changing of password.</span>
+        </h2> -->
+
+        
+
+        <!-- <div class="col-md-8"> -->
             <!-- <h4 class="header-label text-start mb-4 offset-3">Profile</h4> -->
-            <div class="shadow bg-white form-container m-auto">
+            <!-- <div class="shadow bg-white form-container m-auto">
                 <div class="user-details text-center">
                     @php($profile_pic = Auth::user()->profile_img)
                     <img id="profilePic" width="100px" height="100px" class="border-rounded " src="@if($profile_pic == null ) {{asset('storage/images/default-avatar.jpg')}} @else {{asset('storage/'.$profile_pic)}} @endif" alt="Profile Pic">
@@ -185,5 +262,5 @@
             </div>
         </div>
     </div>
-</div>
+</div> -->
 @endsection

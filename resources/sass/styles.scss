@@ -1,6 +1,11 @@
+@import 'variables';
 
+// Bootstrap
+@import 'bootstrap/scss/bootstrap';
 
-body{
+@import 'forms.scss';
+
+.school-hero{
     background-image: url('../../public/storage/images/school-bg.jpg');
     background-position: center;
     background-repeat: no-repeat;
@@ -12,6 +17,7 @@ body{
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
+    margin: auto;
     height: 200px;
     width: 200px;
 }

@@ -11,16 +11,28 @@ $(function (){
                             '<td class="day">{{day}}</td>' +
                             '<td class="time">{{time}}</td>' +
                             '<td class="date">{{date}}</td>' +
-                            '<td class="request-type">{{request_type}}</td>' +
-                            '<td class="status">{{status}}</td>'+
                             '<td class="requesitor" hidden>{{requesitor_id}}</td>' +
                             '<td class="vacantId" hidden>{{vacant_id}}</td>' +
                             '<td class="facultyId" hidden>{{faculty_id}}</td>' +
                         '</tr>' 
+    
+    let rowTemplate2 =   '<tr data-id={{id}} id=row{{id}} >' +
+                        '<td class="student-id" hidden><span><strong>{{students.userInstitution_id}}</strong></span></td>' +
+                        '<td class="student-name">{{students.name}}</td>' +
+                        '<td class="attendee-type" hidden>{{attendee_type}}</td>' +
+                        '<td class="day">{{day}}</td>' +
+                        '<td class="time">{{time}}</td>' +
+                        '<td class="date">{{date}}</td>' +
+                        '<td class="request-type">{{request_type}}</td>' +
+                        '<td class="status">{{status}}</td>'+
+                        '<td class="requesitor" hidden>{{requesitor_id}}</td>' +
+                        '<td class="vacantId" hidden>{{vacant_id}}</td>' +
+                        '<td class="facultyId" hidden>{{faculty_id}}</td>' +
+                    '</tr>' 
 
 
      function appendHistory(details){
-        history.prepend(Mustache.render(rowTemplate,details));
+        history.prepend(Mustache.render(rowTemplate2,details));
     }
 
     function appendNext(details){

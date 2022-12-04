@@ -1,8 +1,66 @@
-@extends('layouts.app')
+@extends('layouts.new')
 
 @section('content')
 @vite(['resources/js/request-list.js'])
-<div class="container mt-3">
+
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1 class="m-0">Appointment List</h1>
+            <span class=""></span>
+          </div><!-- /.col -->
+          <div class="col-sm-6">
+            <ol class="float-sm-right" style="list-style:none;">
+              <li>This panel is for viewing the latest appointment added.</li>
+            </ol>
+          </div>
+        </div><!-- /.row -->
+      </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->
+
+    <!-- Main content -->
+    <div class="content">
+      <div class="container-fluid">
+        <!-- Data Contents -->
+        <div class="row">
+          <div class="col-lg-12">
+            <div class="card">
+              <div class="card-header bg-info text-white">
+                <h5 class="m-0 ">Transaction List</h5>
+              </div>
+              <div class="card-body">
+              <table class="table table-bordered">
+                    <thead class="bg-secondary">
+                        <tr>
+                            <th>Faculty Name</th>
+                            <th>Designated Office</th>
+                            <th>Time Slot</th>
+                            <th>Date</th>
+                            <th>Status</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="appointmentList">
+                    </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- /.row -->
+      </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content -->
+</div>
+  <!-- /.content-wrapper -->
+
+
+<!-- <div class="container mt-3">
     <div class="row justify-content-center px-4 ">
         <h2 class=" m-0 mb-5 header-label">
             Appointment List
@@ -11,7 +69,7 @@
         </h2>
 
         <div class="col-md-12 bg-white border border-light shadow-lg rounded mt-3">
-            <div class="row">
+            <div class="row"> -->
                 
                 <!-- <div class="col-md-4 mb-3">
                   <form class="row" action="/student/request-list" method="get">
@@ -24,7 +82,7 @@
                         </button>
                   </form>
                </div> -->
-               <div class="col-md-12 pt-3 ">
+               <!-- <div class="col-md-12 pt-3 ">
                     <table class="table bg-white shadow-sm container-fluid">
                         <thead class="table-dark">
                             <tr>
@@ -44,6 +102,6 @@
             
         </div>
     </div>
-</div>
+</div> -->
 
 @endsection

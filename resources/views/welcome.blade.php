@@ -26,7 +26,7 @@
         @vite(['resources/sass/app.scss', 'resources/js/app.js', 'resources/js/notifications.js','resources/sass/styles.scss'])
 
     </head>
-    <body class="antialiased" >
+    <body class="antialiased school-hero" >
         <div class="relative flex items-top justify-center min-h-screen sm:items-center py-4 sm:pt-0 " >
             @if (Route::has('login'))
                 <div class=" fixed top-0 right-0 px-6 py-4 sm:block bg-light" hidden>
@@ -45,7 +45,7 @@
             <div class="container-fluid  jumbotron">
                 <div class="row bg-dark bg-opacity-75 justify-content-center text-center">
                     <div class=" col-md-12 py-5  text-center" >
-                        <div class="logo py-5 opacity-100 m-auto"></div>
+                        <div class="logo py-5 opacity-100 my-auto"></div>
                     </div>
                     <h1 class="text-white py-2 mb-0">Student Faculty Appointment System</h1>
                     <div class="col-md-6  mb-2">
