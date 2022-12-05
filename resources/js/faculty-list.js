@@ -88,5 +88,24 @@ $(function(){
 
     });
 
+    $("#restoreDefault").click(function(){
+        $.ajaxSetup({
+            headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }  
+            });
+
+        $.ajax({
+            type: 'POST',
+            url: '/admin/restore-default/'+$("#userID").val(),
+            data: {
+                default_password : "defaultp@ssword"
+            },
+            success: function(data){
+                alert(data.message);
+            }
+        });
+    });
+
 
 });

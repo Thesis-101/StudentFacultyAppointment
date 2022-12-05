@@ -19,6 +19,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <!-- Theme style -->
   <link rel="stylesheet" href="{{asset('backend/dist/css/adminlte.min.css')}}">
 
+  <link rel="icon" type="image/x-icon" href="{{asset('storage/images/school-bg.png')}}">
+
   @vite(['resources/sass/app.scss', 'resources/js/app.js', 'resources/js/notifications.js', 'resources/js/load-departments.js'])
 
 </head>
@@ -74,16 +76,16 @@ scratch. This page gets rid of all links and provides the needed markup only.
     </a>
 
     <!-- Sidebar -->
-    <div class="sidebar">
+    <div class="sidebar px-0">
       <!-- Sidebar user panel (optional) -->
-      <div class="user-panel mt-3 pb-3 d-flex align-items-center">
+      <div style="box-shadow: 2px 2px 5px black;" class="user-panel py-3 d-flex align-items-center school-hero">
         @guest
             @else
             @php($profile_pic = Auth::user()->profile_img)
-        <div class="image">
-          <img style="width: 60px; height: 60px;" id="side-pic" src="@if($profile_pic == null ) {{asset('storage/images/default-avatar.jpg')}} @else {{asset('storage/'.$profile_pic)}} @endif" class=" elevation-2 bg-white" alt="User Image">
+        <div class="image ">
+          <img style="width: 60px; height: 60px; outline: #ffc107 solid 7px !important; border: #dc3545 solid 2px !important; box-shadow: 2px 2px 5px black;" id="side-pic" src="@if($profile_pic == null ) {{asset('storage/images/default-avatar.jpg')}} @else {{asset('storage/'.$profile_pic)}} @endif" class=" elevation-2 bg-white" alt="User Image">
         </div>
-        <div class="info">
+        <div style="border-top: #ffc107 solid 3px !important; border-bottom: #ffc107 solid 3px !important;" class="info w-100 bg-danger">
             @if (Auth::user()->user_type == 'faculty')
             <a href="{{ url('faculty/profile') }}" class="d-block">{{ Auth::user()->name }}</a>
             @elseif (Auth::user()->user_type == 'student')
@@ -91,7 +93,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
             @elseif (Auth::user()->user_type == 'admin')
             <a href="{{ url('admin/profile') }}" class="d-block">{{ Auth::user()->name }}</a>
             @endif
-            <small class="text-white"><i>Profile</i></small>
+            <hr class="m-0 bg-warning" style="color: white;">
+            <small class="text-white"><i>{{Auth::user()->user_type}}</i></small>
         </div>
         @endguest
       </div>
@@ -105,39 +108,19 @@ scratch. This page gets rid of all links and provides the needed markup only.
                with font-awesome or any other icon font library -->
         @guest
           @else
-          <li class="nav-item">
-            @if (Auth::user()->user_type == 'faculty')
-            <a href="{{ url('faculty') }}" class="nav-link">
+          <li class="nav-item m-auto">
+            <a href="{{ url(Auth::user()->user_type) }}" class="nav-link">
               <i class="nav-icon fas fa fa-chart-line"></i>
               <p>
                 Dashboard
               </p>
             </a>
-            @endif
-
-            @if (Auth::user()->user_type == 'student')
-            <a href="{{ url('student') }}" class="nav-link">
-              <i class="nav-icon fas fa fa-chart-line"></i>
-              <p>
-                Dashboard
-              </p>
-            </a>
-            @endif
-
-            @if (Auth::user()->user_type == 'admin')
-            <a href="{{ url('admin') }}" class="nav-link">
-              <i class="nav-icon fas fa fa-chart-line"></i>
-              <p>
-                Dashboard
-              </p>
-            </a>
-            @endif
           </li>
         @endguest
 
         @guest
           @if (Route::has('login'))
-          <li class="nav-item">
+          <li class="nav-item m-auto">
             <a href="{{ route('login') }}" class="nav-link">
               <p>
                 Login
@@ -147,7 +130,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
           @endif
 
           @if (Route::has('register'))
-          <li class="nav-item">
+          <li class="nav-item m-auto">
             <a href="{{ route('register') }}" class="nav-link">
               <p>
                 Register
@@ -158,7 +141,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
         @else
           @if (Auth::user()->user_type == 'faculty')  
-          <li class="nav-item">
+          <li class="nav-item m-auto">
             <a href="{{ url('faculty/appointments') }}" class="nav-link">
               <i class="nav-icon fas fa fa-list"></i>
               <p>
@@ -167,7 +150,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
             </a>
           </li>
 
-          <li class="nav-item">
+          <li class="nav-item m-auto">
             <a href="{{ url('faculty/report') }}" class="nav-link">
               <i class="nav-icon fas fa fa-paperclip"></i>
               <p>
@@ -175,7 +158,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
               </p>
             </a>
           </li>
-          <li class="nav-item">
+          <li class="nav-item m-auto">
             <a href="{{ url('faculty/profile') }}" class="nav-link">
               <i class="nav-icon fas fa fa-user"></i>
               <p>
@@ -183,7 +166,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
               </p>
             </a>
           </li>
-          <li class="nav-item">
+          <li class="nav-item m-auto">
             <a href="{{ url('notification') }}" class="nav-link">
               <i class="nav-icon far fa fa-bell"></i>
               <p>
@@ -193,7 +176,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
             </a>
           </li>
           @elseif (Auth::user()->user_type == 'student')
-          <li class="nav-item">
+          <li class="nav-item m-auto">
             <a href="{{ url('student/faculty-list') }}" class="nav-link">
               <i class="nav-icon fas fa fa-book"></i>
               <p>
@@ -201,7 +184,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
               </p>
             </a>
           </li>
-          <li class="nav-item">
+          <li class="nav-item m-auto">
             <a href="{{ url('student/request-list') }}" class="nav-link">
               <i class="nav-icon fas fa fa-list"></i>
               <p>
@@ -209,7 +192,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
               </p>
             </a>
           </li>
-          <li class="nav-item">
+          <li class="nav-item m-auto">
             <a href="{{ url('student/profile') }}" class="nav-link">
               <i class="nav-icon fas fa fa-user"></i>
               <p>
@@ -217,7 +200,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
               </p>
             </a>
           </li>
-          <li class="nav-item">
+          <li class="nav-item m-auto">
             <a id="notification" href="{{ url('notification') }}" class="nav-link">
               <i class="nav-icon fas fa fa-bell"></i>
               <p class="">
@@ -227,7 +210,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
             </a>
           </li>
           @elseif (Auth::user()->user_type == 'admin')
-          <li class="nav-item">
+          <li class="nav-item m-auto">
             <a href="{{ url('admin/faculty-list') }}" class="nav-link">
               <i class="nav-icon fas fa fa-list"></i>
               <p>
@@ -235,7 +218,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
               </p>
             </a>
           </li>
-          <li class="nav-item">
+          <li class="nav-item m-auto">
             <a href="{{ url('admin/department-setup') }}" class="nav-link">
               <i class="nav-icon fas fa fa-landmark"></i>
               <p>
@@ -243,7 +226,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
               </p>
             </a>
           </li>
-          <li class="nav-item">
+          <li class="nav-item m-auto">
             <a href="{{ url('admin/reports') }}" class="nav-link">
               <i class="nav-icon fas fa-paperclip"></i>
               <p>
@@ -251,7 +234,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
               </p>
             </a>
           </li>
-          <li class="nav-item">
+          <li class="nav-item m-auto">
             <a href="{{ url('admin/profile') }}" class="nav-link">
               <i class="nav-icon fas fa fa-user"></i>
               <p>
@@ -260,7 +243,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
             </a>
           </li>
           @endif
-          <li class="nav-item">
+          <li class="nav-item m-auto">
             <a href="{{ route('logout') }}" class="nav-link" 
                 onclick="event.preventDefault();
                 document.getElementById('logout-form').submit();">

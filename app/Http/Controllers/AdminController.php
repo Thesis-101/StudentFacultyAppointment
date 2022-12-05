@@ -161,4 +161,23 @@ class AdminController extends Controller
             ],500);
         }
     }
+
+    public function restorePassword(Request $request, $id){
+        try {
+
+            User::whereId($id)->update([
+                'password' => Hash::make($request->default_password)
+            ]);
+
+            return response()->json([
+                        'status' => true,
+                        'message' => "Password Restored.",
+                    ], 200);
+
+        } catch (\Throwable $th) {
+            return response()->json([
+                'message' => "Something went wrong!"
+            ],500);
+        }
+    }
 }

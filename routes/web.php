@@ -68,6 +68,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['role:admin','auth']], funct
     Route::get('department-setup', [AdminController::class, 'getDepartment']);
     Route::post('department-setup', [AdminController::class, 'addDepartment']);
     Route::get('report-remarks', [FacultyController::class, 'getWithRemarks']);
+    Route::post('restore-default/{id}', [AdminController::class, 'restorePassword']);
 });
 
 //Student & Faculty

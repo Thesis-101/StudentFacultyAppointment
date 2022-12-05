@@ -12,6 +12,13 @@
 @import "flatpickr/dist/flatpickr.min.css";
 @import "flatpickr/dist/plugins/monthSelect/style.css";
 
+.school-hero{
+    background-image: url('../../public/storage/images/school-bg.jpg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
 
 // body {
 //     min-height: 100vh;
