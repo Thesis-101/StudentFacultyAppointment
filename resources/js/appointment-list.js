@@ -480,7 +480,7 @@ declineBTN.on('click', function(){
     edited.message = 'Appointment declined: '+reason.val();
     edited.status = "Declined";
     edited.state = "danger";
-    edited.remarks = "None";
+    edited.remarks = reason.val();
 
     console.log(edited);
       $.ajaxSetup({
