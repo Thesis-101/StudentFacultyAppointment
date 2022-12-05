@@ -39,7 +39,7 @@
                 <div class="icon">
                     <i class="ion ion-bag fa fa-database"></i>
                 </div>
-                <a href="{{ url('student/request-list') }}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                <a href="{{ url('faculty/appointments') }}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
                 </div>
             </div>
             <!-- ./col -->
@@ -54,7 +54,7 @@
                 <div class="icon">
                     <i class="ion ion-stats-bars fa fa-check"></i>
                 </div>
-                <a href="{{ url('student/request-list') }}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                <a href="{{ url('faculty/appointments') }}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
                 </div>
             </div>
             <!-- ./col -->
@@ -69,7 +69,7 @@
                 <div class="icon">
                     <i class="ion ion-person-add fa fa-hourglass-half"></i>
                 </div>
-                <a href="{{ url('student/request-list') }}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                <a href="{{ url('faculty/appointments') }}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
                 </div>
             </div>
             <!-- ./col -->
@@ -84,7 +84,7 @@
                 <div class="icon">
                     <i class="ion ion-pie-graph fa fa-trash"></i>
                 </div>
-                <a href="{{ url('student/request-list') }}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                <a href="{{ url('faculty/appointments') }}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
                 </div>
             </div>
             <!-- ./col -->

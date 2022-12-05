@@ -92,7 +92,7 @@ class FacultyAppointmentController extends Controller
             'subject' => 'Appointment Email Notification',
             'body' => $request->message,
             'status' => $request->status,
-            'faculty' => $user,
+            'name' => $user,
             'date-time' => $request->date." ".$request->time,
             'office' => $request->office,
             'remarks' => 'None'
@@ -151,7 +151,7 @@ class FacultyAppointmentController extends Controller
                         'message' => "Vacant Details Successfully Updated",
                     ], 200);
 
-        } catch (\Throwable $th) {
+        } catch (Throwable $th) {
             return response()->json([
                 'message' => $th
             ],500);

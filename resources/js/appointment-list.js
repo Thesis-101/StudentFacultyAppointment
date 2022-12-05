@@ -221,7 +221,7 @@ $(function (){
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                     }
             });
-
+            console.log(edited);
         $.ajax({
             type: "PUT",
             url: "/api/appointments/"+rowId,
