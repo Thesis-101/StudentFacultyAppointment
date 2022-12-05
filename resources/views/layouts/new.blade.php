@@ -110,7 +110,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
           @else
           <li class="nav-item m-auto">
             <a href="{{ url(Auth::user()->user_type) }}" class="nav-link">
-              <i class="nav-icon fas fa fa-chart-line"></i>
+              <i class="text-warning nav-icon fas fa fa-chart-line"></i>
               <p>
                 Dashboard
               </p>
@@ -143,7 +143,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
           @if (Auth::user()->user_type == 'faculty')  
           <li class="nav-item m-auto">
             <a href="{{ url('faculty/appointments') }}" class="nav-link">
-              <i class="nav-icon fas fa fa-list"></i>
+              <i class="text-warning nav-icon fas fa fa-list"></i>
               <p>
                 Appoinment List
               </p>
@@ -152,7 +152,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
           <li class="nav-item m-auto">
             <a href="{{ url('faculty/report') }}" class="nav-link">
-              <i class="nav-icon fas fa fa-paperclip"></i>
+              <i class="text-warning nav-icon fas fa fa-paperclip"></i>
               <p>
                 Generate Report
               </p>
@@ -160,7 +160,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
           </li>
           <li class="nav-item m-auto">
             <a href="{{ url('faculty/profile') }}" class="nav-link">
-              <i class="nav-icon fas fa fa-user"></i>
+              <i class="text-warning nav-icon fas fa fa-user"></i>
               <p>
                 Account Settings
               </p>
@@ -168,7 +168,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
           </li>
           <li class="nav-item m-auto">
             <a href="{{ url('notification') }}" class="nav-link">
-              <i class="nav-icon far fa fa-bell"></i>
+              <i class="text-warning nav-icon far fa fa-bell"></i>
               <p>
                 Notification
                 <span class="badge bg-warning"></span>
@@ -178,7 +178,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
           @elseif (Auth::user()->user_type == 'student')
           <li class="nav-item m-auto">
             <a href="{{ url('student/faculty-list') }}" class="nav-link">
-              <i class="nav-icon fas fa fa-book"></i>
+              <i class="text-warning nav-icon fas fa fa-book"></i>
               <p>
                 Book an Appointment
               </p>
@@ -186,7 +186,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
           </li>
           <li class="nav-item m-auto">
             <a href="{{ url('student/request-list') }}" class="nav-link">
-              <i class="nav-icon fas fa fa-list"></i>
+              <i class="text-warning nav-icon fas fa fa-list"></i>
               <p>
                 Appointment List
               </p>
@@ -194,7 +194,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
           </li>
           <li class="nav-item m-auto">
             <a href="{{ url('student/profile') }}" class="nav-link">
-              <i class="nav-icon fas fa fa-user"></i>
+              <i class="text-warning nav-icon fas fa fa-user"></i>
               <p>
                 Account Settings
               </p>
@@ -202,7 +202,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
           </li>
           <li class="nav-item m-auto">
             <a id="notification" href="{{ url('notification') }}" class="nav-link">
-              <i class="nav-icon fas fa fa-bell"></i>
+              <i class="text-warning nav-icon fas fa fa-bell"></i>
               <p class="">
                 Notification
                 <span class="badge bg-warning"></span>
@@ -212,7 +212,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
           @elseif (Auth::user()->user_type == 'admin')
           <li class="nav-item m-auto">
             <a href="{{ url('admin/faculty-list') }}" class="nav-link">
-              <i class="nav-icon fas fa fa-list"></i>
+              <i class="text-warning nav-icon fas fa fa-list"></i>
               <p>
                 Users List
               </p>
@@ -220,7 +220,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
           </li>
           <li class="nav-item m-auto">
             <a href="{{ url('admin/department-setup') }}" class="nav-link">
-              <i class="nav-icon fas fa fa-landmark"></i>
+              <i class="text-warning nav-icon fas fa fa-landmark"></i>
               <p>
                 Department Setup
               </p>
@@ -228,7 +228,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
           </li>
           <li class="nav-item m-auto">
             <a href="{{ url('admin/reports') }}" class="nav-link">
-              <i class="nav-icon fas fa-paperclip"></i>
+              <i class="text-warning nav-icon fas fa-paperclip"></i>
               <p>
                 Generate Report
               </p>
@@ -236,7 +236,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
           </li>
           <li class="nav-item m-auto">
             <a href="{{ url('admin/profile') }}" class="nav-link">
-              <i class="nav-icon fas fa fa-user"></i>
+              <i class="text-warning nav-icon fas fa fa-user"></i>
               <p>
                 Account Settings
               </p>
@@ -247,7 +247,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
             <a href="{{ route('logout') }}" class="nav-link" 
                 onclick="event.preventDefault();
                 document.getElementById('logout-form').submit();">
-              <i class="nav-icon fas fa fa-power-off"></i>
+              <i class="text-warning nav-icon fas fa fa-power-off"></i>
               <p>
                 Logout
               </p>

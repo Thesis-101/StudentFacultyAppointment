@@ -9,6 +9,8 @@ use Illuminate\Http\Request;
 use App\Models\Remarks;
 use App\Http\Requests\AppointmentRequest;
 use Illuminate\Support\Facades\Auth;
+use App\Mail\MailNotify;
+use Mail;
 
 class RequestController extends Controller
 {
@@ -47,24 +49,39 @@ class RequestController extends Controller
      */
     public function store(AppointmentRequest $request)
     {
-        $data = Requests::create($request->all());
-        Notification::create([
-                                'user_id' => $request->faculty_id,
-                                'message' => 'New Request is Available.'
-                            ]);
-        
-        Remarks::create([
-                                'requests_id' => $data->id,
-                                'faculty_id' => $request->faculty_id,
-                                'student_id' => $request->requesitor_id,
-                                'remarks' => 'None'
-                            ]);
+        $user = auth('sanctum')->user()->name;
 
-        return response()->json([
-            'status' => true,
-            'message' => "Appointment Successfully Added",
-            'data' => $data
-        ], 200);
+        $email_data = [
+            'subject' => 'Appointment Email Notification',
+            'body' => 'New Request is Available.',
+            'status' => 'Pending',
+            'name' => $user,
+            'date-time' => $request->date." ".$request->time,
+            'office' => $request->office,
+            'remarks' => 'None'
+        ];
+
+        $data = Requests::create($request->all());
+            Notification::create([
+                                    'user_id' => $request->faculty_id,
+                                    'message' => 'New Request is Available.'
+                                ]);
+            
+            Remarks::create([
+                                    'requests_id' => $data->id,
+                                    'faculty_id' => $request->faculty_id,
+                                    'student_id' => $request->requesitor_id,
+                                    'remarks' => 'None'
+                                ]);
+            
+            Mail::to($request->student_email)->send(new MailNotify($email_data));
+    
+            return response()->json([
+                'status' => true,
+                'message' => "Appointment Successfully Added",
+                'data' => $data
+            ], 200);
+        
     }
 
     /**

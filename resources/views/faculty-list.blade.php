@@ -171,6 +171,13 @@
                   </div>
                 </div>
 
+                <div class="row mb-2" hidden>
+                  <label for="student-email" class="col-form-label col-md-3">Student Email:</label>
+                  <div class="col-md-9">
+                    <input class="form-control" type="text" name="student-email" id="student-email" value="{{Auth::user()->email}}">
+                  </div>
+                </div>
+
               <!--- Calendar Component ---->
                 <div class="row mb-2">
                     <label for="date" class="col-form-label col-md-3">Date:</label>

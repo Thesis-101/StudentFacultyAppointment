@@ -10,6 +10,7 @@ $(function (){
     const date = $('#date');
     const attendee = $('#attendee'); 
     const requestType = $('#request');
+    const toEmail = $('#student-email');
 
     const viewFacultyId = $('#facultyId');
     const viewFacultyName = $('#facultyName');
@@ -61,6 +62,7 @@ $(function (){
     let rowTemplate =   '<tr class="fragile"  data-id={{id}} id=row{{id}}>' +
                             '<td class="faculty-id" hidden><span><strong>{{userInstitutional_id}}</strong></span></td>' +
                             '<td class="faculty-name" hidden>{{users.name}}</td>' +
+                            '<td class="faculty-name" hidden>{{users.email}}</td>' +
                             '<td class="day">{{day}}</td>' +
                             '<td class="faculty-office">{{designated_office}}</td>' +
                             '<td class="faculty-time">{{vacant_time}}</td>' +
@@ -127,9 +129,10 @@ $(function (){
             dataArry.push($(this).text());
         });
         id = dataArry[0];
-        day.val(dataArry[2]) ;
-        time.val(dataArry[4]) ;
-        office.val(dataArry[3]) ;
+        day.val(dataArry[3]) ;
+        time.val(dataArry[5]) ;
+        office.val(dataArry[4]) ;
+        toEmail.val(dataArry[2])
         console.log(config.disable.toString());
     });
 
@@ -247,6 +250,8 @@ $(function (){
             vacant_id: rowId,
             requesitor_id: requesitor.val(),
             faculty_id: id,
+            office: office.val(),
+            student_email: $("#student-email").val(),
             day: day.val(),
             time: time.val(),
             date: date.val(),

@@ -13,7 +13,7 @@
     <p>Appointment Details:</p>
     <ul>
         <li><strong>Appointment Status: </strong>{{ $data['status'] }}</li>
-        <li><strong>Faculty Name: </strong>{{ $data['faculty'] }}</li>
+        <li><strong>Name: </strong>{{ $data['name'] }}</li>
         <li><strong>Date/Time: </strong>{{ $data['date-time'] }}</li>
         <li><strong>Office Room: </strong>{{ $data['office'] }}</li>
     </ul>

@@ -79,7 +79,7 @@
                 <div class="inner">
                     <h3 id="declinedTransactions"></h3>
 
-                    <p>Cancelled/Declined Appointments</p>
+                    <p>Declined Appointments</p>
                 </div>
                 <div class="icon">
                     <i class="ion ion-pie-graph fa fa-trash"></i>
