@@ -95,7 +95,7 @@ class FacultyAppointmentController extends Controller
             'name' => $user,
             'date-time' => $request->date." ".$request->time,
             'office' => $request->office,
-            'remarks' => 'None'
+            'remarks' => $request->remarks
         ];
 
         try {     
