@@ -38,6 +38,11 @@ class AdminController extends Controller
         return view('admin.user-faculty-list',['userList' => $users]);
     }
 
+    public function getAllUsers(){
+        $users = User::all();
+        return $users;
+    }
+
     public function faculty(){
         $data = User::where('user_type',"faculty")->get();
 

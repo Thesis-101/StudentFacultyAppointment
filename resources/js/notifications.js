@@ -9,7 +9,7 @@ $(function (){
     let rowTemplate =  '<tr  data-id={{id}}>' +
                             '<td>{{message}}</td>' +
                             '<td>{{date}}</td>' +
-                            '<td class="bg-{{state}}">Viewed</td>'+
+                            '<td class="bg-{{state}}">{{appointment}}</td>'+
                         '</tr>'
     
     // '<div data-id={{id}} class="row mb-0 notification-msg">'+
@@ -34,7 +34,18 @@ $(function (){
         url: '/api/notifications',
         success: function(notifications){
             $.each(notifications, function(i, notification){
-                addNotification(notification);
+                if(notification.state == null){
+                    notification.appointment = "Pending";
+                    addNotification(notification);
+                }
+                if(notification.state == "success"){
+                    notification.appointment = "Accepted";
+                    addNotification(notification);
+                }
+                if(notification.state == "danger"){
+                    notification.appointment = "Declined";
+                    addNotification(notification);
+                }
                 if(notification.status == "unread"){
                     data.push(i);
                 }
@@ -47,7 +58,6 @@ $(function (){
             }else{
                 badge.remove();
             }
-            
         }
     });
 

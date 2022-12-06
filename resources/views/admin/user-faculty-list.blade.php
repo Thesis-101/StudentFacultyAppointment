@@ -174,8 +174,18 @@
           <div class="col-lg-12">
             <div class="card">
               <div class="card-header bg-info text-white">
-                <div class="row">
-                    <button id="add" class="btn btn-md btn-warning col-md-2 " data-bs-toggle="modal" data-bs-target="#addUser">Add User</button>
+                <div class="row align-items-center">
+                  <div class="col-md-6">
+                    <div class="row">
+                        <button id="add" class="btn btn-md btn-warning col-md-2 " data-bs-toggle="modal" data-bs-target="#addUser">Add User</button>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <form class="d-flex justify-content-end" id="filter-user" action="" method="get">
+                      <input type="text" class="form-control w-50 mr-2" id="user-id-value" placeholder="Search User ID Number">
+                      <button class="btn btn-sm btn-warning px-4" type="submit">Search</button>
+                    </form>
+                  </div>
                 </div>
               </div>
               <div class="card-body">

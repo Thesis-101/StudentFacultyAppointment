@@ -83,16 +83,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
             @else
             @php($profile_pic = Auth::user()->profile_img)
         <div class="image ">
-          <img style="width: 60px; height: 60px; outline: #ffc107 solid 7px !important; border: #dc3545 solid 2px !important; box-shadow: 2px 2px 5px black;" id="side-pic" src="@if($profile_pic == null ) {{asset('storage/images/default-avatar.jpg')}} @else {{asset('storage/'.$profile_pic)}} @endif" class=" elevation-2 bg-white" alt="User Image">
+          <img style="width: 60px; height: 60px; outline: #ffc107 solid 7px !important; border: #17a2b8 solid 2px !important; box-shadow: 2px 2px 5px black;" id="side-pic" src="@if($profile_pic == null ) {{asset('storage/images/default-avatar.jpg')}} @else {{asset('storage/'.$profile_pic)}} @endif" class=" elevation-2 bg-white" alt="User Image">
         </div>
-        <div style="border-top: #ffc107 solid 3px !important; border-bottom: #ffc107 solid 3px !important;" class="info w-100 bg-danger">
-            @if (Auth::user()->user_type == 'faculty')
-            <a href="{{ url('faculty/profile') }}" class="d-block">{{ Auth::user()->name }}</a>
-            @elseif (Auth::user()->user_type == 'student')
-            <a href="{{ url('student/profile') }}" class="d-block">{{ Auth::user()->name }}</a>
-            @elseif (Auth::user()->user_type == 'admin')
-            <a href="{{ url('admin/profile') }}" class="d-block">{{ Auth::user()->name }}</a>
-            @endif
+        <div style="border-top: #ffc107 solid 3px !important; border-bottom: #ffc107 solid 3px !important; background: rgba(23, 162, 184, 0.7)" class="info w-100">
+            <a style="" href="{{ url('Auth::user()->user_type/profile') }}" class="d-block text-white text-bold">{{ Auth::user()->name }}</span></a>
             <hr class="m-0 bg-warning" style="color: white;">
             <small class="text-white"><i>{{Auth::user()->user_type}}</i></small>
         </div>

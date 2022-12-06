@@ -188,7 +188,17 @@
           <div class="col-lg-12">
             <div class="card">
               <div class="card-header bg-info text-white">
-                <h5 class="m-0 ">Transaction List</h5>
+                <div class="row align-items-center">
+                  <div class="col-md-6">
+                    <h5 class="m-0 ">Transaction List</h5>
+                  </div>
+                  <div class="col-md-6">
+                    <form class="d-flex justify-content-end" id="filter-student" action="" method="get">
+                      <input type="text" class="form-control w-50 mr-2" id="student-name-value" placeholder="Search Student">
+                      <button class="btn btn-sm btn-warning px-4" type="submit">Search</button>
+                    </form>
+                  </div>
+                </div>
               </div>
               <div class="card-body">
                 <table class="table table-bordered">

@@ -190,16 +190,18 @@ $(function (){
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     //Display All Faculty
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
+    let facultyName_list = [];
     $.ajax({
         type: 'GET',
         url: '/student/getFaculty',
         success: function(faculty){
             $.each(faculty, function(i, details){
                 appendFaculty(details);
+                facultyName_list.push(details);
             });
         }
     });
+    console.log(facultyName_list);
     console.log(facultyVacant);
 
 
@@ -334,5 +336,26 @@ $(function (){
 
     attendee.change(function(){
         scanBtn();
+    });
+
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    // Filter Faculty Names
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    const facultyDataName = $('#faculty-name-value');
+    $('#filter-faculty').submit(function(e){
+        e.preventDefault();
+        facultyList.empty();
+
+        $.each(facultyName_list, function(i, faculty){
+            if(faculty.name.toLowerCase().includes(facultyDataName.val().toLowerCase())){
+                appendFaculty(faculty);
+                console.log(true);
+            }
+            if(facultyDataName.val() == null){
+                appendFaculty(faculty);
+            }
+        });
+
     });
 });

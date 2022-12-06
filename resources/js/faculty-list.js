@@ -7,6 +7,7 @@ $(function(){
                             '<td class="facultyIdNumber">{{userInstitution_id}}</td>' +
                             '<td class="facultyName">{{name}}</td>' +
                             '<td class="facultyDepartment">{{department}}</td>' +
+                            '<td class="userType">{{ user_type }}</td>' +
                             '<td class="facultyEmail">{{email}}</td>' +
                             '<td class="actionBTN">'+
                                 '<button class="profileEdit btn btn-sm btn-primary me-1" data-bs-toggle="modal" data-bs-target="#personalDetails{{id}}">View Details</button>' +
@@ -26,9 +27,21 @@ $(function(){
                 data.push(details);
                 // appendUser(details);
             });
-            console.log(data);
         }
     });
+
+    let userData = [];
+    $.ajax({
+        type: 'GET',
+        url: '/admin/all-users',
+        success: function(users){
+            $.each(users, function(i, user){
+                userData.push(user);
+                // appendUser(details);
+            });
+        }
+    });
+
 
     // list.delegate('.profileEdit','click', function(){
     //     let targetRow = $(this).closest('tr');
@@ -105,6 +118,26 @@ $(function(){
                 alert(data.message);
             }
         });
+    });
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    // Filter Faculty Names
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    const userDataID = $('#user-id-value');
+    $('#filter-user').submit(function(e){
+        e.preventDefault();
+        list.empty();
+
+        $.each(userData, function(i, user){
+            if(user.userInstitution_id.toLowerCase().includes(userDataID.val().toLowerCase())){
+                appendUser(user);
+                console.log(true);
+            }
+            if(userDataID.val() == null){
+                appendFaculty(user);
+            }
+        });
+
     });
 
 

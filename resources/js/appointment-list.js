@@ -145,7 +145,7 @@ $(function (){
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     //Display All Appoinment List
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
+    let studentData = [];
     $.ajax({
         type: 'GET',
         url: '/api/appointments',
@@ -157,13 +157,16 @@ $(function (){
                 if(appointment.status == "Accepted"){
                     appendAccepted(appointment);
                     data.push(appointment);
+                    studentData.push(appointment);
                     accepted++;
                 }else if(appointment.status == "Declined"){
                     declined++;
                 }else if(appointment.status == "pending"){
+                    studentData.push(appointment);
                     appendAppointment(appointment);
                     pending++;
                 }else if(appointment.status == "Ongoing"){
+                    studentData.push(appointment);
                     appendOngoing(appointment);
                 }
             }
@@ -174,7 +177,7 @@ $(function (){
             declinedCard.text(declined);
         }
     });
-
+    console.log(studentData);
     console.log(data);
 
     ///////////////////////////////////////////////////////////////////////////
@@ -523,4 +526,36 @@ newDay.on('change',function(){
     console.log('day changed to '+$(this).val());
 });
 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    // Filter Student Names
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    const facultyDataName = $('#student-name-value');
+    $('#filter-student').submit(function(e){
+        e.preventDefault();
+        list.empty();
+
+        $.each(studentData, function(i, student){
+            if(student.students.name.toLowerCase().includes(facultyDataName.val().toLowerCase())){
+                if(student.status == "Accepted"){
+                    appendAccepted(student);
+                }else if(student.status == "pending"){
+                    appendAppointment(student);
+                }else if(student.status == "Ongoing"){
+                    appendOngoing(student);
+                }
+                
+                console.log(true);
+            }
+            if(facultyDataName.val() == null){
+                if(student.status == "Accepted"){
+                    appendAccepted(student);
+                }else if(student.status == "pending"){
+                    appendAppointment(student);
+                }else if(student.status == "Ongoing"){
+                    appendOngoing(student);
+                }
+            }
+        });
+
+    });
 });
