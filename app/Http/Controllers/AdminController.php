@@ -34,7 +34,7 @@ class AdminController extends Controller
     }
 
     public function getFaculty(){
-        $users = User::all();
+        $users = User::orderBy('id','desc')->get();
         return view('admin.user-faculty-list',['userList' => $users]);
     }
 

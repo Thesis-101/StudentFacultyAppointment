@@ -32,7 +32,6 @@
 
         <!-- Modal -->
         @foreach($userList as $user)
-        @if($user['user_type'] != "admin")
         <form action="/updateProfile" id="profile_setup_frm" method="post" enctype="multipart/form-data">
             <div class="modal fade" id="personalDetails{{$user['id']}}" tabindex="-1" aria-labelledby="personalDetailsLabel" aria-hidden="true">
             <div class="modal-dialog">
@@ -96,7 +95,6 @@
             </div>
             </div>
         </form>
-        @endif
         @endforeach
 
         <!-- Add User Form -->
@@ -194,7 +192,6 @@
                     </thead>
                     <tbody id="faculty-list">
                             @foreach($userList as $user)
-                                @if($user['user_type'] != "admin")
                                 <tr data-id="{{ $user['id'] }}"> 
                                     <td class="facultyIdNumber">{{ $user['userInstitution_id'] }}</td> 
                                     <td class="facultyName">{{ $user['name'] }}</td> 
@@ -203,10 +200,11 @@
                                     <td class="facultyEmail">{{ $user['email'] }}</td> 
                                     <td class="actionBTN">
                                         <button class="profileEdit btn btn-sm btn-primary me-1" data-bs-toggle="modal" data-bs-target="#personalDetails{{$user['id']}}">View Details</button>
+                                        @if($user['id'] != Auth::user()->id)
                                         <button class="delete btn btn-sm btn-danger">Delete</button>
+                                        @endif
                                     </td>
                                 </tr>
-                                @endif
                             @endforeach
                     </tbody>
                 </table>
