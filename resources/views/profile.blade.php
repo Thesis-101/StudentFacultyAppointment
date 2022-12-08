@@ -184,7 +184,7 @@
           <div class="col-md-5 ">
 
             <!-- Profile Image -->
-            <div class="card card-primary card-outline">
+            <div style="background:rgba(255,255,255, 0.0);" class="card shadow-none">
               <div class="card-body box-profile">
                 <div class="user-details text-center">
                 @php($profile_pic = Auth::user()->profile_img)
@@ -193,15 +193,15 @@
                        alt="User profile picture">
                 </div>
 
-                <h3 id="profileName" class="profile-username text-center">{{Auth::user()->name}}</h3>
+                <h1 style="font-size: 25px !important;" id="profileName" class="profile-username text-center font-weight-bold">{{Auth::user()->name}}</h1>
 
                 <p class="text-muted text-center">{{ Auth::user()->userInstitution_id }}</p>
 
-                <ul class="other-details list-group list-group-unbordered mb-3">
-                  <li class="list-group-item">
+                <ul class="other-details list-group list-group-unbordered mb-3 ">
+                  <li class="list-group-item bg-light">
                     <b>User Type</b> <a class="user-type float-right">Student</a>
                   </li>
-                  <li class="list-group-item">
+                  <li class="list-group-item bg-light">
                     <b>Email</b> <a class="user-email float-right">{{Auth::user()->email}}</a>
                   </li>
                 </ul>
