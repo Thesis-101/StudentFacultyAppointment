@@ -64,7 +64,11 @@ $(function(){
             url: '/admin/delete/'+row.data('id'),
             success: function(data){
                 row.remove();
-                alert(data.message);
+                // alert(data.message);
+                jQuery.noConflict();
+                        $('#modal-alert-tag').text("Success");
+                        $('#modal-alert-phrase').text(data.message);
+                        $('#alertModal').fadeIn();
             }
         });
     });
@@ -91,17 +95,27 @@ $(function(){
             success: (response) => {
                 console.log(response);
                 if (response.status == true){
-                    alert(response.message);
-                    location.reload();
+                    // alert(response.message);
+                    jQuery.noConflict();
+                        $('#modal-alert-tag').text("Success");
+                        $('#modal-alert-phrase').text(response.message);
+                        $('#alertModal').fadeIn();
+                    setTimeout(function(){
+                        location.reload();
+                    }, 1000);
                 }else{
-                    alert("Something went wrong");
+                    // alert("Something went wrong");
+                    jQuery.noConflict();
+                        $('#modal-alert-tag').text("Error");
+                        $('#modal-alert-phrase').text("Something went wrong");
+                        $('#alertModal').fadeIn();
                 }
             }
         });
 
     });
 
-    $("#restoreDefault").click(function(){
+    $(".restoreDefault").click(function(){
         $.ajaxSetup({
             headers: {
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -110,12 +124,16 @@ $(function(){
 
         $.ajax({
             type: 'POST',
-            url: '/admin/restore-default/'+$("#userID").val(),
+            url: '/admin/restore-default/'+$(".userID").val(),
             data: {
                 default_password : "defaultp@ssword"
             },
             success: function(data){
-                alert(data.message);
+                // alert(data.message);
+                jQuery.noConflict();
+                        $('#modal-alert-tag').text("Success");
+                        $('#modal-alert-phrase').text(data.message);
+                        $('#alertModal').fadeIn();
             }
         });
     });

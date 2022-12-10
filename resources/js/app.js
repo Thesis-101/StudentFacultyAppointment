@@ -18,4 +18,10 @@ $(function () {
         .css({'display': 'block'})
         .addClass('menu-open').prev('a')
         .addClass('active');
+    
+    $('.modal-close-btn').click(function(){
+            $('#alertModal').fadeOut();
+        });
+    
+    
 });

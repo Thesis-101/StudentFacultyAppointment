@@ -32,7 +32,7 @@
 
         <!-- Modal -->
         @foreach($userList as $user)
-        <form action="/updateProfile" id="profile_setup_frm" method="post" enctype="multipart/form-data">
+        <form action="/updateProfile" method="post" >
             <div class="modal fade" id="personalDetails{{$user['id']}}" tabindex="-1" aria-labelledby="personalDetailsLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -49,47 +49,47 @@
                         </div>
                     </div>
 
-                    <input class="form-control" type="text" name="userID" id="userID" value="{{  $user['id'] }}" hidden>
+                    <input class="form-control userID" type="text" name="userID" value="{{  $user['id'] }}" hidden>
 
                     <div class="row mb-2" >
                     <label for="name" class="col-form-label col-md-3">Name:</label>
                     <div class="col-md-9">
-                        <input class="form-control" type="text" name="name" id="name" value="{{  $user['name'] }}" readonly>
+                        <input class="form-control" type="text" name="name" value="{{  $user['name'] }}" readonly>
                     </div>
                     </div>
 
                     <div class="row mb-2" >
                     <label for="idNumber" class="col-form-label col-md-3">ID Number:</label>
                     <div class="col-md-9">
-                        <input class="form-control" type="text" name="userInstitution_id" id="userInstitution_id" value="{{  $user['userInstitution_id'] }}" readonly>
+                        <input class="form-control" type="text" name="userInstitution_id"  value="{{  $user['userInstitution_id'] }}" readonly>
                     </div>
                     </div>
 
                     <div class="row mb-2" >
                     <label for="idNumber" class="col-form-label col-md-3">Department:</label>
                     <div class="col-md-9">
-                        <input class="form-control" type="text" name="department" id="department" value="{{  $user['department'] }}" readonly>
+                        <input class="form-control" type="text" name="department" value="{{  $user['department'] }}" readonly>
                     </div>
                     </div>
 
                     <div class="row mb-2">
                     <label for="day" class="col-form-label col-md-3">Email:</label>
                     <div class="col-md-9">
-                        <input class="form-control" type="email" name="email" id="email" value="{{  $user['email'] }}" readonly>
+                        <input class="form-control" type="email" name="email" value="{{  $user['email'] }}" readonly>
                     </div>
                     </div>
 
                     <div class="row mb-2">
                     <label for="day" class="col-form-label col-md-3">Password:</label>
                     <div class="col-md-9">
-                        <button id="restoreDefault" type="button" class="btn btn-primary">Restore Default</button>
+                        <button type="button" class="restoreDefault btn btn-primary">Restore Default</button>
                     </div>
                     </div>
 
                     <input type="hidden" name="_token" value="{{ csrf_token() }}">
                 </div>
                 <div class="modal-footer apiBtn">
-                    <button id="undoUpdate" type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button  type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                 </div>
                 </div>
             </div>

@@ -96,7 +96,11 @@ $( function () {
                 type: 'DELETE',
                 url: '/admin/deleteRequest/'+row.data('id'),
                 success: function(data){
-                        alert(data.message);
+                        // alert(data.message);
+                        jQuery.noConflict();
+                        $('#modal-alert-tag').text(data.status);
+                        $('#modal-alert-phrase').text(data.message);
+                        $('#alertModal').fadeIn();
                         if(row.find('td.status').text() == "pending"){
                             pending--;
                         }else if (row.find('td.status').text() == "Accepted"){
@@ -115,4 +119,6 @@ $( function () {
                 
             });
     });
+
+    
 });

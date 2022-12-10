@@ -231,11 +231,15 @@ $(function (){
             data: edited,
             success: function (edited) {
                 targetRow.find('td.status').html('Accepted');
-                alert("Appoinment Has Been Accepted.");
+                // alert("Appoinment Has Been Accepted.");
+                jQuery.noConflict();
+                $('#modal-alert-tag').text("Success");
+                $('#modal-alert-phrase').text("Appoinment Has Been Accepted.");
+                $('#alertModal').fadeIn();
 
-                $('.triggerView').removeAttr('data-bs-toggle');
-                $('.triggerView').attr('id','triggerStart');
-                $('.triggerView').text('Start Session');
+                // targetRow.find().removeAttr('data-bs-toggle');
+                // $('.triggerView').attr('id','triggerStart');
+                // $('.triggerView').text('Start Session');
 
                 targetRow.find('td.rowBTN .triggerView').removeAttr('data-bs-toggle');
                 targetRow.find('td.rowBTN .triggerView').attr('id','triggerStart');
@@ -249,7 +253,11 @@ $(function (){
             },
             error: function (message) {
                 console.log(message);
-                alert("An error while saving data");
+                // alert("An error while saving data");
+                jQuery.noConflict();
+                $('#modal-alert-tag').text("Error");
+                $('#modal-alert-phrase').text("An error while saving data");
+                $('#alertModal').fadeIn();
             },
         });
     });
@@ -291,7 +299,11 @@ $(function (){
             url: "/api/appointments/"+rowId,
             data: edited,
             success: function (edited) {
-                alert("You Started The Session.");
+                // alert("You Started The Session.");
+                jQuery.noConflict();
+                $('#modal-alert-tag').text("Success");
+                $('#modal-alert-phrase').text("You Started The Session.");
+                $('#alertModal').fadeIn();
                 targetRow.find('td.status').html('On-going');
                 targetRow.find('td.rowBTN .triggerView').attr('id','triggerEnd2');
                 targetRow.find('td.rowBTN .triggerView').attr('data-bs-toggle','modal');
@@ -302,7 +314,11 @@ $(function (){
             },
             error: function () {
                 console.log(rowId);
-                alert("An error while saving data");
+                // alert("An error while saving data");
+                jQuery.noConflict();
+                $('#modal-alert-tag').text("Error");
+                $('#modal-alert-phrase').text("An error while saving data");
+                $('#alertModal').fadeIn();
             },
         });
     });
@@ -351,12 +367,20 @@ $(function (){
             data: edited,
             success: function (edited) {
                 console.log(edited);
-                alert("Session Successfully Ended.");
+                // alert("Session Successfully Ended.");
+                jQuery.noConflict();
+                $('#modal-alert-tag').text("Success");
+                $('#modal-alert-phrase').text("Session Successfully Ended");
+                $('#alertModal').fadeIn();
                 targetRow.remove();
             },
             error: function (data) {
                 console.log(data);
-                alert("There was a problem ending the session.");
+                // alert("There was a problem ending the session.");
+                jQuery.noConflict();
+                $('#modal-alert-tag').text("Error");
+                $('#modal-alert-phrase').text("There was a problem ending the session.");
+                $('#alertModal').fadeIn();
             },
         });
     });
@@ -463,7 +487,11 @@ rescheduleBTN.on('click', function (){
                         targetRow.find('td.rowBTN .triggerView').attr('disabled',true);
                         targetRow.find('td.rowBTN .triggerView').text('Start Session');
                         
-                        alert("Appoinment Has Been Changed.");
+                        // alert("Appoinment Has Been Changed.");
+                        jQuery.noConflict();
+                        $('#modal-alert-tag').text("Success");
+                        $('#modal-alert-phrase').text("Appointment Has Been Changed.");
+                        $('#alertModal').fadeIn();
                         pending--;
                         accepted++;
                         pendingCard.text(pending);
@@ -472,7 +500,11 @@ rescheduleBTN.on('click', function (){
                     error: function () {
                         console.log(edited);
                         console.log(rowId);
-                        alert("An error while saving data");
+                        // alert("An error while saving data");
+                        jQuery.noConflict();
+                        $('#modal-alert-tag').text("Error");
+                        $('#modal-alert-phrase').text("An error while saving data");
+                        $('#alertModal').fadeIn();
                     },
                 });
     });
@@ -498,7 +530,11 @@ declineBTN.on('click', function(){
          data: edited,
          success: function (edited) {
              targetRow.find('td.status').html('Declined');
-             alert("Appoinment Has Been Declined.");
+            //  alert("Appoinment Has Been Declined.");
+             jQuery.noConflict();
+             $('#modal-alert-tag').text("Success");
+             $('#modal-alert-phrase').text("Appointment Has Been Declined.");
+             $('#alertModal').fadeIn();
              declined++;
              pending--;
              targetRow.remove();
@@ -507,7 +543,11 @@ declineBTN.on('click', function(){
          },
          error: function () {
              console.log(rowId);
-             alert("An error while saving data");
+            //  alert("An error while saving data");
+            jQuery.noConflict();
+            $('#modal-alert-tag').text("Error");
+            $('#modal-alert-phrase').text("An error while saving data");
+            $('#alertModal').fadeIn();
          },
      });
 });

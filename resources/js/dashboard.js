@@ -105,13 +105,21 @@ $(function (){
             data: edited,
             success: function (edited) {
                 console.log(edited);
-                alert("Appoinment Has Been Accepted.");
+                // alert("Appoinment Has Been Accepted.");
+                jQuery.noConflict();
+                $('#modal-alert-tag').text("Success");
+                $('#modal-alert-phrase').text("Appointment Has Been Accepted");
+                $('#alertModal').fadeIn();
                 targetRow.remove();
             },
             error: function () {
                 console.log(edited);
                 console.log(rowId);
-                alert("An error while saving data");
+                // alert("An error while saving data");
+                jQuery.noConflict();
+                $('#modal-alert-tag').text("Error");
+                $('#modal-alert-phrase').text("An error while saving data");
+                $('#alertModal').fadeIn();
             },
         });
     });
@@ -243,13 +251,21 @@ rescheduleBTN.on('click', function (){
                     data: edited,
                     success: function (edited) {
                         console.log(edited);
-                        alert("Appoinment Has Been Changed.");
+                        // alert("Appoinment Has Been Changed.");
+                        jQuery.noConflict();
+                        $('#modal-alert-tag').text("Success");
+                        $('#modal-alert-phrase').text("Appointment Has Been Changed.");
+                        $('#alertModal').fadeIn();
                         targetRow.remove();
                     },
                     error: function () {
                         console.log(edited);
                         console.log(rowId);
-                        alert("An error while saving data");
+                        // alert("An error while saving data");
+                        jQuery.noConflict();
+                        $('#modal-alert-tag').text("Error");
+                        $('#modal-alert-phrase').text("An error while saving data");
+                        $('#alertModal').fadeIn();
                     },
                 });
     });
@@ -272,13 +288,21 @@ declineBTN.on('click', function(){
          data: edited,
          success: function (edited) {
              console.log(edited);
-             alert("Appoinment Has Been Declined.");
+            //  alert("Appoinment Has Been Declined.");
+             jQuery.noConflict();
+            $('#modal-alert-tag').text("Success");
+            $('#modal-alert-phrase').text("Appointment Has Been Declined.");
+            $('#alertModal').fadeIn();
              targetRow.remove();
          },
          error: function () {
              console.log(edited);
              console.log(rowId);
              alert("An error while saving data");
+             jQuery.noConflict();
+                $('#modal-alert-tag').text("Error");
+                $('#modal-alert-phrase').text("An error while saving data");
+                $('#alertModal').fadeIn();
          },
      });
 });

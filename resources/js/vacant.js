@@ -108,7 +108,11 @@ $(function () {
             },
             error: function () {
                 console.log($newVacant);
-                alert("An error while saving data");
+                // alert("An error while saving data");
+                jQuery.noConflict();
+                    $('#modal-alert-tag').text("Error");
+                    $('#modal-alert-phrase').text("An error while saving data");
+                    $('#alertModal').fadeIn();
             },
         });
     });
@@ -155,7 +159,11 @@ $(function () {
             },
             error: function () {
                 console.log($edited);
-                alert("An error while saving data");
+                // alert("An error while saving data");
+                jQuery.noConflict();
+                    $('#modal-alert-tag').text("Error");
+                    $('#modal-alert-phrase').text("An error while saving data");
+                    $('#alertModal').fadeIn();
             },
         });
     });

@@ -180,10 +180,45 @@
 
         <!-- Modal -->
 
+        <!-- New Profile setup -->
+          <div class="col-md-12 mt-5">
+            <div class="row mb-5">
+                <div class="col-md-4">
+                    <div class="box-profile">
+                        <div class="user-details text-center">
+                        @php($profile_pic = Auth::user()->profile_img)
+                        <img style="width: 300px; height: 300px;" id="profilePic" class="profile-user-img img-fluid"
+                                src="@if($profile_pic == null ) {{asset('storage/images/default-avatar.jpg')}} @else {{asset('storage/'.$profile_pic)}} @endif"
+                            alt="User profile picture">
+                        </div>
+                    </div>
+                </div>
 
-          <div class="col-md-5 ">
+                <div class="col-md-8">
+                    <h1 style="font-size: 25px !important;" id="profileName" class="profile-username text-start font-weight-bold">Name: {{Auth::user()->name}}</h1>
+                    <p class="text-muted text-start">School ID: {{ Auth::user()->userInstitution_id }}</p>
+                    <ul class="other-details list-group list-group-unbordered mb-3 ">
 
-            <!-- Profile Image -->
+                        <li class="list-group-item bg-light w-75">
+                            <b>User Type</b> <a class="user-type float-right">Student</a>
+                        </li>
+                        <li class="list-group-item bg-light w-75">
+                            <b>Email</b> <a class="user-email float-right">{{Auth::user()->email}}</a>
+                        </li>
+                    </ul>
+                </div>  
+            </div>
+
+            <div class="row align-items-center">
+                <div class="col-md-6 text-right">
+                    <button class="btn btn-lg btn-primary col-md-8" data-bs-toggle="modal" data-bs-target="#personalDetails">Edit Profile</button>
+                </div>
+                <div class="col-md-6 text-start">
+                    <button class="btn btn-lg btn-primary col-md-8" data-bs-toggle="modal" data-bs-target="#passwordChange">Change Password</button>
+                </div>
+            </div>
+
+            <!-- Profile Image
             <div style="background:rgba(255,255,255, 0.0);" class="card shadow-none">
               <div class="card-body box-profile">
                 <div class="user-details text-center">
@@ -213,9 +248,9 @@
                     <button class="btn btn-md btn-primary col-md-12 mx-auto" data-bs-toggle="modal" data-bs-target="#passwordChange">Change Password</button>
                 </div>
 
-              </div>
+              </div> -->
               <!-- /.card-body -->
-            </div>
+            <!-- </div> -->
             <!-- /.card -->
           </div>
           <!-- /.col -->

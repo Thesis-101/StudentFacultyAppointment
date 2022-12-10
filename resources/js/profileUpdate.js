@@ -39,12 +39,21 @@ $(function(){
             processData: false,
             success: (response) => {
                 if (response.code == 400){
-                    alert(response.msg);
+                    // alert(response.msg);
+                    jQuery.noConflict();
+                    $('#modal-alert-tag').text("Error");
+                    $('#modal-alert-phrase').text(response.msg);
+                    $('#alertModal').fadeIn();
                 }else if (response.code == 200){
-                    alert(response.msg);
+                    // alert(response.msg);
                     $('#userName').html($('#name').val());
                     $('#profileName').html($('#name').val());
                     $("#personalDetails").modal('hide');
+
+                    jQuery.noConflict();
+                    $('#modal-alert-tag').text("Success");
+                    $('#modal-alert-phrase').text(response.msg);
+                    $('#alertModal').fadeIn();
                 }
             }
         });
@@ -72,16 +81,26 @@ $(function(){
             processData: false,
             success: (response) => {
                 if (response.code == 400){
-                    alert(response.msg);
+                    // alert(response.msg);
+                    jQuery.noConflict();
+                    $('#modal-alert-tag').text("Error");
+                    $('#modal-alert-phrase').text(response.msg);
+                    $('#alertModal').fadeIn();
+
                     $('#oldPassword').val("");
                     $('#new_password').val("");
                     $('#new_password_confirmation').val("");
                 }else if (response.code == 200){
-                    alert(response.msg);
+                    // alert(response.msg);
                     $('#oldPassword').val("");
                     $('#new_password').val("");
                     $('#new_password_confirmation').val("");
                     $('#passwordChange').modal('hide');
+
+                    jQuery.noConflict();
+                    $('#modal-alert-tag').text("Success");
+                    $('#modal-alert-phrase').text(response.msg);
+                    $('#alertModal').fadeIn();
                 }
             }
         });

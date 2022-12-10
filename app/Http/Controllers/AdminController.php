@@ -71,6 +71,7 @@ class AdminController extends Controller
         $data = Requests::find($id);
         if(!$data){
             return response()->json([
+                'status' => 'Error',
                 'message'=>'Data Not Found.'
             ],404);
         }
@@ -78,7 +79,7 @@ class AdminController extends Controller
         $data->delete();
 
         return response()->json([
-            'status' => true,
+            'status' => "Success",
             'message' => "Data Successfully Removed",
         ], 200);
     }

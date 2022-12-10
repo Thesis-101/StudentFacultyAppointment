@@ -59,10 +59,12 @@ $(function (){
     let rowId;
     let id;
 
+    let newRow;
+
     let rowTemplate =   '<tr class="fragile"  data-id={{id}} id=row{{id}}>' +
                             '<td class="faculty-id" hidden><span><strong>{{userInstitutional_id}}</strong></span></td>' +
                             '<td class="faculty-name" hidden>{{users.name}}</td>' +
-                            '<td class="faculty-name" hidden>{{users.email}}</td>' +
+                            '<td class="faculty-email" hidden>{{users.email}}</td>' +
                             '<td class="day">{{day}}</td>' +
                             '<td class="faculty-office">{{designated_office}}</td>' +
                             '<td class="faculty-time">{{vacant_time}}</td>' +
@@ -109,8 +111,14 @@ $(function (){
                 return;
             }else if(dataDates.status == "Declined"){
                 return;
+            }else if(dataDates.status == "Cancelled"){
+                return;
             }else{
-                config.disable.push(dataDates.date);
+                if(dataDates.faculty_id == newRow.find('td.faculty-id').text()){
+                    config.disable.push(dataDates.date);
+                }else{
+                    return;
+                }
             }
 
         });
@@ -148,6 +156,7 @@ $(function (){
 
     facultyList.delegate('.view', 'click', function(){
         let targetRow = $(this).closest('tr');
+        newRow = targetRow;
         let dataSkip;
         
         $('.fragile').remove();
@@ -237,6 +246,7 @@ $(function (){
         type: 'GET',
         url: '/student/load-requests',
         success: function(faculty){
+            console.log(faculty);
             $.each(faculty, function(i, appointment){
                 requestDataToDisable.push(appointment);
             });
@@ -257,6 +267,7 @@ $(function (){
             day: day.val(),
             time: time.val(),
             date: date.val(),
+            status: "pending",
             request_type: requestType.val(),
             attendee_type: attendee.val()
         }
@@ -272,16 +283,28 @@ $(function (){
             url: '/api/request',
             data: newAppointment,
             success: function (newVacant) {
-                alert("Appointment Added");
+                // location.reload(true);
+                // alert("Appointment Added");
+                console.log(newVacant);
+                jQuery.noConflict();
+                $('#modal-alert-tag').text("Success");
+                $('#modal-alert-phrase').text("Appointment Added");
+                $('#alertModal').fadeIn();
                 day.val('');
                 time.val('');
                 date.val('');
                 requestType.val('');
                 attendee.val('');
-                location.reload(true);
+                requestDataToDisable.push(newVacant.data);
+                console.log(requestDataToDisable);
+                
             },
             error: function () {
-                alert("An error while saving data");
+                // alert("An error while saving data");
+                jQuery.noConflict();
+                    $('#modal-alert-tag').text("Error");
+                    $('#modal-alert-phrase').text("An error while saving data");
+                    $('#alertModal').fadeIn();
             },
         });
     });
@@ -308,7 +331,11 @@ $(function (){
     document.querySelector('.appointmentDate').onchange = evt => {
         if (!validate(evt.target.value)) {
           evt.target.value = '';
-          alert('Invalid Day/Date!');
+        //   alert('Invalid Day/Date!');
+        jQuery.noConflict();
+                    $('#modal-alert-tag').text("Error");
+                    $('#modal-alert-phrase').text("Invalid Day/Date");
+                    $('#alertModal').fadeIn();
         }
       }
     
@@ -337,7 +364,7 @@ $(function (){
     attendee.change(function(){
         scanBtn();
     });
-
+    console.log(requestDataToDisable);
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     // Filter Faculty Names

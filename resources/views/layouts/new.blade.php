@@ -259,6 +259,28 @@ scratch. This page gets rid of all links and provides the needed markup only.
   </aside>
 
   <!-- Content Wrapper. Contains page content -->
+
+  <!-- Modal Alert -->
+  <div class="modal" id="alertModal" tabindex="-1" role="dialog" aria-labelledby="alertModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header bg-info">
+          <h5 id="modal-alert-tag" class="modal-title text-white"></h5>
+            <button type="button" class="close modal-close-btn" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <p id="modal-alert-phrase"></p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary modal-close-btn" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal Alert Ending -->
   @yield('content')
   <!-- /.content-wrapper -->
 

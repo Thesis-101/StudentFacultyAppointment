@@ -38,11 +38,19 @@ $(function (){
             success: function (response) {
                 console.log(response);
                 appendDepartment(response.data);
-                alert(response.message);
+                // alert(response.message);
+                jQuery.noConflict();
+                $('#modal-alert-tag').text("Success");
+                $('#modal-alert-phrase').text(response.data);
+                $('#alertModal').fadeIn();
             },
             error: function () {
                 console.log($response);
-                alert("An error while saving data");
+                // alert("An error while saving data");
+                jQuery.noConflict();
+                $('#modal-alert-tag').text("Error");
+                $('#modal-alert-phrase').text("An error while saving data");
+                $('#alertModal').fadeIn();
             },
         });
     });
@@ -72,7 +80,11 @@ $(function (){
             url: '/admin/deleteDepartment/'+row.data('id'),
             success: function(data){
                 row.remove();
-                alert(data.message);
+                // alert(data.message);
+                jQuery.noConflict();
+                $('#modal-alert-tag').text("Success");
+                $('#modal-alert-phrase').text(data.message);
+                $('#alertModal').fadeIn();
             }
         });
     });
@@ -108,7 +120,11 @@ $(function (){
             data: deptVal,
             success: function(data){
                 row.find('td.departmentName').text(deptVal.department);
-                alert(data.message);
+                // alert(data.message);
+                jQuery.noConflict();
+                $('#modal-alert-tag').text("Success");
+                $('#modal-alert-phrase').text(data.message);
+                $('#alertModal').fadeIn();
             }
         });
     });

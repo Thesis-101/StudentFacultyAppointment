@@ -84,12 +84,20 @@ $( function () {
                     data: data,
                     success: function (data) {
                         row.remove();
-                        alert("Appointment Has Been Cancelled.");
+                        // alert("Appointment Has Been Cancelled.");
+                        jQuery.noConflict();
+                        $('#modal-alert-tag').text("Success");
+                        $('#modal-alert-phrase').text("Appointment Has Been Cancelled.");
+                        $('#alertModal').fadeIn();
 
 
                     },
                     error: function () {
-                        alert("An error while saving data");
+                        // alert("An error while saving data");
+                        jQuery.noConflict();
+                        $('#modal-alert-tag').text("Error");
+                        $('#modal-alert-phrase').text("An error while saving data");
+                        $('#alertModal').fadeIn();
                     },
             });
     });
