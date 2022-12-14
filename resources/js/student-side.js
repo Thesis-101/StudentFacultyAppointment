@@ -146,6 +146,7 @@ $(function (){
 
     list.delegate('.triggerAppoint','click',function(){
         date.val('');
+        requestType.val('');
     });
     
 
@@ -155,6 +156,8 @@ $(function (){
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     facultyList.delegate('.view', 'click', function(){
+        date.val('');
+        requestType.val('');
         let targetRow = $(this).closest('tr');
         newRow = targetRow;
         let dataSkip;
@@ -283,9 +286,9 @@ $(function (){
             url: '/api/request',
             data: newAppointment,
             success: function (newVacant) {
-                // location.reload(true);
+                
                 // alert("Appointment Added");
-                console.log(newVacant);
+                // console.log(newVacant);
                 jQuery.noConflict();
                 $('#modal-alert-tag').text("Success");
                 $('#modal-alert-phrase').text("Appointment Added");
@@ -297,7 +300,7 @@ $(function (){
                 attendee.val('');
                 requestDataToDisable.push(newVacant.data);
                 console.log(requestDataToDisable);
-                
+                scanBtn();
             },
             error: function () {
                 // alert("An error while saving data");
@@ -308,6 +311,8 @@ $(function (){
             },
         });
     });
+
+    
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     //Date validation
@@ -353,17 +358,20 @@ $(function (){
         }
     }
 
-    date.change(function(){
-        scanBtn();
-    });
-
-    requestType.change(function(){
-        scanBtn();
-    });
-
-    attendee.change(function(){
-        scanBtn();
-    });
+    function seek(){
+        date.change(function(){
+            scanBtn();
+        });
+    
+        requestType.change(function(){
+            scanBtn();
+        });
+    
+        requestType.change(function(){
+            scanBtn();
+        });
+    }
+    seek();
     console.log(requestDataToDisable);
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
