@@ -150,17 +150,17 @@
                   </div>
                 </div>
 
-                <div class="row mb-2" hidden>
+                <div class="row mb-2" >
                   <label for="day" class="col-form-label col-md-3">Day:</label>
                   <div class="col-md-9">
-                    <input class="form-control" type="text" name="day" id="day">
+                    <input class="form-control" type="text" name="day" id="day" readonly>
                   </div>
                 </div>
 
-                <div class="row mb-2" hidden>
+                <div class="row mb-2" >
                   <label for="time" class="col-form-label col-md-3">Vacant Time:</label>
                   <div class="col-md-9">
-                    <input class="form-control" type="text" name="time" id="time">
+                    <input class="form-control" type="text" name="time" id="time" readonly>
                   </div>
                 </div>
 

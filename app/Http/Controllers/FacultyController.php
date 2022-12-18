@@ -13,8 +13,23 @@ class FacultyController extends Controller
         return view('faculty.home');
     }
 
-    public function appointmentList(){
+    public function pendingAppointments(){
         return view('faculty.appointment-list');
+    }
+
+    public function acceptedAppointments(){
+        return view('faculty.appointment-list-accepted');
+    }
+
+    public function ongoingAppointments(){
+        return view('faculty.appointment-list-ongoing');
+    }
+
+    public function declinedAppointments(){
+        return view('faculty.appointment-list-declined');
+    }
+    public function completedAppointments(){
+        return view('faculty.appointment-list-completed');
     }
 
     public function appointmentHistory(){

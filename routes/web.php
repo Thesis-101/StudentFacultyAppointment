@@ -32,11 +32,15 @@ Route::post('/change-password', [HomeController::class, 'changePassword']);
 
 Route::group(['prefix' => 'faculty', 'middleware' => ['role:faculty','auth']], function () {
     Route::get('/',[FacultyController::class, 'index']);
-    Route::get('appointments',[FacultyController::class, 'appointmentList']);
+    Route::get('appointments',[FacultyController::class, 'pendingAppointments']);
     Route::get('history',[FacultyController::class, 'appointmentHistory']);
     Route::get('profile', [FacultyController::class, 'profile']);
     Route::get('report', [FacultyController::class, 'report']);
     Route::get('report-remarks', [FacultyController::class, 'getWithRemarks']);
+    Route::get('appointments/accepted',[FacultyController::class, 'acceptedAppointments']);
+    Route::get('appointments/on-going',[FacultyController::class, 'ongoingAppointments']);
+    Route::get('appointments/declined',[FacultyController::class, 'declinedAppointments']);
+    Route::get('appointments/completed',[FacultyController::class, 'completedAppointments']);
 });
 
 

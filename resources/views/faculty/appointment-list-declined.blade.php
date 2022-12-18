@@ -190,7 +190,7 @@
               <div class="card-header bg-info text-white">
                 <div class="row align-items-center">
                   <div class="col-md-6">
-                    <h5 class="m-0 ">Transaction List (Pending)</h5>
+                    <h5 class="m-0 ">Transaction List (Declined)</h5>
                   </div>
                   <div class="col-md-6">
                     <form class="d-flex justify-content-end" id="filter-student" action="" method="get">
@@ -212,7 +212,7 @@
                             <th>Action</th>
                           </tr>
                     </thead>
-                    <tbody id="appointment-list">
+                    <tbody id="declined-list">
                     </tbody>
                 </table>
               </div>

@@ -3,6 +3,11 @@ import flatpickr from "flatpickr";
 
 $(function (){
     const list = $('#appointment-list');
+    const acceptedList = $('#accepted-list');
+    const declinedList = $('#declined-list');
+    const ongoingList = $('#ongoing-list');
+    const completedList = $('#completed-list');
+
     const history = $('#history-list');
 
     const rescheduleBTN = $('#reschedule');
@@ -126,17 +131,67 @@ $(function (){
                                     '<button id="triggerStart" class="triggerView mx-1 btn btn-sm btn-primary px-3" data-bs-target="#details" data-id="{{id}}" disabled>Start Session</button>' +
                                 '</td>'+
                             '</tr>'
+    
+    let declinedTemplate =   '<tr data-id={{id}} id=row{{id}} >' +
+                            '<td class="student-id" hidden><span><strong>{{students.userInstitution_id}}</strong></span></td>' +
+                            '<td class="student-email" hidden>{{students.email}}</td>' +
+                            '<td class="student-name">{{students.name}}</td>' +
+                            '<td class="student-department" hidden>{{students.department}}</td>' +
+                            '<td class="request-type" hidden>{{request_type}}</td>' +
+                            '<td class="attendee-type" hidden>{{attendee_type}}</td>' +
+                            '<td class="remarksID" hidden>{{remarks.id}}</td>' +
+                            '<td class="meetingOffice" hidden>{{vacant_details.designated_office}}</td>' +
+                            '<td class="day">{{day}}</td>' +
+                            '<td class="time">{{time}}</td>' +
+                            '<td class="date">{{date}}</td>' +
+                            '<td class="status" >{{status}}</td>'+
+                            '<td class="requesitor" hidden>{{requesitor_id}}</td>' +
+                            '<td class="vacantId" hidden>{{vacant_id}}</td>' +
+                            '<td class="facultyId" hidden>{{faculty_id}}</td>' +
+                            '<td class="rowBTN">'+
+                                '<button class="mx-1 btn btn-sm btn-danger px-3" data-bs-target="#details" data-id="{{id}}" disabled>Declined</button>' +
+                            '</td>'+
+                        '</tr>'
+        
+    let completedTemplate =   '<tr data-id={{id}} id=row{{id}} >' +
+                        '<td class="student-id" hidden><span><strong>{{students.userInstitution_id}}</strong></span></td>' +
+                        '<td class="student-email" hidden>{{students.email}}</td>' +
+                        '<td class="student-name">{{students.name}}</td>' +
+                        '<td class="student-department" hidden>{{students.department}}</td>' +
+                        '<td class="request-type" hidden>{{request_type}}</td>' +
+                        '<td class="attendee-type" hidden>{{attendee_type}}</td>' +
+                        '<td class="remarksID" hidden>{{remarks.id}}</td>' +
+                        '<td class="meetingOffice" hidden>{{vacant_details.designated_office}}</td>' +
+                        '<td class="day">{{day}}</td>' +
+                        '<td class="time">{{time}}</td>' +
+                        '<td class="date">{{date}}</td>' +
+                        '<td class="status" >{{status}}</td>'+
+                        '<td class="requesitor" hidden>{{requesitor_id}}</td>' +
+                        '<td class="vacantId" hidden>{{vacant_id}}</td>' +
+                        '<td class="facultyId" hidden>{{faculty_id}}</td>' +
+                        '<td class="rowBTN">'+
+                            '<button class="mx-1 btn btn-sm btn-success px-3" data-bs-target="#details" data-id="{{id}}" disabled>Session Complete</button>' +
+                        '</td>'+
+                    '</tr>'
 
     function appendAppointment(details){
         list.append(Mustache.render(rowTemplate,details));
      }
 
     function appendOngoing(details){
-        list.append(Mustache.render(ongoingTemplate,details));
+        ongoingList.append(Mustache.render(ongoingTemplate,details));
     }
 
     function appendAccepted(details){
-        list.append(Mustache.render(acceptedTemplate,details));
+        acceptedList.append(Mustache.render(acceptedTemplate,details));
+    }
+
+    function appendDeclined(details){
+        declinedList.append(Mustache.render(declinedTemplate,details));
+    }
+
+    function appendCompleted(details){
+        completedList.append(Mustache.render(completedTemplate,details));
     }
 
 
@@ -160,6 +215,7 @@ $(function (){
                     studentData.push(appointment);
                     accepted++;
                 }else if(appointment.status == "Declined"){
+                    appendDeclined(appointment)
                     declined++;
                 }else if(appointment.status == "pending"){
                     studentData.push(appointment);
@@ -168,6 +224,9 @@ $(function (){
                 }else if(appointment.status == "Ongoing"){
                     studentData.push(appointment);
                     appendOngoing(appointment);
+                }else if(appointment.status == "Completed"){
+                    studentData.push(appointment);
+                    appendCompleted(appointment);
                 }
             }
             });
@@ -241,10 +300,11 @@ $(function (){
                 // $('.triggerView').attr('id','triggerStart');
                 // $('.triggerView').text('Start Session');
 
-                targetRow.find('td.rowBTN .triggerView').removeAttr('data-bs-toggle');
-                targetRow.find('td.rowBTN .triggerView').attr('id','triggerStart');
-                targetRow.find('td.rowBTN .triggerView').attr('disabled',true);
-                targetRow.find('td.rowBTN .triggerView').text('Start Session');
+                // targetRow.find('td.rowBTN .triggerView').removeAttr('data-bs-toggle');
+                // targetRow.find('td.rowBTN .triggerView').attr('id','triggerStart');
+                // targetRow.find('td.rowBTN .triggerView').attr('disabled',true);
+                // targetRow.find('td.rowBTN .triggerView').text('Start Session');
+                targetRow.remove();
 
                 accepted++;
                 pending--;
@@ -262,7 +322,7 @@ $(function (){
         });
     });
 
-    list.delegate('#triggerStart','click',function (){
+    acceptedList.delegate('#triggerStart','click',function (){
 
         rowId = $(this).data('id');
         targetRow = $(this).closest('tr');
@@ -304,13 +364,14 @@ $(function (){
                 $('#modal-alert-tag').text("Success");
                 $('#modal-alert-phrase').text("You Started The Session.");
                 $('#alertModal').fadeIn();
-                targetRow.find('td.status').html('On-going');
-                targetRow.find('td.rowBTN .triggerView').attr('id','triggerEnd2');
-                targetRow.find('td.rowBTN .triggerView').attr('data-bs-toggle','modal');
-                targetRow.find('td.rowBTN .triggerView').text('End Session');
-                targetRow.find('td.rowBTN .triggerView').addClass('bg-danger');
-                targetRow.find('td.rowBTN .triggerView').attr('data-bs-target','#remarks');
-                targetRow.attr('class','bg-warning');
+                targetRow.remove();
+                // targetRow.find('td.status').html('On-going');
+                // targetRow.find('td.rowBTN .triggerView').attr('id','triggerEnd2');
+                // targetRow.find('td.rowBTN .triggerView').attr('data-bs-toggle','modal');
+                // targetRow.find('td.rowBTN .triggerView').text('End Session');
+                // targetRow.find('td.rowBTN .triggerView').addClass('bg-danger');
+                // targetRow.find('td.rowBTN .triggerView').attr('data-bs-target','#remarks');
+                // targetRow.attr('class','bg-warning');
             },
             error: function () {
                 console.log(rowId);
@@ -323,7 +384,7 @@ $(function (){
         });
     });
 
-    list.delegate('#triggerEnd2','click',function(){
+    ongoingList.delegate('#triggerEnd2','click',function(){
         rowId = $(this).data('id');
         targetRow = $(this).closest('tr');
         
@@ -344,9 +405,11 @@ $(function (){
             date:           targetRow.find('td.date').text(),
             remarks:        $('#remarksVal').val(),
             status:         'Completed',
+            remarks_id:     targetRow.find('td.remarksID').text(),
         }
-    });
 
+        console.log(edited)
+    });
 
     $('#triggerEnd').on('click',function(){
 
@@ -477,21 +540,23 @@ rescheduleBTN.on('click', function (){
                     url: "/api/appointments/"+rowId,
                     data: edited,
                     success: function (edited) {
-                        targetRow.find('td.status').html('Accepted');
-                        targetRow.find('td.day').html(edited.day);
-                        targetRow.find('td.date').html(edited.date);
-                        targetRow.find('td.time').html(edited.time);
+                        // targetRow.find('td.status').html('Accepted');
+                        // targetRow.find('td.day').html(edited.day);
+                        // targetRow.find('td.date').html(edited.date);
+                        // targetRow.find('td.time').html(edited.time);
 
-                        targetRow.find('td.rowBTN .triggerView').removeAttr('data-bs-toggle');
-                        targetRow.find('td.rowBTN .triggerView').attr('id','triggerStart');
-                        targetRow.find('td.rowBTN .triggerView').attr('disabled',true);
-                        targetRow.find('td.rowBTN .triggerView').text('Start Session');
+                        // targetRow.find('td.rowBTN .triggerView').removeAttr('data-bs-toggle');
+                        // targetRow.find('td.rowBTN .triggerView').attr('id','triggerStart');
+                        // targetRow.find('td.rowBTN .triggerView').attr('disabled',true);
+                        // targetRow.find('td.rowBTN .triggerView').text('Start Session');
                         
                         // alert("Appoinment Has Been Changed.");
                         jQuery.noConflict();
                         $('#modal-alert-tag').text("Success");
                         $('#modal-alert-phrase').text("Appointment Has Been Changed.");
                         $('#alertModal').fadeIn();
+                        targetRow.remove();
+
                         pending--;
                         accepted++;
                         pendingCard.text(pending);
